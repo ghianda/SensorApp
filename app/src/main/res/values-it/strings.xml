@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">La mia prima Applicazione</string>
+    <string name="edit_message">Scrivi un messaggio</string>
+    <string name="button_send">Invia</string>
+    <string name="network_button">Connettiti</string>
+    <string name="text_net_message">Prova una richiesta STRING</string>
+    <string name="text_toast_net_error">Non hai connessione a Internet!</string>
+    <string name="text_toast_net_ok">Sei connesso!</string>
+    <string name="text_net_xml_get">Prova una richiesta XML</string>
+    <string name="selectSensorText">Selezionare il sensore da analizzare</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- popolazione spinner -->
+    <string-array name="sensorName_array">
+        <item>QS</item>
+        <item>QG</item>
+        <item>QG/Lighting</item>
+        <item>Geom/GF</item>
+        <item>Geom/GF/Labs/MP</item>
+        <item>Geom/GF/Labs/Lighting</item>
+        <item>Geom/1F</item>
+        <item>Geom/1F/Rooms/Lighting</item>
+    </string-array>
+</resources>

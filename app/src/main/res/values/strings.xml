@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="text_net_message">Try string_get request</string>
+    <string name="network_button">Connect </string>
+    <string name="text_toast_net_error">No Internet Connection! </string>
+    <string name="text_toast_net_ok">You are connected! </string>
+    <string name="text_net_xml_get">Try OLD xml_get request (from url)</string>
+    <string name="selectSensorText">Select a sensor for the get</string>
+
+    <!-- nuove: -->
+    <string name="tvSensorSelect">Select the sensor:</string>
+    <string name="btLastReading">Last Reading</string>
+    <string name="btGetRequest">Read the sensor</string>
+    <string name="tvSelectInterval">Select the time interval of reading</string>
+    <string name="from">FROM</string>
+    <string name="dateFormat">DD/MM/YYYY</string>
+    <string name="hourFormat">hh:mm</string>
+    <string name="btDate">Date</string>
+    <string name="btHour">Hour</string>
+    <string name="to">TO</string>
+
+    <!-- url -->
+    <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
+    <string name="m">&amp;meter=</string>
+    <string name="lr">/last_reading</string>
+    <string name="f">&amp;from=</string>
+    <string name="t">&amp;to=</string>
+</resources>
