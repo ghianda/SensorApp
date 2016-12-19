@@ -24,13 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
-import org.joda.time.DateTime;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
+
+//import org.joda.time.DateTime;
 
 /**
  * Created by francesco on 18/12/2016.
@@ -39,11 +36,14 @@ import java.util.Locale;
 public class GetActivity extends AppCompatActivity {
 
     //ATTRIBUTE ========= >>>>>>
+    //TODO in futuro da togliere______
+    //TODO indispensabili e uso il Dialog per i picker, ma dovrò sostituirlo con i fragment
     private int year;
     private int month;
     private int day;
     private int hour;
     private int minute;
+    //TODO _________________
 
     private TextView tvDisplayFromDate;  // text view per la visualizzazione della data selezionata
     private TextView tvDisplayToDate;
@@ -55,8 +55,11 @@ public class GetActivity extends AppCompatActivity {
     private Button btToDate;
     private Button btToHour;
 
+    //oggetti Calendario inizializzati a oggi
+    private static Calendar fromDate = Calendar.getInstance();
+    private static Calendar toDate = Calendar.getInstance();
 
-    private String url; //url completa per esecuzione get
+    private String url;                //url completa per esecuzione get
 
     //key of input form
     public final static String EXTRA_MESSAGE = "com.example.francesco.MESSAGE";
@@ -86,8 +89,6 @@ public class GetActivity extends AppCompatActivity {
         // Associo i picker dialog (Time e Date) ai bottoni "change"
         addListenerOnButton();
 
-
-
     }//fine onCreate()
 
 
@@ -95,12 +96,11 @@ public class GetActivity extends AppCompatActivity {
     public void IntervalReading(View view){
         System.out.println("Interval Time reading-------------->>");
 
-        //TODO *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_       <<<<<<----------
-        url = createUrl(false);
-        //TODO *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+        createTimeUrl();
 
         ParseXmlUrl(); //TODO per ora stampa a video, poi restituirà i valori
     }
+
 
 
 
@@ -109,87 +109,56 @@ public class GetActivity extends AppCompatActivity {
     public void lastReading(View view){
         System.out.println("Last reading-------------->>");
 
-        url = createUrl(true);
+        createLastReadingUrl();
 
         ParseXmlUrl(); //TODO per ora stampa a video, poi restituirà i valori
     }
 
 
-
-
-    //Create the url - if LastReading = false take the Date and Hour for FROM and TO in milliseconds
-    public String createUrl(boolean LastReading){
+    public void createTimeUrl() {
         //read from the sensor from spinner
         Spinner spinner = (Spinner)findViewById(R.id.spinnerSensor);
         String chosenSensor = spinner.getSelectedItem().toString();
 
+        //estraggo le date in millisecondi
+        long fromMillis = fromDate.getTimeInMillis();
+        long toMillis = toDate.getTimeInMillis();
+
         //TODO da togliere
-        System.out.println(chosenSensor);
-        System.out.println("value getted V");
-
-        //costruisco la url
-        //String url = "http://live.netsens.it/export/xml_export_2A.php?user=temp&password=5lkz1d&station=723&meter=QG/Lighting&from=1480503600000&to=1480507200000" ;
-
-        if(LastReading) {
-            String url = getString(R.string.urlDomain) +
-                    getString(R.string.m) + chosenSensor +
-                    getString(R.string.lr) + //last_reading
-                    getString(R.string.f) + "0000000000000" +
-                    getString(R.string.t) + "0000000000000";
-            /*
-            String url = new String(getString(R.string.urlDomain)
-                    .concat(getString(R.string.m)).concat(chosenSensor)
-                    .concat(getString(R.string.lr))
-                    .concat(getString(R.string.f)).concat("0000000000000")
-                    .concat(getString(R.string.t)).concat("0000000000000"));
-                    */
-
-            //TODO da togliere
-            System.out.println("url appena creata:");
-            System.out.println(url);
-
-            return url;
-        } else //interval time request:
-        {
-            //estraggo l'istante  FROM e l'istante TO (date + time)
-            // Results example: "2-5-2012 20:43"
-            String stringFrom = tvDisplayFromDate.toString()+" "+tvDisplayFromHour.toString();
-            String stringTo = tvDisplayToDate.toString()+" "+tvDisplayToHour.toString();
-
-            //TODO da controllare il formato del formatter:   ---|
-            SimpleDateFormat formatter = new SimpleDateFormat("d-M-yyyy hh:mm"); // I assume d-M, you may refer to M-d for month-day instead.
-
-            //converto in oggetti Date
-            try{
-                Date dateFrom = formatter.parse(stringFrom);
-                Date dateTo = formatter.parse(stringTo);
-
-                //converto in millisecondi
-                long fromMillis = dateFrom.getTime();
-                long toMillis   = dateTo.getTime();
-
-                //Costruisco l'url
-                String url = getString(R.string.urlDomain) +
-                        getString(R.string.m) + chosenSensor +
-                        getString(R.string.f) + fromMillis +
-                        getString(R.string.t) + toMillis;
-
-                //TODO da togliere
-                System.out.println("url appena creata:");
-                System.out.println(url);
-
-                return url;
+        System.out.println(fromMillis);
+        System.out.println(toMillis);
 
 
-            }
-            catch(ParseException e){
-                //System.out.println(" ****** ECCEZIONE CONVERSIONE STRING -> DATE nella 'createUrl()' ****");
-                }
+        //Costruisco l'url
+        url = getString(R.string.urlDomain) +
+                getString(R.string.m) + chosenSensor +
+                getString(R.string.f) + fromMillis +
+                getString(R.string.t) + toMillis;
 
-        }
-        return "FAILED";
+        //TODO da togliere
+        System.err.println("url appena creata da createTimeUrl:");
+        System.out.println(url);
+
     }
 
+
+    public void createLastReadingUrl() {
+        //read from the sensor from spinner
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerSensor);
+        String chosenSensor = spinner.getSelectedItem().toString();
+
+        //String url = getString(R.string.urlDomain) +
+        url = getString(R.string.urlDomain)
+                + getString(R.string.m) + chosenSensor
+                + getString(R.string.lr) //last_reading
+                + getString(R.string.f) + "0000000000000"
+                + getString(R.string.t) + "0000000000000";
+
+        //TODO da togliere
+        System.out.println("url appena creata:");
+        System.out.println(url);
+
+    }
 
 
 
@@ -198,7 +167,8 @@ public class GetActivity extends AppCompatActivity {
     // ====== metodo di rihiesta get XML (NETSENS)======
     public void ParseXmlUrl() {
         //TODO da togliee
-        System.out.println("PArseXMLURL -------->");
+        System.out.println("ParseXML_URL -------->");
+        System.err.println(url);
 
         //connecting
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -207,8 +177,6 @@ public class GetActivity extends AppCompatActivity {
             // avviso di connessione effettuata
             Toast.makeText(this,R.string.text_toast_net_ok,Toast.LENGTH_SHORT).show();
 
-            // FETCH DATA_________________________________________________________________
-            final TextView mTextView = (TextView) findViewById(R.id.text_response);
 
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -236,9 +204,7 @@ public class GetActivity extends AppCompatActivity {
                     {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // error Object
-                            mTextView.setText("onErrorResponse()");
-                            System.out.println("onErrorResponse()");
+                            System.out.println("onErrorResponse() - errore libreria Volley");
                         }
                     }
             );
@@ -325,24 +291,25 @@ public class GetActivity extends AppCompatActivity {
     }
 
 
-
-
-    //Dichiarazione de Picker DATE FROM
+    //METODI PICKER
     private DatePickerDialog.OnDateSetListener dateFromPickerListener
             = new DatePickerDialog.OnDateSetListener() {
 
-                // when dialog box is closed, below method will be called.
                 public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
-                    Date d = new Date();
-                    Calendar cal = Calendar.getInstance();
 
-                    year = selectedYear;
-                    month = selectedMonth;
-                    day = selectedDay;
+                    //update fromDate object
+                    fromDate.set(selectedYear, selectedMonth, selectedDay);
+
+                    //TODO d tolgie
+                    System.out.println("fromDate modificato:  ");
+                    System.out.println(fromDate.getTime());
+                    System.out.println(fromDate.get(Calendar.YEAR) + "/" +
+                            (fromDate.get(Calendar.MONTH) + 1) + "/" +
+                            fromDate.get(Calendar.DAY_OF_MONTH) + " ");
 
                     // set selected date into textview
-                    setDisplayDate(tvDisplayFromDate,day,month,year);
+                    setDisplayDate(tvDisplayFromDate, fromDate);
         }
     };
 
@@ -354,11 +321,21 @@ public class GetActivity extends AppCompatActivity {
                 // when dialog box is closed, below method will be called.
                 public void onTimeSet(TimePicker view, int selectedHour,
                                       int selectedMinute){
-                    hour    = selectedHour;
-                    minute  = selectedMinute;
+
+                    //update fromDate object
+                    fromDate.set(Calendar.HOUR_OF_DAY, selectedHour);
+                    fromDate.set(Calendar.MINUTE, selectedMinute);
+                    fromDate.set(Calendar.SECOND, 0);
+
+                    //TODO d tolgie
+                    System.out.println("fromTime modificato:  ");
+                    System.out.println(fromDate.getTime());
+                    System.out.println(fromDate.get(Calendar.HOUR_OF_DAY) + ":" +
+                            fromDate.get(Calendar.MINUTE) + ":" +
+                            fromDate.get(Calendar.SECOND) + " ");
 
                     //set selected date into textview
-                    setDisplayHour(tvDisplayFromHour,hour,minute);
+                    setDisplayHour(tvDisplayFromHour, fromDate);
                 }
 
             };
@@ -371,12 +348,20 @@ public class GetActivity extends AppCompatActivity {
                 // when dialog box is closed, below method will be called.
                 public void onDateSet(DatePicker view, int selectedYear,
                                       int selectedMonth, int selectedDay) {
-                    year = selectedYear;
-                    month = selectedMonth;
-                    day = selectedDay;
+
+                    //update fromDate object
+                    toDate.set(selectedYear, selectedMonth, selectedDay);
+
+                    //TODO d tolgie
+                    System.out.println("toDate modificato:  ");
+                    System.out.println(toDate.getTime());
+                    System.out.println(toDate.get(Calendar.YEAR) + "/" +
+                            (toDate.get(Calendar.MONTH) + 1) + "/" +
+                            toDate.get(Calendar.DAY_OF_MONTH) + " ");
+
 
                     // set selected date into textview
-                    setDisplayDate(tvDisplayToDate,day,month,year);
+                    setDisplayDate(tvDisplayToDate, toDate);
         }
     };
 
@@ -388,11 +373,22 @@ public class GetActivity extends AppCompatActivity {
                 // when dialog box is closed, below method will be called.
                 public void onTimeSet(TimePicker view, int selectedHour,
                                       int selectedMinute){
-                    hour    = selectedHour;
-                    minute  = selectedMinute;
+
+                    //update fromDate object
+                    toDate.set(Calendar.HOUR_OF_DAY, selectedHour);
+                    toDate.set(Calendar.MINUTE, selectedMinute);
+                    toDate.set(Calendar.SECOND, 0);
+
+                    //TODO d tolgie
+                    System.out.println("fromTime modificato:  ");
+                    System.out.println(toDate.getTime());
+                    System.out.println(toDate.get(Calendar.HOUR_OF_DAY) + ":" +
+                            toDate.get(Calendar.MINUTE) + ":" +
+                            toDate.get(Calendar.SECOND) + " ");
+
 
                     //set selected date into textview
-                    setDisplayHour(tvDisplayToHour,hour,minute);
+                    setDisplayHour(tvDisplayToHour, toDate);
                 }
 
             };
@@ -400,20 +396,30 @@ public class GetActivity extends AppCompatActivity {
 
 
     // Inserimento della data nelle textView in input
-    protected void setDisplayDate(TextView tv, int d, int m, int y){
+    protected void setDisplayDate(TextView tv, Calendar cal) {
         tv.setText(new StringBuilder()
-                .append(d).append("-").append(m+1).append("-").append(y).append(" "));
+                .append(cal.get(Calendar.DAY_OF_MONTH)).append("-")
+                .append(cal.get(Calendar.MONTH) + 1).append("-")
+                .append(cal.get(Calendar.YEAR)).append(" "));
     }
 
     // Inserimento dell'ora nelle textView in input
-    protected void setDisplayHour(TextView tv, int h, int m){
+    protected void setDisplayHour(TextView tv, Calendar cal) {
         tv.setText(new StringBuilder()
-                .append(String.format(Locale.getDefault(),"%02d", h)).append(":").append(m).append(" "));
-                //.append(String.format("%02d", h)).append(":").append(m).append(" "));
+                .append(String.format(Locale.getDefault(), "%02d", cal.get(Calendar.HOUR_OF_DAY)))
+                .append(":")
+                .append(String.format(Locale.getDefault(), "%02d", cal.get(Calendar.MINUTE)))
+                .append(" "));
     }
 
 
 
+    /*
+    private void inizializeCalendar(){
+        //estraggo la data odierna
+        final Calendar c = Calendar.getInstance();
+    }
+    */
 
 
 
@@ -422,15 +428,15 @@ public class GetActivity extends AppCompatActivity {
     // display current date in textView
     public void setCurrentDateOnView() {
 
+
         //aggancio le textview alle risorse xml
         tvDisplayFromDate   = (TextView) findViewById(R.id.selectedFromDate);
         tvDisplayToDate     = (TextView) findViewById(R.id.selectedToDate);
 
-        //estraggo la data odierna
-        final Calendar c = Calendar.getInstance();
-        year    = c.get(Calendar.YEAR);
-        month   = c.get(Calendar.MONTH);
-        day     = c.get(Calendar.DAY_OF_MONTH);
+
+        year = fromDate.get(Calendar.YEAR);
+        month = fromDate.get(Calendar.MONTH);
+        day = fromDate.get(Calendar.DAY_OF_MONTH);
 
         // set current date into textview FROM
         tvDisplayFromDate.setText(new StringBuilder()
@@ -443,7 +449,6 @@ public class GetActivity extends AppCompatActivity {
                 // Month is 0 based, just add 1
                 .append(month + 1).append("-").append(day).append("-")
                 .append(year).append(" "));
-
 
     }
 
@@ -458,9 +463,9 @@ public class GetActivity extends AppCompatActivity {
         tvDisplayToHour     = (TextView) findViewById(R.id.selectedToHour);
 
         //estraggo l'ora odierna
-        final Calendar c = Calendar.getInstance();
-        hour    = c.get(Calendar.HOUR);
-        minute  = c.get(Calendar.MINUTE);
+        //final Calendar c = Calendar.getInstance();
+        hour = fromDate.get(Calendar.HOUR_OF_DAY);
+        minute = fromDate.get(Calendar.MINUTE);
 
         // set current hour into textview FROM
         tvDisplayFromHour.setText(new StringBuilder()
