@@ -1,8 +1,6 @@
 package com.example.francesco.myfirstapp;
 
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
@@ -31,6 +29,7 @@ public class Netsens {
 
     @ElementList(inline = true, data = false, empty = true, entry = "Measure", name = "", required = false, type = void.class)
     private List<Measure> measuresList;
+    //455
 
     // public Netsens() {}
 
