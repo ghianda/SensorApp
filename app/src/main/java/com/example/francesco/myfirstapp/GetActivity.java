@@ -36,8 +36,19 @@ import java.util.Locale;
 public class GetActivity extends AppCompatActivity {
 
     //ATTRIBUTE ========= >>>>>>
+
+    //TODO novità per spinner dinamico
+    private SensorList sensors = new SensorList();
+    private ArrayAdapter<String> listviewAdapter;
+    private ArrayAdapter<String> spinnerAdapter;
+
+    //TODO__________________________
+
+
+
+
     //TODO in futuro da togliere______
-    //TODO indispensabili e uso il Dialog per i picker, ma dovrò sostituirlo con i fragment
+    //TODO indispensabili se uso il Dialog per i picker, ma dovrò sostituirlo con i fragment
     private int year;
     private int month;
     private int day;
@@ -76,11 +87,14 @@ public class GetActivity extends AppCompatActivity {
     //METHOD ========== >>>>>>>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //assegnazione layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_activity);
 
         //set sensor spinner
         setSensorsSpinner();
+
+        //TODO agg metodo per preparazione spinner
 
         //set the current date and hour on view
         setCurrentDateOnView();
@@ -204,7 +218,9 @@ public class GetActivity extends AppCompatActivity {
                     {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            System.out.println("onErrorResponse() - errore libreria Volley");
+                            System.err.println("onErrorResponse() - errore libreria Volley");
+                            System.err.println(error.getMessage());
+                            //TODO gestire un messaggio di erore (toast?) senz far crashare il prog
                         }
                     }
             );

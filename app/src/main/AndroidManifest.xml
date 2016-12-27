@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,24 +22,20 @@
             </intent-filter>
             -->
         </activity>
-
-
         <activity android:name=".DisplayMessageActivity" />
-        <activity android:name="DisplayResultActivity"/>
-
-
+        <activity android:name=".DisplayResultActivity" />
         <activity android:name=".TestPickerDateActivity">
-        <!--
+
+            <!--
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        -->
+            -->
         </activity>
+        <activity android:name=".TestPickerHourActivity">
 
-
-        <activity android:name="TestPickerHourActivity">
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,21 +45,16 @@
             -->
         </activity>
 
-
-
-
         <!-- ******* NUOVE ******* -->
-        <activity android:name="GetActivity">
+        <activity android:name=".GetActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="DisplayGetResultActivity"/>
-
-
+        <activity android:name=".DisplayGetResultActivity" />
+        <activity android:name=".TimeRequestActivity"></activity>
     </application>
 
 </manifest>
