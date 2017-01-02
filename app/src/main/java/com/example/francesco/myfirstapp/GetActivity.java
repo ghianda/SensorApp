@@ -37,15 +37,6 @@ public class GetActivity extends AppCompatActivity {
 
     //ATTRIBUTE ========= >>>>>>
 
-    //TODO novità per spinner dinamico
-    private SensorList sensors = new SensorList();
-    private ArrayAdapter<String> listviewAdapter;
-    private ArrayAdapter<String> spinnerAdapter;
-
-    //TODO__________________________
-
-
-
 
     //TODO in futuro da togliere______
     //TODO indispensabili se uso il Dialog per i picker, ma dovrò sostituirlo con i fragment
@@ -94,8 +85,6 @@ public class GetActivity extends AppCompatActivity {
         //set sensor spinner
         setSensorsSpinner();
 
-        //TODO agg metodo per preparazione spinner
-
         //set the current date and hour on view
         setCurrentDateOnView();
         setCurrentHourOnView();
@@ -106,7 +95,7 @@ public class GetActivity extends AppCompatActivity {
     }//fine onCreate()
 
 
-    /* "INTERVAL TIME READING" button onclick methos: */
+    /* "INTERVAL TIME READING" button onclick method: */
     public void IntervalReading(View view){
         System.out.println("Interval Time reading-------------->>");
 

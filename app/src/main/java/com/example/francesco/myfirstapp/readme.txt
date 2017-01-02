@@ -12,8 +12,6 @@ test su bottone sendmessage (vecchio) OK
 
 
 
-____ NUOVE ACTIVITY :
+____ TODO
 
--GetActivity - form di interrogazione - fa la get last reading oppure la temporizzata
--DisplayLstReadActivity - DA FARE - visualizzerà i risultati last reading -> poi: ELABORAZIONE GRAFICI
--DisplayGetResultActivity - DA FARE - visualizzerà i risultati get temporizzata -> poi: ELABORAZIONE GRAFICI
+vai su AbstractReadingActivity.java

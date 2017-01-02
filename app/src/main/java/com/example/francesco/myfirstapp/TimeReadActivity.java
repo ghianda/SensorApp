@@ -3,7 +3,7 @@ package com.example.francesco.myfirstapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class TimeRequestActivity extends AppCompatActivity {
+public class TimeReadActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

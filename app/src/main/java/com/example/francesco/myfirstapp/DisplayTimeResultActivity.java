@@ -8,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
  * Created by francesco on 18/12/2016.
  */
 
-public class DisplayGetResultActivity extends AppCompatActivity {
+/* display i risultati dell' activity TimeReadActivity*/
+public class DisplayTimeResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
