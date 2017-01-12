@@ -23,10 +23,9 @@ import com.android.volley.toolbox.Volley;
 
 /*TODO
         V - fare il salvataggio del sensore scelto nell'onclick listener del secondo spinnner (CHE E' ANCORA DA FARE)
-    - FARE I DUE METODI CREATE URL
-    - mettere il metodo ParseXmlUrl nell'onclick del bottone LAST READ
-    - {eventuale} implementare un check button "ALL" accanto allo spinner sensor che "oscura" lo spinner e
-      toglie il sensore specifico dall'url, così fa il last reading di tutto il meter
+        V - FARE Il METODO CREATE URL
+        V - mettere il metodo ParseXmlUrl nell'onclick del bottone LAST READ
+
     */
 
 
@@ -36,8 +35,8 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
     protected static ArrayAdapter<String> spinMeterAdapter;
     protected static ArrayAdapter<String> spinSensorAdapter;
 
-    protected Meter chosenMeter; //meter selezionato
-    protected Sensor chosenSensor; //sensore scelto
+    protected static Meter chosenMeter; //meter selezionato
+    protected static Sensor chosenSensor; //sensore scelto
 
     protected String url;
 
@@ -55,7 +54,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
     }
 
 
-    //to override in de derived classes
+    //to override in the derived classes
     public abstract int myView();
 
     public abstract int getIdMeterSpinner();
@@ -63,6 +62,8 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
     public abstract int getIdSensorSpinner();
 
     public abstract void createUrl();
+
+    public abstract void displayResult(Netsens response);
 
 
     //Not Abstract Method - button read method
@@ -73,14 +74,23 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
 
         ParseXmlUrl();
 
+
     }
+
+
+    public void storeResult(Netsens response) {
+        //store the response data in Global Sensor Attribute
+        ((SensorProjectApp) this.getApplication()).setGlobalData(
+                response, chosenMeter, chosenSensor);
+    }
+
+
+
+
 
 
     // ====== metodo di rihiesta get XML (simpleXmlRequest with Netsens class parsing ======
     public void ParseXmlUrl() {
-        //TODO da togliee
-        System.out.println("ParseXML_URL -------->");
-        System.err.println(url);
 
         //connecting
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -88,7 +98,6 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
             // avviso di connessione effettuata
             Toast.makeText(this, R.string.text_toast_net_ok, Toast.LENGTH_SHORT).show();
-
 
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -99,20 +108,12 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
                     (Netsens response) -> {
                         // override onResponse method
 
-                        //TODO da togliere
-                        System.out.println("Netsens_onResponse()");
-                        //TODO RESTITUIRO' I RISULTATI PER ELA. GRAFICA SUCCESSIVA
-
-                        System.out.println("Netsens_ getMeasures().getClass(): ");
-
+                        //todo d togliere
                         response.getMeasuresList().forEach(measure ->
-                                System.out.println(measure.getMeter() + " " + measure.getValue()));
-                        /*
-                        for(Measure m : response.getMeasuresList()){
-                            System.out.println(m.getMeter()+"  "+m.getValue());
-                        }
-                        */
+                                System.out.println("from GET: " + measure.getMeter() + " " + measure.getValue()));
 
+                        storeResult(response);  //TODO <<<<<<--------------------------- OOOOO
+                        displayResult(response);
                     },
 
                     (VolleyError error) -> {
@@ -123,9 +124,8 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
                     }
             );
 
-
             // Add the request to the RequestQueue.
-            queue.add(simpleRequest_netsens);   //agg richiesta con nodi di tipo netsens per url vera
+            queue.add(simpleRequest_netsens);   //agg richiesta
             // fine get___________________________________________________________________
 
         } else {
@@ -159,7 +159,6 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
                 //salvataggio Oggetto Meter scelto
                 chosenMeter = allSensors.getMeterById((int) id);
 
-
                 //aggiornamento sensorSpinner in base al Meter scelto
                 spinSensorAdapter.clear();
                 //TODO verificare che funzioni la sostituzione
@@ -171,7 +170,6 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -182,7 +180,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //salvataggio Oggetto Sensor scelto
-                //TODO CONTROLLRE L'ogetto ricevuto
+                //TODO CONTROLLARE L'ogetto ricevuto
                 chosenSensor = allSensors.getSensor(chosenMeter, (int) id);
                 System.out.println("sensore selezionato ---> ");
                 System.out.println(chosenSensor.getName());

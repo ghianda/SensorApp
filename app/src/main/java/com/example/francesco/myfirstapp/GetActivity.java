@@ -39,7 +39,7 @@ public class GetActivity extends AppCompatActivity {
 
 
     //TODO in futuro da togliere______
-    //TODO indispensabili se uso il Dialog per i picker, ma dovrò sostituirlo con i fragment
+    //TODO indispensabili se uso il Dialog per i picker, ma dovrò sostituirlo con i FRAGMENT
     private int year;
     private int month;
     private int day;
@@ -417,14 +417,6 @@ public class GetActivity extends AppCompatActivity {
                 .append(" "));
     }
 
-
-
-    /*
-    private void inizializeCalendar(){
-        //estraggo la data odierna
-        final Calendar c = Calendar.getInstance();
-    }
-    */
 
 
 

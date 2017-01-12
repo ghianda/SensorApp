@@ -20,7 +20,7 @@ public class Measure {
     private final float value;
 
     @Attribute(name="Timestamp")
-    private final String timeStamp;
+    private final long timeStamp;
 
 
     // esempio:
@@ -29,7 +29,7 @@ public class Measure {
     public Measure(@Attribute(name="Unit") String unit,
                    @Attribute(name="Meter") String meter,
                    @Attribute(name="Value") float value,
-                   @Attribute(name="Timestamp") String timeStamp)
+                   @Attribute(name = "Timestamp") long timeStamp)
     {
         this.unit       = unit;
         this.meter      = meter;
@@ -47,7 +47,7 @@ public class Measure {
 
     public float getValue(){ return  value; }
 
-    public String getTimeStamp(){
+    public long getTimeStamp() {
         return  timeStamp;
     }
 

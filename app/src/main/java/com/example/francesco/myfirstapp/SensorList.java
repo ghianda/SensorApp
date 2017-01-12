@@ -16,23 +16,19 @@ import java.util.HashMap;
 */
 
 
+
 public class SensorList {
 
     private HashMap<Meter, ArrayList<Sensor>> list; // meter -> list of sensors
 
-    private Sensor reactpw = new Sensor("/reactpw", "Reactive Power");
-    private Sensor reactcon = new Sensor("/reactcon", "Reactive Consumption");
-    private Sensor pwf = new Sensor("/pwf", "Power Factor");
-    private Sensor cur3 = new Sensor("cur/3", "Current - 3' phase");
-    private Sensor cur2 = new Sensor("cur/2", "Current - 2' phase");
-    private Sensor cur1 = new Sensor("cur/1", "Current - 1' phase");
-    private Sensor con = new Sensor("/con", "Consumption");
-    private Sensor appw = new Sensor("/appw", "Apparent Power");
-    private Sensor apcon = new Sensor("/apcon", "Apparent consumption");
-    private Sensor actpw = new Sensor("/actpw", "Active Power");
+    /* TODO DA CHIEDERE A GIOVANNUS
+    private Sensor reactcon = new Sensor("/reactcon", "Reactive Consumption");  //mai usata?
+    private Sensor con = new Sensor("/con", "Consumption");                     //mai usata?
+    private Sensor apcon = new Sensor("/apcon", "Apparent consumption");        //mai usata?
     //TODO manca la sigla url per l'Active Energy
     //TODO manca la sigla url per Reactive Energy
     //TODO manca la sigla url per Apparent Energy
+    */
 
 
     public SensorList() {
@@ -42,12 +38,21 @@ public class SensorList {
         ArrayList<Sensor> sensors = new ArrayList<Sensor>();
 
 
-        //make list for only meter Geom/GF/Labs/Lighting and Geom/1F/Rooms/Lighting
+        //make list for only meter Geom/GF/Labs/Lighting
         // TODO sensors.add(ACTIVE ENERGY);
-        sensors.add(actpw);
-        sensors.add(pwf);
-        sensors.add(cur1);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
         list.put(new Meter("Geom/GF/Labs/Lighting", "Illuminazione Laboratori"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //make list for only meter Geom/1F/Rooms/Lighting
+        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
         list.put(new Meter("Geom/1F/Rooms/Lighting", "Illuminazione Aule 1 Piano Geometri"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -55,32 +60,91 @@ public class SensorList {
 
         //add sensor for only meter QG/Lighting
         // TODO sensors.add(ACTIVE ENERGY);
-        sensors.add(actpw);
-        sensors.add(pwf);
-        sensors.add(cur1);
-        sensors.add(cur3);
-        sensors.add(cur2);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
         list.put(new Meter("QG/Lighting", "Illuminazione Hall e Aree Comuni"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
-        //add sensor for only meter QS, QG, Geom/GF, Geom/1F
+        //add sensor for only meter QS
         // TODO sensors.add(REACTIVE ENERGY);
         //TODO sensors.add(APPARENT ENERGY);
         // TODO sensors.add(ACTIVE ENERGY);
-        sensors.add(actpw);
-        sensors.add(pwf);
-        sensors.add(cur1);
-        sensors.add(cur3);
-        sensors.add(cur2);
-        sensors.add(appw);
-        sensors.add(reactpw);
-
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/appw", "Apparent Power"));
+        sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("QS", "Blocco Sportivo"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //add sensor for only meter QG
+        // TODO sensors.add(REACTIVE ENERGY);
+        //TODO sensors.add(APPARENT ENERGY);
+        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/appw", "Apparent Power"));
+        sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("QG", "Blocco didattico"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //add sensor for only meter Geom/GF
+        // TODO sensors.add(REACTIVE ENERGY);
+        //TODO sensors.add(APPARENT ENERGY);
+        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/appw", "Apparent Power"));
+        sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/GF", "Piano Terra"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //add sensor for only meter Geom/1F
+        // TODO sensors.add(REACTIVE ENERGY);
+        //TODO sensors.add(APPARENT ENERGY);
+        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/appw", "Apparent Power"));
+        sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/1F", "Primo Piano"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //add sensor for only meter Geom/GF/Labs/MP
+        // TODO sensors.add(REACTIVE ENERGY);
+        //TODO sensors.add(APPARENT ENERGY);
+        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/pwf", "Power Factor"));
+        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/appw", "Apparent Power"));
+        sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/GF/Labs/MP", "Forza motrice Laboratori"), sensors);
 
     }
@@ -144,5 +208,16 @@ public class SensorList {
 
         Meter m = list.keySet().toArray(new Meter[0])[id];
         return getSensorsNamesByMeter(m);
+    }
+
+
+    //restituisce la lista dei sensori dal codice url della chiave
+    public Collection<Sensor> getSensorsByUrlMeter(String urlCode) {
+
+        return (
+                getSensorsByMeter(list.keySet().stream().
+                        filter(m -> m.getUrlString().equals(urlCode)).findFirst().get())
+        );
+
     }
 }

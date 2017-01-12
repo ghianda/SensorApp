@@ -30,7 +30,7 @@ public class IntroActivity extends AppCompatActivity {
     /*  Start Time_Get button activity*/
     public void startTimeActivity(View view) {
 
-        //Intent intent = new Intent(this, TimeRequestActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, TimeReadActivity.class);
+        startActivity(intent);
     }
 }
