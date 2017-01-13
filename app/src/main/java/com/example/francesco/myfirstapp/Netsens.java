@@ -10,19 +10,6 @@ import java.util.List;
  * Created by francesco on 07/12/2016.
  */
 
-/*
-@Root(name="Netsens",strict = false)
-public class Netsens {
-    @Element(name = "Measure", required = false)
-    private String Measure;
-
-
-    // METODI GET (OK)
-    public String getMeasure(){
-        return Measure;
-    }
-}
-*/
 
 @Root(name="Netsens")
 public class Netsens {

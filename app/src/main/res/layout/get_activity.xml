@@ -14,14 +14,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tvSensorSelect"/>
+            android:text="@string/tvSelectSensor" />
         <Spinner
             android:id="@+id/spinnerSensor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Spinner>
 
-        <!-- TODO sinner dinamico -->
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

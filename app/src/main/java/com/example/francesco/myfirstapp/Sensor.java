@@ -36,8 +36,16 @@ public class Sensor {
     }
 
 
-    public void addValue(long value, long timestamp) {
-        //todo da ogliere
+    public void setUnitOfMeasure(String unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public void setConversionFactor(int conversionFactor) {
+        this.conversionFactor = conversionFactor;
+    }
+
+    public void addValue(double value, long timestamp) {
+        //todo da togliere
         System.out.println("value-timestamp aggiunto: " + value + "-" + timestamp);
         //Data newData = new Data(value, timestamp);
         //this.datas.add(newData);
@@ -52,12 +60,52 @@ public class Sensor {
     }
     */
 
-    //insert the value
-    /*TODO setValues
-    public void setValue(??, unitOfMeasure, int conversionFactor) {
-        this.unitOfMeasure = unitOfMeasure;
+
+    public void setConversionFactorByUrlCode() {
+        switch (this.urlCode) {
+            case "/actpw": {
+                unitOfMeasure = "kW";
+                conversionFactor = 100000; //5-6 cifre
+                break;
+            }
+            case "/pwf": {
+                unitOfMeasure = "-";
+                conversionFactor = 100; //3 cifre
+                break;
+            }
+            case "/cur/1": {
+                unitOfMeasure = "A";
+                conversionFactor = 100; //3 cifre
+                break;
+            }
+            case "/cur/3": {
+                unitOfMeasure = "A";
+                conversionFactor = 100; //3 cifre
+                break;
+            }
+            case "/cur/2": {
+                unitOfMeasure = "A";
+                conversionFactor = 100; // 3 cifre
+                break;
+            }
+            case "/appw": {
+                unitOfMeasure = "kVA"; //6-7 cifre
+                conversionFactor = 10000;
+                break;
+            }
+            case "/reactpw": {
+                unitOfMeasure = "kVAR"; //6-7 cifre
+                conversionFactor = 10000;
+                break;
+            }
+            default:
+                break;
+        }
     }
-    */
+
+    public int getConversionFactor() {
+        return conversionFactor;
+    }
 
     public String getUrlString() {
         return urlCode;
@@ -75,4 +123,39 @@ public class Sensor {
     public String getUnitOfMeasure() {
         return unitOfMeasure;
     }
+
+
+    //static method for mapping Sensor UrlCode to Unit of Measure
+    public static String getUnitOfMeasureByUrlCode(String urlcode) {
+        switch (urlcode) {
+            case "/actpw": {
+                return "kW";
+            }
+            case "/pwf": {
+                return " ";
+            }
+            case "/cur/1": {
+                return "A";
+            }
+            case "/cur/3": {
+                return "A";
+            }
+            case "/cur/2": {
+                return "A";
+            }
+            case "/appw": {
+                return "kVA";
+            }
+            case "/reactpw": {
+                return "kVAR";
+            }
+            default:
+                return "";
+        }
+    }
+
+
+
+
+
 }

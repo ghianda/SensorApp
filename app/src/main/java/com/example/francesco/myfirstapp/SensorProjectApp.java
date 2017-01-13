@@ -6,15 +6,17 @@ import android.app.Application;
  * Created by francesco on 11/01/2017.
  */
 
+
 public class SensorProjectApp extends Application {
 
+    //parametri
+    static final public String valueFormat = "###.###";
+
     //Global data (here we store the sensor value(s)
-    private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
+    static private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
 
 
-    public SensorList getGlobalSensorData() {
-        return globalSensorData;
-    }
+    //METHOD________________________________________________________________________________
 
 
     public void testUpdate() {
@@ -32,13 +34,24 @@ public class SensorProjectApp extends Application {
 
 
     public void setGlobalData(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
+
         //per ogni misura contenuta in response
         response.getMeasuresList().forEach(measure -> {
 
             //cerca dentro globaldata la giusta coppia Meter-Sensor e aggiungici i dati contenuti nella misura
             this.globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).forEach(sensor -> {
                 if (sensor.getUrlString().equals(chosenSensor.getUrlString())) {
-                    sensor.addValue((long) measure.getValue(), measure.getTimeStamp());
+
+                    //set the measure unit and the conversion factor
+                    //TODO aggiungere casi mancanti al metodo (vedi sigle mancanti in sensorlist)
+                    sensor.setConversionFactorByUrlCode();
+
+                    //add convertedValue + timestamp
+                    sensor.addValue(
+                            (double) (measure.getValue() / sensor.getConversionFactor())
+                            ,
+                            measure.getTimeStamp());
+
                 }
             });
         });
@@ -47,5 +60,44 @@ public class SensorProjectApp extends Application {
         //TODO DA TOGLiere
         testUpdate(); //STAMPA A VIDEO la GlobalSensorData
 
+
     }
+
+
+    public double getLastValueFromMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
+        //TODO aggiungere try catch per caso data.size = 0
+
+        //extract the right sensor
+        Sensor ss = this.globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
+                filter(sensor -> sensor.getUrlString().equals(chosenSensor.getUrlString())).findAny().get();
+
+        //extract last value added to data list
+        return ss.getDatas().get(ss.getDatas().size() - 1).getValue();
+    }
+
+
+    public long getLastTimestampFromMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
+        //TODO aggiungere try catch per caso data.size = 0
+
+        //extract the right sensor
+        Sensor ss = this.globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
+                filter(sensor -> sensor.getUrlString().equals(chosenSensor.getUrlString())).findAny().get();
+
+        //extract last value added to data list
+        return ss.getDatas().get(ss.getDatas().size() - 1).getTimestamp();
+    }
+
+
+    public String getUnitOfMeasureFromSensor(Sensor chosenSensor) {
+
+        //TODO TOGLIERE
+        System.out.println("unit finded: " + Sensor.getUnitOfMeasureByUrlCode(chosenSensor.getUrlString()));
+
+        return Sensor.getUnitOfMeasureByUrlCode(chosenSensor.getUrlString());
+    }
+
+
+
+
+
 }

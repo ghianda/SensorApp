@@ -72,7 +72,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
 
 
     @Override
-    public void displayResult(Netsens response) {
+    public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
         //TODO intent to new activiy (mean, count and graph]
     }
 

@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO inserire titolo pagina al poto di MyFirstApp ?? -->
+
 
     <!--TODO da sistemare le sring in strings resorce
     TODO Guardare la dim del testo degli spiner (fare le scritte più grandi e "ciccione" (accattivante)-->
@@ -21,7 +23,7 @@
         android:id="@+id/MeterSpinner" />
 
     <TextView
-        android:text="Seleziona il parametro da leggere"
+        android:text="@string/tvSelectSensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/MeterSpinner"
@@ -62,7 +64,7 @@
         android:layout_alignStart="@+id/tvDisplayValueResult" />
 
     <TextView
-        android:text="Seleziona il sensore"
+        android:text="@string/tvSelectMeter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
@@ -72,7 +74,7 @@
         android:layout_alignStart="@+id/textView3" />
 
     <Button
-        android:text="LAST READ"
+        android:text="@string/btLastReading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="59dp"

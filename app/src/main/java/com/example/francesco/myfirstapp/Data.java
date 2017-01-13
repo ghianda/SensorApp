@@ -5,20 +5,25 @@ package com.example.francesco.myfirstapp;
  */
 
 public class Data {
-    private long value;
+    private double value;
     private long timestamp;
 
     //costructor
-    public Data(long value, long timestamp) {
+    public Data(double value, long timestamp) {
         this.value = value;
         this.timestamp = timestamp;
     }
 
-    public long getValue() {
+    public double getValue() {
         return value;
     }
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "value " + "/ " + timestamp;
     }
 }

@@ -4,22 +4,29 @@
     <string name="button_send">Send</string>
     <string name="text_net_message">Try string_get request</string>
     <string name="network_button">Connect </string>
-    <string name="text_toast_net_error">No Internet Connection! </string>
-    <string name="text_toast_net_ok">You are connected! </string>
     <string name="text_net_xml_get">Try OLD xml_get request (from url)</string>
     <string name="selectSensorText">Select a sensor for the get</string>
 
-    <!-- nuove: -->
-    <string name="tvSensorSelect">Select the sensor:</string>
-    <string name="btLastReading">Last Reading</string>
+
+    <!-- nuove:___________________________________________-->
     <string name="btGetRequest">Read the sensor</string>
-    <string name="tvSelectInterval">Select the time interval of reading</string>
-    <string name="from">FROM</string>
     <string name="dateFormat">DD/MM/YYYY</string>
     <string name="hourFormat">hh:mm</string>
+
+    <!--connection-->
+    <string name="text_toast_net_ok">You are connected! </string>
+    <string name="text_toast_net_error">No Internet Connection! </string>
+    <string name="text_toast_net_slow">Maybe the connection is too slowly...</string>
+
+    <!-- Last and Time reading -->
+    <string name="tvSelectMeter"> Meter Station </string>
+    <string name="tvSelectSensor"> Parameter </string>
+    <string name="btRead"> Read </string>
+    <string name="from">FROM</string>
+    <string name="to">TO</string>
     <string name="btDate">Date</string>
     <string name="btHour">Hour</string>
-    <string name="to">TO</string>
+    <string name="btLastReading">Last Reading</string>
 
     <!-- url -->
     <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>

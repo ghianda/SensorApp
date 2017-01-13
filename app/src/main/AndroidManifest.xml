@@ -9,12 +9,15 @@
     <!-- TODO TOGLIERE android:debuggable="true" PRIMA DELLA RELEASE -->
 
     <application
+        android:name=".SensorProjectApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:debuggable="true">
+
+
         <activity android:name=".MainActivity">
 
             <!--

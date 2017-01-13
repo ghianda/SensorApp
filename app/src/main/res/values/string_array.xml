@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- popolazione spinner -->
-    <string-array name="sensorName_array">
+    <string-array name="meterName_array">
         <item>QS</item>
         <item>QG</item>
         <item>QG/Lighting</item>

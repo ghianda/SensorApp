@@ -63,7 +63,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
 
     public abstract void createUrl();
 
-    public abstract void displayResult(Netsens response);
+    public abstract void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor);
 
 
     //Not Abstract Method - button read method
@@ -107,20 +107,16 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
                     Request.Method.GET, url, Netsens.class,
                     (Netsens response) -> {
                         // override onResponse method
-
-                        //todo d togliere
-                        response.getMeasuresList().forEach(measure ->
-                                System.out.println("from GET: " + measure.getMeter() + " " + measure.getValue()));
-
-                        storeResult(response);  //TODO <<<<<<--------------------------- OOOOO
-                        displayResult(response);
+                        storeResult(response);
+                        displayResult(response, chosenMeter, chosenSensor);
                     },
 
                     (VolleyError error) -> {
                         //override ErrorListener method
                         System.err.println("onErrorResponse() - errore libreria Volley");
                         System.err.println(error.getMessage());
-                        //TODO gestire un messaggio di erore (toast?) senz far crashare il prog
+                        Toast.makeText(this, R.string.text_toast_net_slow, Toast.LENGTH_SHORT).show();
+
                     }
             );
 

@@ -8,4 +8,12 @@
     <string name="text_toast_net_ok">Sei connesso!</string>
     <string name="text_net_xml_get">Prova una richiesta XML</string>
     <string name="selectSensorText">Selezionare il sensore da analizzare</string>
+    <string name="btLastReading">Ultima Lettura</string>
+    <string name="btRead">Leggi</string>
+    <string name="from">DA</string>
+    <string name="hourFormat"></string>
+    <string name="to">A</string>
+    <string name="tvSelectInterval"></string>
+    <string name="tvSelectMeter">Stazione di misura</string>
+    <string name="tvSelectSensor">Parametro</string>
 </resources>

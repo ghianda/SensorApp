@@ -113,7 +113,7 @@ public class SensorList {
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("Geom/GF", "Piano Terra"), sensors);
+        list.put(new Meter("Geom/GF", "Geometri - Piano Terra"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
@@ -129,7 +129,7 @@ public class SensorList {
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("Geom/1F", "Primo Piano"), sensors);
+        list.put(new Meter("Geom/1F", "Geometri - Primo Piano"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
@@ -145,7 +145,7 @@ public class SensorList {
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("Geom/GF/Labs/MP", "Forza motrice Laboratori"), sensors);
+        list.put(new Meter("Geom/GF/Labs/MP", "Geometri - Forza motrice Laboratori"), sensors);
 
     }
 
