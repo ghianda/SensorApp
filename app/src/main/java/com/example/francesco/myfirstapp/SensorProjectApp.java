@@ -39,7 +39,7 @@ public class SensorProjectApp extends Application {
         response.getMeasuresList().forEach(measure -> {
 
             //cerca dentro globaldata la giusta coppia Meter-Sensor e aggiungici i dati contenuti nella misura
-            this.globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).forEach(sensor -> {
+            globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).forEach(sensor -> {
                 if (sensor.getUrlString().equals(chosenSensor.getUrlString())) {
 
                     //set the measure unit and the conversion factor
@@ -58,7 +58,8 @@ public class SensorProjectApp extends Application {
 
 
         //TODO DA TOGLiere
-        testUpdate(); //STAMPA A VIDEO la GlobalSensorData
+        //testUpdate(); //STAMPA A VIDEO la GlobalSensorData
+
 
 
     }
@@ -68,7 +69,7 @@ public class SensorProjectApp extends Application {
         //TODO aggiungere try catch per caso data.size = 0
 
         //extract the right sensor
-        Sensor ss = this.globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
+        Sensor ss = globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
                 filter(sensor -> sensor.getUrlString().equals(chosenSensor.getUrlString())).findAny().get();
 
         //extract last value added to data list
@@ -80,7 +81,7 @@ public class SensorProjectApp extends Application {
         //TODO aggiungere try catch per caso data.size = 0
 
         //extract the right sensor
-        Sensor ss = this.globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
+        Sensor ss = globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
                 filter(sensor -> sensor.getUrlString().equals(chosenSensor.getUrlString())).findAny().get();
 
         //extract last value added to data list

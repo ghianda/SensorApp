@@ -71,7 +71,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
         System.out.println("sto eseguendo il metodo read !!--!!--!!--!!--!!--!!--!!--!!--!!");
 
         createUrl();
-
+        System.err.println("url: " + url);
         ParseXmlUrl();
 
 
@@ -85,11 +85,10 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-    // ====== metodo di rihiesta get XML (simpleXmlRequest with Netsens class parsing ======
+    /* Not Abstract Method -
+    *    ====== metodo di rihiesta get XML (simpleXmlRequest with Netsens class parsing ======
+    *   produce avviso con mumero di record ottenuti in caso di risposta affermativa del server
+    */
     public void ParseXmlUrl() {
 
         //connecting
@@ -109,13 +108,16 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
                         // override onResponse method
                         storeResult(response);
                         displayResult(response, chosenMeter, chosenSensor);
+
+                        displayCountRecord(response);
+
                     },
 
                     (VolleyError error) -> {
                         //override ErrorListener method
                         System.err.println("onErrorResponse() - errore libreria Volley");
                         System.err.println(error.getMessage());
-                        Toast.makeText(this, R.string.text_toast_net_slow, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
             );
@@ -129,6 +131,16 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.text_toast_net_error, Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    public void displayCountRecord(Netsens response) {
+        Toast.makeText(this,
+                new StringBuilder().append("Ricevuti ")
+                        .append(response.getMeasuresList().size()).append(" risultati!")
+                , Toast.LENGTH_SHORT).show();
+
+    }
+
 
 
     /* Not Abstract Method -
@@ -157,8 +169,6 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
 
                 //aggiornamento sensorSpinner in base al Meter scelto
                 spinSensorAdapter.clear();
-                //TODO verificare che funzioni la sostituzione
-                //spinSensorAdapter.addAll(allSensors.getSensorsNamesByIdMeter((int) id));
                 spinSensorAdapter.addAll(allSensors.getSensorsNamesByMeter(chosenMeter));
 
                 sensorSpinner.setAdapter(spinSensorAdapter);
@@ -170,7 +180,6 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
         });
 
 
-        //TODO possibile semplificazione con lambda expression...
         //definizione del setOnItemSelectedListener per SensorSpinner
         sensorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -44,7 +44,7 @@
         android:id="@+id/SensorSpinner" />
 
     <TextView
-        android:text="risultato QUI"
+        android:text=" "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/SensorSpinner"
@@ -55,7 +55,7 @@
 
     <TextView
         android:id="@+id/tvDisplayTimeResult"
-        android:text="qui ci va  QUANDO è stata fatta l'ultima lettura (long millis -> data)"
+        android:text=" "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"

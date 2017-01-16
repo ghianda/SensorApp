@@ -46,9 +46,7 @@ public class Sensor {
 
     public void addValue(double value, long timestamp) {
         //todo da togliere
-        System.out.println("value-timestamp aggiunto: " + value + "-" + timestamp);
-        //Data newData = new Data(value, timestamp);
-        //this.datas.add(newData);
+        //System.out.println("value-timestamp aggiunto: " + value + "-" + timestamp);
         this.datas.add(new Data(value, timestamp));
     }
 

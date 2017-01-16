@@ -13,13 +13,12 @@ test su bottone sendmessage (vecchio) OK
 
 
 ____ TODO
-- rivedere notazione meter: "piano terra" è "geometri - piano terra" !!!
 
 1) chiedere giovanni sigle url mancanti (vai su SensoList.java)
 
 2) TimeReadActivity.java:
     - testare il bottone read dell TimeReadActivity se funge
+    Document has no root element ??? whyyy?
 
-
-poi) vai su AbstractReadingActivity.java
+    OCCHIO ALLE DATE DEI PICKER -> giorno/mese o mese/giorno??
 

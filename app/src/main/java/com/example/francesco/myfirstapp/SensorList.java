@@ -63,8 +63,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         list.put(new Meter("QG/Lighting", "Illuminazione Hall e Aree Comuni"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -77,8 +77,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("QS", "Blocco Sportivo"), sensors);
@@ -93,8 +93,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("QG", "Blocco didattico"), sensors);
@@ -109,8 +109,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/GF", "Geometri - Piano Terra"), sensors);
@@ -125,8 +125,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/1F", "Geometri - Primo Piano"), sensors);
@@ -141,8 +141,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
+        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/GF/Labs/MP", "Geometri - Forza motrice Laboratori"), sensors);

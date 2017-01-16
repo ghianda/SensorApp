@@ -100,21 +100,15 @@ public class TimeReadActivity extends AbstractReadingActivity {
         long fromMillis = fromDate.getTimeInMillis();
         long toMillis = toDate.getTimeInMillis();
 
-        //TODO da togliere
-        System.out.println(fromMillis);
-        System.out.println(toMillis);
-
         //costruisco l'url
         url = getString(R.string.urlDomain)
-                + getString(R.string.m) + chosenMeter + chosenSensor
+                + getString(R.string.m) + chosenMeter.getUrlString() + chosenSensor.getUrlString()
                 + getString(R.string.f) + fromMillis
                 + getString(R.string.t) + toMillis;
-
-
     }
 
 
-    // Method_----------------------------------------------------------
+    // Native Method_----------------------------------------------------------
 
 
     // display current date in Date button
@@ -124,22 +118,8 @@ public class TimeReadActivity extends AbstractReadingActivity {
         btFromDate = (Button) findViewById(R.id.btFromDate);
         btToDate = (Button) findViewById(R.id.btToDate);
 
-
-        year = fromDate.get(Calendar.YEAR);
-        month = fromDate.get(Calendar.MONTH);
-        day = fromDate.get(Calendar.DAY_OF_MONTH);
-
-        // set current date into buttons FROM
-        btFromDate.setText(new StringBuilder()
-                // Month is 0 based, just add 1
-                .append(month + 1).append("-").append(day).append("-")
-                .append(year).append(" "));
-
-        // set current date into button TO
-        btToDate.setText(new StringBuilder()
-                // Month is 0 based, just add 1
-                .append(month + 1).append("-").append(day).append("-")
-                .append(year).append(" "));
+        setDisplayDate(btFromDate, fromDate);
+        setDisplayDate(btToDate, toDate);
 
     }
 
@@ -151,18 +131,8 @@ public class TimeReadActivity extends AbstractReadingActivity {
         btFromHour = (Button) findViewById(R.id.btFromHour);
         btToHour = (Button) findViewById(R.id.btToHour);
 
-        //estraggo l'ora odierna
-        //final Calendar c = Calendar.getInstance();
-        hour = fromDate.get(Calendar.HOUR_OF_DAY);
-        minute = fromDate.get(Calendar.MINUTE);
-
-        // set current hour into buttons from
-        btFromHour.setText(new StringBuilder()
-                .append(hour).append(":").append(minute).append(" "));
-
-        // set current hour into button TO
-        btToHour.setText(new StringBuilder()
-                .append(hour).append(":").append(minute).append(" "));
+        setDisplayHour(btFromHour, fromDate);
+        setDisplayHour(btToHour, toDate);
 
     }
 
