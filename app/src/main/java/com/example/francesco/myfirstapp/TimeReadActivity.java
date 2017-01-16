@@ -3,6 +3,7 @@ package com.example.francesco.myfirstapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -73,10 +74,18 @@ public class TimeReadActivity extends AbstractReadingActivity {
 
     @Override
     public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
-        //TODO intent to new activiy (mean, count and graph]
+        //intent to new activiy (mean, count and graph]
+        //creating a intent
+        Intent intent = new Intent(this, GraphActivity.class);
+        //put data in yhe intent
+        //todo dovrò metterci array(double), urlMeter
+        Sensor parcObj = SensorProjectApp.createParceableDataResponse(response, chosenSensor);
+        intent.putExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE, parcObj);
+        intent.putExtra(SensorProjectApp.EXTRA_METER, chosenMeter.getUrlString());
+
+        startActivity(intent);
     }
 
-    ;
 
     @Override
     public int myView() {

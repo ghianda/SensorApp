@@ -107,9 +107,8 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
                     (Netsens response) -> {
                         // override onResponse method
                         storeResult(response);
+                        displayCountRecord(response); //display toast with number of record received
                         displayResult(response, chosenMeter, chosenSensor);
-
-                        displayCountRecord(response);
 
                     },
 

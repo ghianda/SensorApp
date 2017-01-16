@@ -8,6 +8,10 @@ import android.app.Application;
 
 
 public class SensorProjectApp extends Application {
+    //key string for intent object
+    public final static String EXTRA_PARCDATARESPONSE = "com.example.francesco.PARCDATARESPONSE";
+    public final static String EXTRA_SENSOR = "com.example.francesco.SENSOR";
+    public final static String EXTRA_METER = "com.example.francesco.METER";
 
     //parametri
     static final public String valueFormat = "###.###";
@@ -44,7 +48,7 @@ public class SensorProjectApp extends Application {
 
                     //set the measure unit and the conversion factor
                     //TODO aggiungere casi mancanti al metodo (vedi sigle mancanti in sensorlist)
-                    sensor.setConversionFactorByUrlCode();
+                    //sensor.setConversionFactorByUrlCode();
 
                     //add convertedValue + timestamp
                     sensor.addValue(
@@ -97,6 +101,19 @@ public class SensorProjectApp extends Application {
         return Sensor.getUnitOfMeasureByUrlCode(chosenSensor.getUrlString());
     }
 
+
+    public static Sensor createParceableDataResponse(Netsens response, Sensor chosenSensor) {
+        //crea un oggetto Sensor (quindi Parceable) dai dati in response
+
+        Sensor ss = new Sensor(chosenSensor.getUrlString(), chosenSensor.getName());
+        //put data into object
+        response.getMeasuresList().forEach(measure ->
+                ss.addValue(measure.getValue(), measure.getTimeStamp())
+        );
+
+        return ss;
+
+    }
 
 
 
