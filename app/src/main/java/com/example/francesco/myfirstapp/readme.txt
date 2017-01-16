@@ -17,8 +17,9 @@ ____ TODO
 1) chiedere giovanni sigle url mancanti (vai su SensoList.java)
 
 2) TimeReadActivity.java:
-    - testare il bottone read dell TimeReadActivity se funge
-    Document has no root element ??? whyyy?
 
-    OCCHIO ALLE DATE DEI PICKER -> giorno/mese o mese/giorno??
+    data picker : perchè se seleziono il giorno mi parte dal 1900?
+    hourpicker : perchè mi fa scegliere solo orari 0->12? c'è l'opzione 24h ??
+
+3) GraphActivity -> gestione graficiiii
 
