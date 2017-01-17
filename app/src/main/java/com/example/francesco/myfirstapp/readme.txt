@@ -19,7 +19,7 @@ ____ TODO
 2) TimeReadActivity.java:
 
     data picker : perchè se seleziono il giorno mi parte dal 1900?
-    hourpicker : perchè mi fa scegliere solo orari 0->12? c'è l'opzione 24h ??
 
-3) GraphActivity -> gestione graficiiii
+
+3) GraphActivity -> ordinate: tempo? come faccio?
 

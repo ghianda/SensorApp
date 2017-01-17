@@ -16,4 +16,7 @@
     <string name="tvSelectInterval"></string>
     <string name="tvSelectMeter">Stazione di misura</string>
     <string name="tvSelectSensor">Parametro</string>
+    <string name="tvDisplayAvg">Media</string>
+    <string name="tvDisplayMax">Massimo</string>
+    <string name="tvDisplayMin">Minimo</string>
 </resources>

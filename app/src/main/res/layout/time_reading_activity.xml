@@ -24,8 +24,7 @@
 
         <TextView
             android:text="@string/tvSelectMeter"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView" />
 
@@ -47,7 +46,7 @@
         <TextView
             android:text="@string/tvSelectSensor"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.42"
             android:layout_height="wrap_content"
             android:id="@+id/textView3" />
 

@@ -34,4 +34,11 @@
     <string name="lr">/last_reading</string>
     <string name="f">&amp;from=</string>
     <string name="t">&amp;to=</string>
+
+
+    <!-- GraphActivity -->
+    <string name="tvDisplayAvg">" Average"</string>
+    <string name="tvDisplayMin">" Min Value"</string>
+    <string name="tvDisplayMax">" Max Value"</string>
+    <string name="dataError"> NO DATA </string>
 </resources>

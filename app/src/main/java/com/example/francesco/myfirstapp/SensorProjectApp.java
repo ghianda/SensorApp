@@ -1,6 +1,10 @@
 package com.example.francesco.myfirstapp;
 
 import android.app.Application;
+import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by francesco on 11/01/2017.
@@ -62,7 +66,7 @@ public class SensorProjectApp extends Application {
 
 
         //TODO DA TOGLiere
-        //testUpdate(); //STAMPA A VIDEO la GlobalSensorData
+        testUpdate(); //STAMPA A VIDEO la GlobalSensorData
 
 
 
@@ -93,13 +97,6 @@ public class SensorProjectApp extends Application {
     }
 
 
-    public String getUnitOfMeasureFromSensor(Sensor chosenSensor) {
-
-        //TODO TOGLIERE
-        System.out.println("unit finded: " + Sensor.getUnitOfMeasureByUrlCode(chosenSensor.getUrlString()));
-
-        return Sensor.getUnitOfMeasureByUrlCode(chosenSensor.getUrlString());
-    }
 
 
     public static Sensor createParceableDataResponse(Netsens response, Sensor chosenSensor) {
@@ -115,7 +112,42 @@ public class SensorProjectApp extends Application {
 
     }
 
+    public static SensorList getGlobalSensorData() {
+        return globalSensorData;
+    }
 
 
+    public static void fromMillisToDateOnTextView(Long millis, TextView tv, boolean shortVersion) {
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(millis);
+
+        //TODO VERSIONE ITALIANA (bruttino così :) )
+        int second = cal.get(Calendar.SECOND);
+        int minute = cal.get(Calendar.MINUTE);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int year = cal.get(Calendar.YEAR);
+
+
+        if (shortVersion) {
+            //TODO VERSIONE INGLESE - capire come settare (se si può) il formato mm/dd/yyyy di %tD in versione dd/mm/yyyy
+            //String timestamp = String.format(Locale.getDefault(),
+            //       "%tl:%tM %tp - %tD", cal, cal, cal, cal);
+            //vrsione italiana:
+            String timeStamp = String.format(Locale.getDefault(),
+                    "%02d:%02d:%02d - %02d/%02d/%04d", hour, minute, second, day, month, year);
+            tv.setText(timeStamp);
+        } else {
+            //TODO VERSIONE INGLESE - capire come settare (se si può) il formato mm/dd/yyyy di %tD in versione dd/mm/yyyy
+            //String timestamp = String.format(Locale.getDefault(),
+            //        "Read at:  %tl:%tM %tp  of  %tD", cal, cal, cal, cal);
+            //vrsione italiana:
+            String timeStamp = String.format(Locale.getDefault(),
+                    "Read at:  %02d:%02d:%02d  of  %02d/%02d/%04d", hour, minute, second, day, month, year);
+            tv.setText(timeStamp);
+        }
+
+    }
 }

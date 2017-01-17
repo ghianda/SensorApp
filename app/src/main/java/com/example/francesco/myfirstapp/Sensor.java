@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Created by francesco on 28/12/2016.
@@ -68,9 +69,22 @@ public class Sensor implements Parcelable {
 
 
     public void setConversionFactorByUrlCode() {
-
-        //TODO aggiungere casi mancanti al metodo (vedi sigle mancanti in sensorlist)
         switch (this.urlCode) {
+            case "/reactcon": {
+                unitOfMeasure = "VARh";
+                conversionFactor = 100000; //5-6 cifre
+                break;
+            }
+            case "/apcon": {
+                unitOfMeasure = "VA";
+                conversionFactor = 100000; //6-7 cifre
+                break;
+            }
+            case "/con": {
+                unitOfMeasure = "Wh";
+                conversionFactor = 100000;  //6-7  cifre
+                break;
+            }
             case "/actpw": {
                 unitOfMeasure = "kW";
                 conversionFactor = 100000; //5-6 cifre
@@ -133,37 +147,27 @@ public class Sensor implements Parcelable {
     }
 
 
-    //static method for mapping Sensor UrlCode to Unit of Measure
-    public static String getUnitOfMeasureByUrlCode(String urlcode) {
-        switch (urlcode) {
-            case "/actpw": {
-                return "kW";
-            }
-            case "/pwf": {
-                return " ";
-            }
-            case "/cur/1": {
-                return "A";
-            }
-            case "/cur/3": {
-                return "A";
-            }
-            case "/cur/2": {
-                return "A";
-            }
-            case "/appw": {
-                return "kVA";
-            }
-            case "/reactpw": {
-                return "kVAR";
-            }
-            default:
-                return "";
-        }
+    //return the data with max value
+    public Data findDataWithMaxValue() {
+
+        //Comparator for Data (order by Value)
+        Comparator<Data> dataCmp = Comparator.comparing(Data::getValue);
+        //find the max
+        return this.getDatas().stream().max(dataCmp).get();
     }
 
 
-    // IMPLEMENT PARCEABLE METHOD
+    //return the data with min value
+    public Data findDataWithMinValue() {
+
+        //Comparator for Data (order by Value)
+        Comparator<Data> dataCmp = Comparator.comparing(Data::getValue);
+        //find the max
+        return this.getDatas().stream().min(dataCmp).get();
+    }
+
+
+    // IMPLEMENT PARCEABLE METHOD ***************************
     protected Sensor(Parcel in) {
         urlCode = in.readString();
         name = in.readString();

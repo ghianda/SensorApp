@@ -21,15 +21,6 @@ public class SensorList {
 
     private HashMap<Meter, ArrayList<Sensor>> list; // meter -> list of sensors
 
-    /* TODO DA CHIEDERE A GIOVANNUS
-    private Sensor reactcon = new Sensor("/reactcon", "Reactive Consumption");  //mai usata?
-    private Sensor con = new Sensor("/con", "Consumption");                     //mai usata?
-    private Sensor apcon = new Sensor("/apcon", "Apparent consumption");        //mai usata?
-    //TODO manca la sigla url per l'Active Energy
-    //TODO manca la sigla url per Reactive Energy
-    //TODO manca la sigla url per Apparent Energy
-    */
-
 
     public SensorList() {
 
@@ -39,7 +30,7 @@ public class SensorList {
 
 
         //make list for only meter Geom/GF/Labs/Lighting
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -49,7 +40,7 @@ public class SensorList {
 
 
         //make list for only meter Geom/1F/Rooms/Lighting
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -59,7 +50,7 @@ public class SensorList {
 
 
         //add sensor for only meter QG/Lighting
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -71,9 +62,9 @@ public class SensorList {
 
 
         //add sensor for only meter QS
-        // TODO sensors.add(REACTIVE ENERGY);
-        //TODO sensors.add(APPARENT ENERGY);
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
+        sensors.add(new Sensor("/apcon", "Apparent Energy"));
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -87,9 +78,9 @@ public class SensorList {
 
 
         //add sensor for only meter QG
-        // TODO sensors.add(REACTIVE ENERGY);
-        //TODO sensors.add(APPARENT ENERGY);
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
+        sensors.add(new Sensor("/apcon", "Apparent Energy"));
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -103,9 +94,9 @@ public class SensorList {
 
 
         //add sensor for only meter Geom/GF
-        // TODO sensors.add(REACTIVE ENERGY);
-        //TODO sensors.add(APPARENT ENERGY);
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
+        sensors.add(new Sensor("/apcon", "Apparent Energy"));
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -119,9 +110,9 @@ public class SensorList {
 
 
         //add sensor for only meter Geom/1F
-        // TODO sensors.add(REACTIVE ENERGY);
-        //TODO sensors.add(APPARENT ENERGY);
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
+        sensors.add(new Sensor("/apcon", "Apparent Energy"));
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -135,9 +126,9 @@ public class SensorList {
 
 
         //add sensor for only meter Geom/GF/Labs/MP
-        // TODO sensors.add(REACTIVE ENERGY);
-        //TODO sensors.add(APPARENT ENERGY);
-        // TODO sensors.add(ACTIVE ENERGY);
+        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
+        sensors.add(new Sensor("/apcon", "Apparent Energy"));
+        sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/pwf", "Power Factor"));
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
@@ -171,6 +162,12 @@ public class SensorList {
         return list.keySet().toArray(new Meter[0])[id];
     }
 
+
+    //nome del Meter dal suo urlString
+    public String getMeterNameByUrl(String urlCode) {
+        return list.keySet().stream().filter(m -> m.getUrlString().equals(urlCode))
+                .findFirst().get().getName();
+    }
 
     //restituisce la lista dei sensori dalla chiave m
     public Collection<Sensor> getSensorsByMeter(Meter m) {
