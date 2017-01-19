@@ -14,11 +14,9 @@ test su bottone sendmessage (vecchio) OK
 
 ____ TODO
 
-1) chiedere giovanni sigle url mancanti (vai su SensoList.java)
-
 2) TimeReadActivity.java:
 
-    data picker : perchè se seleziono il giorno mi parte dal 1900?
+Implementare i picker con i FRAGMENT e non con i Dialog
 
 
 3) GraphActivity -> ordinate: tempo? come faccio?

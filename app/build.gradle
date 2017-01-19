@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 24        //compilata per funzionare su quell'API o precedenti
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.francesco.myfirstapp"
-        minSdkVersion 24
-        targetSdkVersion 24
+        minSdkVersion 15        //minima API necessaria per far funzionare l'app
+        targetSdkVersion 24     //app garantita per funzionante su quell'API o inferiori
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

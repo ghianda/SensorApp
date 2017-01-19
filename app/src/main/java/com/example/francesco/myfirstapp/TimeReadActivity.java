@@ -209,7 +209,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
         fromDate.set(Calendar.HOUR_OF_DAY, selectedHour);
         fromDate.set(Calendar.MINUTE, selectedMinute);
         fromDate.set(Calendar.SECOND, 0);
-        //set selected date into textview
+        // update selected hour on button text
         setDisplayHour(btFromHour, fromDate);
     });
 
@@ -220,7 +220,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
 
         //update fromDate object
         toDate.set(selectedYear, selectedMonth, selectedDay);
-        // set selected date into textview
+        // update selected date on button text
         setDisplayDate(btToDate, toDate);
 
     });
@@ -234,7 +234,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
         toDate.set(Calendar.HOUR_OF_DAY, selectedHour);
         toDate.set(Calendar.MINUTE, selectedMinute);
         toDate.set(Calendar.SECOND, 0);
-        //set selected date into textview
+        // update selected hour on button text
         setDisplayHour(btToHour, toDate);
     });
 
