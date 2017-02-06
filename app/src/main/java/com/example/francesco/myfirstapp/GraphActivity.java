@@ -1,18 +1,24 @@
 package com.example.francesco.myfirstapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.OptionalLong;
 
 public class GraphActivity extends AppCompatActivity {
 
@@ -35,7 +41,7 @@ public class GraphActivity extends AppCompatActivity {
 
 
         //put data into LineChart and Display it
-        displayChart(parcSens);
+        displayLineChart(parcSens);
     }
 
 
@@ -123,23 +129,64 @@ public class GraphActivity extends AppCompatActivity {
     }
 
 
-    public void displayChart(Sensor ss) {
-        // in this example, a LineChart is initialized from xml
+    public void displayLineChart(Sensor ss) {
+
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
+        //XAMPLE TO set the LiitLine_________________________________
+        YAxis leftAxis = chart.getAxisLeft();
+
+        LimitLine ll = new LimitLine(140f, "Example");
+        ll.setLineColor(Color.RED);
+        ll.setLineWidth(4f);
+        ll.setTextColor(Color.BLACK);
+        ll.setTextSize(12f);
+
+        leftAxis.addLimitLine(ll);
+        //___________________________________________________________
+
+
+        //set the dayAxisFormatter------------------------------------------------------------
         List<Entry> entries = new ArrayList<>();
 
-        //put data int entries
+        //TODO c'è un modo piu furbo pe tirar fuori i valori dell'asse x inseriti nella chart?
+
+        //Extract the Timestamp array
+        ArrayList<Long> oldTS = new ArrayList<>();
         ss.getDatas().forEach(data -> {
-            entries.add(new Entry((float) data.getTimestamp(), (float) data.getValue()));
+            oldTS.add(data.getTimestamp());
         });
+
+        //find the min Timestamp
+        OptionalLong referenceTimestamp = oldTS.stream().mapToLong(t -> t).min();
+
+        //put rearranged timestamp and data value into entries
+        ss.getDatas().forEach(data ->
+                entries.add(new Entry((float) data.getTimestamp() - referenceTimestamp.getAsLong(),
+                        (float) data.getValue())));
 
         //creo LineDataSet
         LineDataSet dataSet = new LineDataSet(entries, "label");
 
-        //associo LineDataSet alloggetto LineData da visualizzare
+        //associo LineDataSet all'oggetto LineData da visualizzare
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
+
+        IAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp.getAsLong());
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(xAxisFormatter);
+
+        //-----------------------------------------------------------------------------------
+
+        // Set the marker View
+        /*
+        MyMarkerView myMarkerView= new MyMarkerView(getApplicationContext(),
+                R.layout.custom_marker_view,
+                referenceTimestamp.getAsLong());
+        chart.setMarkerView(myMarkerView);
+        */
+
+        //display the chart
         chart.invalidate();
     }
 

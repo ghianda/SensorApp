@@ -167,6 +167,15 @@ public class Sensor implements Parcelable {
     }
 
 
+    public Data findDataWithMinTimeStamp() {
+
+        //Comparator for Data (order by Value)
+        Comparator<Data> dataCmp = Comparator.comparing(Data::getTimestamp);
+        //find the max
+        return this.getDatas().stream().min(dataCmp).get();
+    }
+
+
     // IMPLEMENT PARCEABLE METHOD ***************************
     protected Sensor(Parcel in) {
         urlCode = in.readString();
