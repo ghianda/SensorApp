@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">La mia prima Applicazione</string>
+    <string name="app_name">Lumen</string>
     <string name="edit_message">Scrivi un messaggio</string>
     <string name="button_send">Invia</string>
     <string name="network_button">Connettiti</string>
@@ -19,4 +19,6 @@
     <string name="tvDisplayAvg">Media</string>
     <string name="tvDisplayMax">Massimo</string>
     <string name="tvDisplayMin">Minimo</string>
+    <string name="text_toast_net_slow">Forse la connessione è troppo lenta....</string>
+    <string name="text_toast_no_data">" Nessun dato ricevuto !"</string>
 </resources>

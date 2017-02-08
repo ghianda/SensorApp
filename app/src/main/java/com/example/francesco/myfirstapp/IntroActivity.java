@@ -18,6 +18,10 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
 
+        //start the service in background
+        Intent intent = new Intent(this, LightIntentService.class);
+        startService(intent);
+
     }
 
 

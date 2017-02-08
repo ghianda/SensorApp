@@ -19,7 +19,6 @@
         <activity android:name=".DisplayMessageActivity" />
         <activity android:name=".DisplayResultActivity" />
 
-
         <!-- ******* NUOVE ******* -->
         <activity android:name=".GetActivity" />
         <activity android:name=".IntroActivity">
@@ -32,6 +31,16 @@
         <activity android:name=".TimeReadActivity" />
         <activity android:name=".LastReadActivity" />
         <activity android:name=".GraphActivity" />
+
+        <!-- ********** SERVICE ***************** -->
+        <service
+            android:name=".lightService"
+            android:description="@string/service_description"
+            android:exported="false" />
+        <!--         android:exported -> permetto ad activity di altre app di avviare questo service -->
+        <service
+            android:name=".LightIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

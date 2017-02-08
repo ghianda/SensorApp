@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My First App</string>
+    <string name="app_name">Lumen</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string name="text_net_message">Try string_get request</string>
@@ -16,7 +16,8 @@
     <!--connection-->
     <string name="text_toast_net_ok">You are connected! </string>
     <string name="text_toast_net_error">No Internet Connection! </string>
-    <string name="text_toast_net_slow">Maybe the connection is too slowly...</string>
+    <string name="text_toast_net_slow">Maybe the connection is too slowly…</string>
+    <string name="text_toast_no_data">No data received!</string>
 
     <!-- Last and Time reading -->
     <string name="tvSelectMeter"> Meter Station </string>
@@ -41,4 +42,9 @@
     <string name="tvDisplayMin">" Min Value"</string>
     <string name="tvDisplayMax">" Max Value"</string>
     <string name="dataError"> NO DATA </string>
+
+
+    <!-- Service -->
+    <!--TODO cambiare nome app-->
+    <string name="service_description"> Lumen service background: check the light value in realTime</string>
 </resources>

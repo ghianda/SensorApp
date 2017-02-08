@@ -1,29 +1,23 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 24        //compilata per funzionare su quell'API o precedenti
+    compileSdkVersion 25        //compilata per funzionare su quell'API o precedenti
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.francesco.myfirstapp"
-        //minSdkVersion 15        //minima API necessaria per far funzionare l'app
-        minSdkVersion 24
-        targetSdkVersion 24     //appgarantita per funzionante su quell'API o inferiori
+        minSdkVersion 15        //minima API necessaria per far funzionare l'app
+        targetSdkVersion 25     //appgarantita per funzionante su quell'API o inferiori
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions { enabled true }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        //jackOptions { enabled true }
     }
 
-    /*
-    retrolambda {
-        jdk 'C:/ProgramData/oracle/Java/javapath/java.exe'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
-    */
+
 
 
     buildTypes {
@@ -48,13 +42,10 @@ dependencies {
         exclude group: 'xpp3', module: 'xpp3'
     }
 
-    //23:
-    //compile 'com.android.support:appcompat-v7:23.2.1'
-    //compile 'com.android.support:support-v4:23.2.1'
 
     //24
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:support-v4:25.1.0'
 
 
     testCompile 'junit:junit:4.12'
@@ -66,5 +57,4 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 
     //Stream Support
-    compile files('libs/streamsupport-1.5.3.jar')
 }
