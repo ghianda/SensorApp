@@ -47,9 +47,11 @@ public class LastReadActivity extends AbstractReadingActivity {
         TextView tvValue = (TextView) findViewById(R.id.tvDisplayValueResult);
 
         DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
-        String value = frmt.format(((SensorProjectApp) this.getApplication()).getLastValueFromMeterAndSensor(
-                chosenMeter, chosenSensor));
-        tvValue.setText(value + " " + chosenSensor.getUnitOfMeasure());
+
+        String fixedValue = fixUnit(((SensorProjectApp) this.getApplication()).getLastValueFromMeterAndSensor(chosenMeter, chosenSensor)
+                , chosenSensor.getUnitOfMeasure()
+                , frmt);
+        tvValue.setText(fixedValue);
 
 
         //TIME OF READING (set textView)
@@ -58,7 +60,36 @@ public class LastReadActivity extends AbstractReadingActivity {
                 ((SensorProjectApp) this.getApplication()).getLastTimestampFromMeterAndSensor(chosenMeter, chosenSensor),
                 (TextView) findViewById(R.id.tvDisplayTimeResult),
                 shortVersion);
-
-
     }
+
+
+    @Override
+    //Clear the textview of the result value and the time of the reading
+    public void clearValueTextView() {
+        ((TextView) findViewById(R.id.tvDisplayValueResult)).setText("");
+        ((TextView) findViewById(R.id.tvDisplayTimeResult)).setText("");
+    }
+
+
+    private String fixUnit(double value, String unit, DecimalFormat frmt) {
+        String fixedValue;
+        String prefix = "";
+
+        if (value < 1) {
+            value = value * 1000;
+            prefix = "m";
+        }
+
+        if (value > 1000) {
+            value = value / 1000;
+            prefix = "K";
+        }
+
+        fixedValue = frmt.format(value) + " " + prefix + unit;
+        return fixedValue;
+    }
+
+
+
+
 }

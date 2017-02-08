@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
@@ -65,13 +66,15 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
 
     public abstract void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor);
 
+    public abstract void clearValueTextView();
+
 
     //Not Abstract Method - button read method
     public void read(View view) {
-        System.out.println("sto eseguendo il metodo read !!--!!--!!--!!--!!--!!--!!--!!--!!");
+        //System.out.println("sto eseguendo il metodo read !!--!!--!!--!!--!!--!!--!!--!!--!!");
 
         createUrl();
-        System.err.println("url: " + url);
+        //System.err.println("url: " + url);
         ParseXmlUrl();
 
 
@@ -96,7 +99,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             // avviso di connessione effettuata
-            Toast.makeText(this, R.string.text_toast_net_ok, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, R.string.text_toast_net_ok, Toast.LENGTH_SHORT).show();
 
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -104,20 +107,34 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
             //Request a XML response from the provided URL
             SimpleXmlRequest<Netsens> simpleRequest_netsens = new SimpleXmlRequest<Netsens>(
                     Request.Method.GET, url, Netsens.class,
-                    (Netsens response) -> {
-                        // override onResponse method
-                        storeResult(response);
-                        displayCountRecord(response); //display toast with number of record received
-                        displayResult(response, chosenMeter, chosenSensor);
+                    new Response.Listener<Netsens>() {
+                        @Override
+                        public void onResponse(Netsens response) {
+                            // override onResponse method
+                            if (response.getMeasuresList() != null) {
+                                storeResult(response);
+                                displayCountRecord(response); //display toast with number of record received
+                                displayResult(response, chosenMeter, chosenSensor);
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.text_toast_no_data, Toast.LENGTH_SHORT).show();
+                                clearValueTextView();
+                            }
 
+                        }
                     },
 
-                    (VolleyError error) -> {
-                        //override ErrorListener method
-                        System.err.println("onErrorResponse() - errore libreria Volley");
-                        System.err.println(error.getMessage());
-                        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //override ErrorListener method
+                            System.err.println("onErrorResponse() - errore libreria Volley");
+                            System.err.println(error.getMessage());
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    error.getMessage(), Toast.LENGTH_SHORT);
+                            toast.show();
 
+                        }
                     }
             );
 
@@ -184,10 +201,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //salvataggio Oggetto Sensor scelto
-                //TODO CONTROLLARE L'ogetto ricevuto
                 chosenSensor = allSensors.getSensor(chosenMeter, (int) id);
-                System.out.println("sensore selezionato ---> ");
-                System.out.println(chosenSensor.getName());
 
             }
 

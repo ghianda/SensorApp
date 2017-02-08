@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Created by francesco on 28/12/2016.
@@ -70,28 +69,43 @@ public class Sensor implements Parcelable {
 
     public void setConversionFactorByUrlCode() {
         switch (this.urlCode) {
+            case "/temp": {
+                unitOfMeasure = "°C";
+                conversionFactor = 1;
+                break;
+            }
+            case "/light": {
+                unitOfMeasure = "Lux";
+                conversionFactor = 1;
+                break;
+            }
+            case "/humid": {
+                unitOfMeasure = "%";
+                conversionFactor = 1;
+                break;
+            }
             case "/reactcon": {
                 unitOfMeasure = "VARh";
-                conversionFactor = 100000; //5-6 cifre
+                conversionFactor = 100; //5-6 cifre
                 break;
             }
             case "/apcon": {
                 unitOfMeasure = "VA";
-                conversionFactor = 100000; //6-7 cifre
+                conversionFactor = 100; //6-7 cifre
                 break;
             }
             case "/con": {
                 unitOfMeasure = "Wh";
-                conversionFactor = 100000;  //6-7  cifre
+                conversionFactor = 100;  //6-7  cifre
                 break;
             }
             case "/actpw": {
-                unitOfMeasure = "kW";
-                conversionFactor = 100000; //5-6 cifre
+                unitOfMeasure = "W";
+                conversionFactor = 100; //5-6 cifre
                 break;
             }
             case "/pwf": {
-                unitOfMeasure = "-";
+                unitOfMeasure = " ";
                 conversionFactor = 100; //3 cifre
                 break;
             }
@@ -111,13 +125,13 @@ public class Sensor implements Parcelable {
                 break;
             }
             case "/appw": {
-                unitOfMeasure = "kVA"; //6-7 cifre
-                conversionFactor = 10000;
+                unitOfMeasure = "VA"; //6-7 cifre
+                conversionFactor = 100;
                 break;
             }
             case "/reactpw": {
-                unitOfMeasure = "kVAR"; //6-7 cifre
-                conversionFactor = 10000;
+                unitOfMeasure = "VAR"; //6-7 cifre
+                conversionFactor = 100;
                 break;
             }
             default:
@@ -137,7 +151,6 @@ public class Sensor implements Parcelable {
         return name;
     }
 
-
     public ArrayList<Data> getDatas() {
         return datas;
     }
@@ -150,29 +163,79 @@ public class Sensor implements Parcelable {
     //return the data with max value
     public Data findDataWithMaxValue() {
 
+        /*
         //Comparator for Data (order by Value)
         Comparator<Data> dataCmp = Comparator.comparing(Data::getValue);
         //find the max
         return this.getDatas().stream().max(dataCmp).get();
+        */
+
+
+        double maxValue = -10 ^ 12;
+        Data winnerData = null;
+
+        for (Data data : this.getDatas()) {
+
+            if (data.getValue() > maxValue) {
+                maxValue = data.getValue();
+                winnerData = data;
+            }
+        }
+
+        return winnerData;
     }
 
 
     //return the data with min value
     public Data findDataWithMinValue() {
 
+        /*
         //Comparator for Data (order by Value)
         Comparator<Data> dataCmp = Comparator.comparing(Data::getValue);
         //find the max
         return this.getDatas().stream().min(dataCmp).get();
+        */
+
+        double minValue = this.getDatas().get(0).getValue();
+        Data winnerData = this.getDatas().get(0);
+
+        //TODO da togliere
+        System.out.println(minValue);
+
+        for (Data data : this.getDatas()) {
+
+            if (data.getValue() < minValue) {
+                minValue = data.getValue();
+                winnerData = data;
+            }
+        }
+
+        return winnerData;
     }
 
 
     public Data findDataWithMinTimeStamp() {
 
+        /*
         //Comparator for Data (order by Value)
         Comparator<Data> dataCmp = Comparator.comparing(Data::getTimestamp);
         //find the max
         return this.getDatas().stream().min(dataCmp).get();
+        */
+
+        long minTimeStamp = 10 ^ 14;
+        Data winnerData = null;
+
+        for (Data data : this.getDatas()) {
+
+            if (data.getTimestamp() < minTimeStamp) {
+                minTimeStamp = data.getTimestamp();
+                winnerData = data;
+            }
+        }
+
+        return winnerData;
+
     }
 
 
@@ -222,157 +285,3 @@ public class Sensor implements Parcelable {
         }
     };
 }
-
-
-
-
-/* VERSIONE CLASSE NORMALE-----------------------------------------------------
-public class Sensor {
-
-    private String urlCode;
-    private String name;
-    private ArrayList<Data> datas = new ArrayList<>();
-    private String unitOfMeasure;
-    private int conversionFactor; //(10^x): is for convert in better order (ex: kW instead mW)
-
-
-    //sensore vuoto
-    public Sensor() {
-    }
-
-
-    //sensore senza valori
-    public Sensor(String urlCode, String name) {
-        this.urlCode = urlCode;
-        this.name = name;
-
-        setConversionFactorByUrlCode();
-    }
-
-    //sensore con valore già acquisito
-    public Sensor(String urlCode, String unit, ArrayList<Data> datas, String name, int conv) {
-        this.urlCode = urlCode;
-        this.unitOfMeasure = unit;
-        this.datas = datas;
-        this.name = name;
-        this.conversionFactor = conv;
-
-    }
-
-
-    public void setUnitOfMeasure(String unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
-    }
-
-    public void setConversionFactor(int conversionFactor) {
-        this.conversionFactor = conversionFactor;
-    }
-
-    public void addValue(double value, long timestamp) {
-        //todo da togliere
-        //System.out.println("value-timestamp aggiunto: " + value + "-" + timestamp);
-        this.datas.add(new Data(value, timestamp));
-    }
-
-
-
-    public void setConversionFactorByUrlCode() {
-
-        //TODO aggiungere casi mancanti al metodo (vedi sigle mancanti in sensorlist)
-        switch (this.urlCode) {
-            case "/actpw": {
-                unitOfMeasure = "kW";
-                conversionFactor = 100000; //5-6 cifre
-                break;
-            }
-            case "/pwf": {
-                unitOfMeasure = "-";
-                conversionFactor = 100; //3 cifre
-                break;
-            }
-            case "/cur/1": {
-                unitOfMeasure = "A";
-                conversionFactor = 100; //3 cifre
-                break;
-            }
-            case "/cur/3": {
-                unitOfMeasure = "A";
-                conversionFactor = 100; //3 cifre
-                break;
-            }
-            case "/cur/2": {
-                unitOfMeasure = "A";
-                conversionFactor = 100; // 3 cifre
-                break;
-            }
-            case "/appw": {
-                unitOfMeasure = "kVA"; //6-7 cifre
-                conversionFactor = 10000;
-                break;
-            }
-            case "/reactpw": {
-                unitOfMeasure = "kVAR"; //6-7 cifre
-                conversionFactor = 10000;
-                break;
-            }
-            default:
-                break;
-        }
-    }
-
-    public int getConversionFactor() {
-        return conversionFactor;
-    }
-
-    public String getUrlString() {
-        return urlCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    public ArrayList<Data> getDatas() {
-        return datas;
-    }
-
-    public String getUnitOfMeasure() {
-        return unitOfMeasure;
-    }
-
-
-    //static method for mapping Sensor UrlCode to Unit of Measure
-    public static String getUnitOfMeasureByUrlCode(String urlcode) {
-        switch (urlcode) {
-            case "/actpw": {
-                return "kW";
-            }
-            case "/pwf": {
-                return " ";
-            }
-            case "/cur/1": {
-                return "A";
-            }
-            case "/cur/3": {
-                return "A";
-            }
-            case "/cur/2": {
-                return "A";
-            }
-            case "/appw": {
-                return "kVA";
-            }
-            case "/reactpw": {
-                return "kVAR";
-            }
-            default:
-                return "";
-        }
-    }
-
-}
-
---------------------------------------------------*/
-
-

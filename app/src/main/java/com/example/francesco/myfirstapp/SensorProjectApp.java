@@ -27,76 +27,90 @@ public class SensorProjectApp extends Application {
     //METHOD________________________________________________________________________________
 
 
+
     public void testUpdate() {
         System.out.println("test update: \n \n");
-        globalSensorData.getMeters().forEach(meter -> {
+
+
+        for (Meter meter : globalSensorData.getMeters()) {
             System.out.println("meter name: " + meter.getName());
-            globalSensorData.getSensorsByMeter(meter).forEach(sensor -> {
+
+            for (Sensor sensor : globalSensorData.getSensorsByMeter(meter)) {
                 System.out.println(" - sensore: " + sensor.getName());
-                sensor.getDatas().forEach(d -> {
+
+                for (Data d : sensor.getDatas()) {
                     System.out.println("    .. " + d.getValue() + "-" + d.getTimestamp());
-                });
-            });
-        });
+                }
+            }
+        }
     }
 
 
     public void setGlobalData(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
 
+
         //per ogni misura contenuta in response
-        response.getMeasuresList().forEach(measure -> {
+        for (Measure measure : response.getMeasuresList()) {
 
-            //cerca dentro globaldata la giusta coppia Meter-Sensor e aggiungici i dati contenuti nella misura
-            globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).forEach(sensor -> {
+            //cerca dentro globaldata la giusta coppia Meter-Sensor e aggiunge i dati contenuti nella misura
+            for (Sensor sensor : globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString())) {
+
                 if (sensor.getUrlString().equals(chosenSensor.getUrlString())) {
-
-                    //set the measure unit and the conversion factor
-                    //TODO aggiungere casi mancanti al metodo (vedi sigle mancanti in sensorlist)
-                    //sensor.setConversionFactorByUrlCode();
 
                     //add convertedValue + timestamp
                     sensor.addValue(
                             (double) (measure.getValue() / sensor.getConversionFactor())
                             ,
                             measure.getTimeStamp());
-
                 }
-            });
-        });
+            }
+        }
 
 
         //TODO DA TOGLiere
         testUpdate(); //STAMPA A VIDEO la GlobalSensorData
-
-
-
     }
+
 
 
     public double getLastValueFromMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
         //TODO aggiungere try catch per caso data.size = 0
 
+
         //extract the right sensor
-        Sensor ss = globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
-                filter(sensor -> sensor.getUrlString().equals(chosenSensor.getUrlString())).findAny().get();
+        Sensor ss = getSensorByMeterAndSensor(chosenMeter, chosenSensor);
 
         //extract last value added to data list
         return ss.getDatas().get(ss.getDatas().size() - 1).getValue();
     }
 
 
+
     public long getLastTimestampFromMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
         //TODO aggiungere try catch per caso data.size = 0
 
         //extract the right sensor
-        Sensor ss = globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString()).stream().
-                filter(sensor -> sensor.getUrlString().equals(chosenSensor.getUrlString())).findAny().get();
+        Sensor sensor = getSensorByMeterAndSensor(chosenMeter, chosenSensor);
 
-        //extract last value added to data list
-        return ss.getDatas().get(ss.getDatas().size() - 1).getTimestamp();
+        //extract last timeStamp added to data list
+        return sensor.getDatas().get(sensor.getDatas().size() - 1).getTimestamp();
+
     }
 
 
+    public Sensor getSensorByMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
+        //extract the selected sensor in the selected 'chosenMeter' list
+        Sensor winSensor = null;
+
+        for (Sensor sensor : globalSensorData.getSensorsByUrlMeter(chosenMeter.getUrlString())) {
+            if (sensor.getUrlString().equals(chosenSensor.getUrlString())) {
+
+                winSensor = sensor;
+            }
+        }
+
+        return winSensor;
+    }
 
 
     public static Sensor createParceableDataResponse(Netsens response, Sensor chosenSensor) {
@@ -104,9 +118,9 @@ public class SensorProjectApp extends Application {
 
         Sensor ss = new Sensor(chosenSensor.getUrlString(), chosenSensor.getName());
         //put data into object
-        response.getMeasuresList().forEach(measure ->
-                ss.addValue(measure.getValue(), measure.getTimeStamp())
-        );
+        for (Measure m : response.getMeasuresList()) {
+            ss.addValue(m.getValue(), m.getTimeStamp());
+        }
 
         return ss;
 

@@ -14,15 +14,15 @@ test su bottone sendmessage (vecchio) OK
 
 ____ TODO
 
-API support___
-gradle compila con 23
-TODO scaricare simulatore con API 23 e testare
-TODO troare configurazione gradle per Lollipop e poi testre su simulatore
-TODO idem con KitKat (19)
+da chiedere
+
+dati ambientali -> richieste particolari?
 
 
 
-
+1) salvataggio dati
+mettere inserimento in memoria con timestamp ordinato??
+gestire i duplicati -> (quando nello stesso sensore ins. dati con timestamp già presente, non devo aggiungerlo!! )
 
 
 2) TimeReadActivity.java:

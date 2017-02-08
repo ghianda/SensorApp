@@ -17,6 +17,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
+
     }
 
 
@@ -33,4 +34,5 @@ public class IntroActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TimeReadActivity.class);
         startActivity(intent);
     }
+
 }

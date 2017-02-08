@@ -49,6 +49,33 @@ public class SensorList {
         sensors = new ArrayList<Sensor>();
 
 
+        //make list for only meter Geom/1F/Rooms/53
+        sensors.add(new Sensor("/temp", "Temperature"));
+        sensors.add(new Sensor("/light", "Light"));
+        sensors.add(new Sensor("/humid", "Humidity"));
+        list.put(new Meter("Geom/1F/Rooms/53", "Aula 53"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //make list for only meter Geom/1F/Rooms/54
+        sensors.add(new Sensor("/temp", "Temperature"));
+        sensors.add(new Sensor("/light", "Light"));
+        sensors.add(new Sensor("/humid", "Humidity"));
+        list.put(new Meter("Geom/1F/Rooms/54", "Aula 54"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
+        //make list for only meter Geom/1F/Rooms/55
+        sensors.add(new Sensor("/temp", "Temperature"));
+        sensors.add(new Sensor("/light", "Light"));
+        sensors.add(new Sensor("/humid", "Humidity"));
+        list.put(new Meter("Geom/1F/Rooms/55", "Aula 55"), sensors);
+        //pulisco la lista sensors
+        sensors = new ArrayList<Sensor>();
+
+
         //add sensor for only meter QG/Lighting
         sensors.add(new Sensor("/con", "Active Energy"));
         sensors.add(new Sensor("/actpw", "Active Power"));
@@ -56,7 +83,10 @@ public class SensorList {
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
         sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        list.put(new Meter("QG/Lighting", "Illuminazione Hall e Aree Comuni"), sensors);
+        sensors.add(new Sensor("/temp", "Temperature"));
+        sensors.add(new Sensor("/light", "Light"));
+        sensors.add(new Sensor("/humid", "Humidity"));
+        list.put(new Meter("QG/Lighting", "Hall e Aree Comuni"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
@@ -151,9 +181,14 @@ public class SensorList {
     public ArrayList<String> getMetersName() {
 
         ArrayList<String> names = new ArrayList<>();
-        list.keySet().forEach(meter -> names.add(meter.getName()));
+
+        for (Meter meter : list.keySet()) {
+            names.add(meter.getName());
+        }
+
         return names;
     }
+
 
 
     //restituisce l'oggetto Meter dall'id
@@ -163,11 +198,21 @@ public class SensorList {
     }
 
 
+
     //nome del Meter dal suo urlString
     public String getMeterNameByUrl(String urlCode) {
-        return list.keySet().stream().filter(m -> m.getUrlString().equals(urlCode))
-                .findFirst().get().getName();
+
+        String meterName = null;
+
+        for (Meter m : list.keySet()) {
+            if (m.getUrlString().equals(urlCode)) {
+                meterName = m.getName();
+            }
+        }
+
+        return meterName;
     }
+
 
     //restituisce la lista dei sensori dalla chiave m
     public Collection<Sensor> getSensorsByMeter(Meter m) {
@@ -195,7 +240,11 @@ public class SensorList {
     public ArrayList<String> getSensorsNamesByMeter(Meter m) {
 
         ArrayList<String> names = new ArrayList<>();
-        list.get(m).forEach(sensor -> names.add(sensor.getName()));
+
+        for (Sensor sensor : list.get(m)) {
+            names.add(sensor.getName());
+        }
+
         return names;
     }
 
@@ -209,12 +258,23 @@ public class SensorList {
 
 
     //restituisce la lista dei sensori dal codice url della chiave
-    public Collection<Sensor> getSensorsByUrlMeter(String urlCode) {
+    public Collection<Sensor> getSensorsByUrlMeter(String urlMeterCode) {
 
+        /*
         return (
                 getSensorsByMeter(list.keySet().stream().
-                        filter(m -> m.getUrlString().equals(urlCode)).findFirst().get())
+                        filter(m -> m.getUrlString().equals(urlMeterCode)).findFirst().get())
         );
+        */
 
+        Collection<Sensor> sensors = null;
+
+        for (Meter m : list.keySet()) {
+            if (m.getUrlString().equals(urlMeterCode)) {
+                sensors = getSensorsByMeter(m);
+            }
+        }
+
+        return sensors;
     }
 }

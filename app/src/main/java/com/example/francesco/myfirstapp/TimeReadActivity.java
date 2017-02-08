@@ -86,6 +86,10 @@ public class TimeReadActivity extends AbstractReadingActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void clearValueTextView() {
+    }
+
 
     @Override
     public int myView() {
@@ -155,10 +159,30 @@ public class TimeReadActivity extends AbstractReadingActivity {
         btToHour = (Button) findViewById(R.id.btToHour);
 
         // definizione dei 4 OnClickListener per i bottoni
-        View.OnClickListener dateFromListener = ((View v) -> showDialog(DATE_FROM_DIALOG_ID));
-        View.OnClickListener dateToListener = ((View v) -> showDialog(DATE_TO_DIALOG_ID));
-        View.OnClickListener hourFromListener = ((View v) -> showDialog(HOUR_FROM_DIALOG_ID));
-        View.OnClickListener hourToListener = ((View v) -> showDialog(HOUR_TO_DIALOG_ID));
+        View.OnClickListener dateFromListener = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeReadActivity.this.showDialog(DATE_FROM_DIALOG_ID);
+            }
+        });
+        View.OnClickListener dateToListener = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeReadActivity.this.showDialog(DATE_TO_DIALOG_ID);
+            }
+        });
+        View.OnClickListener hourFromListener = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeReadActivity.this.showDialog(HOUR_FROM_DIALOG_ID);
+            }
+        });
+        View.OnClickListener hourToListener = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeReadActivity.this.showDialog(HOUR_TO_DIALOG_ID);
+            }
+        });
 
         //associazione listener ai bottoni
         btFromDate.setOnClickListener(dateFromListener);
@@ -193,49 +217,57 @@ public class TimeReadActivity extends AbstractReadingActivity {
     //METODI PICKER
 
     //Dichiarazione picker DATE FROM
-    private DatePickerDialog.OnDateSetListener dateFromPickerListener = ((DatePicker view, int selectedYear,
-                                                                          int selectedMonth, int selectedDay) -> {
-        //update fromDate object
-        fromDate.set(selectedYear, selectedMonth, selectedDay);
-        // update selected date on button text
-        setDisplayDate(btFromDate, fromDate);
+    private DatePickerDialog.OnDateSetListener dateFromPickerListener = (new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+            //update fromDate object
+            fromDate.set(selectedYear, selectedMonth, selectedDay);
+            // update selected date on button text
+            TimeReadActivity.this.setDisplayDate(btFromDate, fromDate);
+        }
     });
 
 
     //Dichiarazione  Picker TIME FROM
-    private TimePickerDialog.OnTimeSetListener timeFromPickerListener = ((TimePicker view, int selectedHour,
-                                                                          int selectedMinute) -> {
-        //update fromDate object
-        fromDate.set(Calendar.HOUR_OF_DAY, selectedHour);
-        fromDate.set(Calendar.MINUTE, selectedMinute);
-        fromDate.set(Calendar.SECOND, 0);
-        // update selected hour on button text
-        setDisplayHour(btFromHour, fromDate);
+    private TimePickerDialog.OnTimeSetListener timeFromPickerListener = (new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+            //update fromDate object
+            fromDate.set(Calendar.HOUR_OF_DAY, selectedHour);
+            fromDate.set(Calendar.MINUTE, selectedMinute);
+            fromDate.set(Calendar.SECOND, 0);
+            // update selected hour on button text
+            TimeReadActivity.this.setDisplayHour(btFromHour, fromDate);
+        }
     });
 
 
     //Dichiarazione de Picker DATE TO
-    private DatePickerDialog.OnDateSetListener dateToPickerListener = ((DatePicker view, int selectedYear,
-                                                                        int selectedMonth, int selectedDay) -> {
+    private DatePickerDialog.OnDateSetListener dateToPickerListener = (new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
 
-        //update fromDate object
-        toDate.set(selectedYear, selectedMonth, selectedDay);
-        // update selected date on button text
-        setDisplayDate(btToDate, toDate);
+            //update fromDate object
+            toDate.set(selectedYear, selectedMonth, selectedDay);
+            // update selected date on button text
+            TimeReadActivity.this.setDisplayDate(btToDate, toDate);
 
+        }
     });
 
 
     //Dichiarazione de Picker TIME TO
-    private TimePickerDialog.OnTimeSetListener timeToPickerListener = ((TimePicker view, int selectedHour,
-                                                                        int selectedMinute) -> {
+    private TimePickerDialog.OnTimeSetListener timeToPickerListener = (new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
 
-        //update fromDate object
-        toDate.set(Calendar.HOUR_OF_DAY, selectedHour);
-        toDate.set(Calendar.MINUTE, selectedMinute);
-        toDate.set(Calendar.SECOND, 0);
-        // update selected hour on button text
-        setDisplayHour(btToHour, toDate);
+            //update fromDate object
+            toDate.set(Calendar.HOUR_OF_DAY, selectedHour);
+            toDate.set(Calendar.MINUTE, selectedMinute);
+            toDate.set(Calendar.SECOND, 0);
+            // update selected hour on button text
+            TimeReadActivity.this.setDisplayHour(btToHour, toDate);
+        }
     });
 
 

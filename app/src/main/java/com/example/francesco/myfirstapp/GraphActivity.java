@@ -16,9 +16,8 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.OptionalDouble;
-import java.util.OptionalLong;
 
 public class GraphActivity extends AppCompatActivity {
 
@@ -45,6 +44,7 @@ public class GraphActivity extends AppCompatActivity {
     }
 
 
+    /*
     //calculate the average of value and set into TextView
     private void setAvgTv(Sensor ss) {
 
@@ -58,6 +58,24 @@ public class GraphActivity extends AppCompatActivity {
 
         //else
         if (!avg.isPresent()) tvAvg.setText(R.string.dataError);
+    }
+    */
+
+
+    //calculate the average of value and set into TextView
+    private void setAvgTv(Sensor ss) {
+
+        double avg = 0;
+        TextView tvAvg = (TextView) findViewById(R.id.tvAverage);
+
+        if (ss.getDatas().size() > 0) {
+            for (Data data : ss.getDatas()) {
+                avg += data.getValue();
+            }
+            avg /= ss.getDatas().size();
+
+            setValueInTv(avg / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvAvg);
+        } else tvAvg.setText(R.string.dataError);
     }
 
 
@@ -84,6 +102,9 @@ public class GraphActivity extends AppCompatActivity {
     private void setMinTv(Sensor ss, TextView tvValue, TextView tvTime) {
 
         Data minValueData = ss.findDataWithMinValue();
+
+        //TODO da togliere
+        System.out.println(minValueData);
 
         setValueInTv(minValueData.getValue() / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvValue);
         setTimeInTv(minValueData, tvTime);
@@ -153,17 +174,19 @@ public class GraphActivity extends AppCompatActivity {
 
         //Extract the Timestamp array
         ArrayList<Long> oldTS = new ArrayList<>();
-        ss.getDatas().forEach(data -> {
+        for (Data data : ss.getDatas()) {
             oldTS.add(data.getTimestamp());
-        });
+        }
 
         //find the min Timestamp
-        OptionalLong referenceTimestamp = oldTS.stream().mapToLong(t -> t).min();
+        long referenceTimestamp = Collections.min(oldTS);
+
 
         //put rearranged timestamp and data value into entries
-        ss.getDatas().forEach(data ->
-                entries.add(new Entry((float) data.getTimestamp() - referenceTimestamp.getAsLong(),
-                        (float) data.getValue())));
+        for (Data data : ss.getDatas()) {
+            entries.add(new Entry((float) data.getTimestamp() - referenceTimestamp,
+                    (float) data.getValue()));
+        }
 
         //creo LineDataSet
         LineDataSet dataSet = new LineDataSet(entries, "label");
@@ -172,7 +195,7 @@ public class GraphActivity extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
-        IAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp.getAsLong());
+        IAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(xAxisFormatter);
 

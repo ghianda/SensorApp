@@ -17,6 +17,5 @@ public class DisplayTimeResultActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_display_message); //TODO sost con displayGR_main (xml da fare)
 
-        System.out.println("DisplayGetResultActivity CREATED");
     }
 }
