@@ -8,12 +8,12 @@ import java.text.DecimalFormat;
  * Created by francesco on 31/12/2016.
  */
 
-public class LastReadActivity extends AbstractReadingActivity {
+public class ActivityLastRead extends ActivityAbstractReading {
 
 
     @Override
     public int myView() {
-        return R.layout.last_reading_activity;
+        return R.layout.activity_last_reading;
     }
 
 

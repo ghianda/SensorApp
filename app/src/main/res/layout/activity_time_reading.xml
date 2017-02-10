@@ -9,10 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
-    <!-- TODO ??    Posso inserire la data (o l'ora) selezionata al posto del NOME del bottone?? risparmio la textview e viene più intuitivo !!
-        TODO       potrei far modificare runtime il NOME (inserendo la date selezionata (o l'ora) e
-        TODO          FARE IL BOTTONE ROSSO SE LE DATE SELEZIONATE DANNO GET VUOTA O VERDE SE LA SELEZIONE è OK -->
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,7 +123,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btGetRequest"
+            android:text="@string/btRead"
             android:onClick="read" />
 
     </LinearLayout>

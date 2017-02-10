@@ -21,4 +21,13 @@
     <string name="tvDisplayMin">Minimo</string>
     <string name="text_toast_net_slow">Forse la connessione è troppo lenta....</string>
     <string name="text_toast_no_data">" Nessun dato ricevuto !"</string>
+    <string name="graph_activity_name">Risultati</string>
+    <string name="lastRead_activity_name">Ultima Lettura</string>
+    <string name="timeRead_activity_name">Intervallo di Tempo</string>
+    <string name="btDate">Data</string>
+    <string name="btHour">Ora</string>
+    <string name="action_sign_in">Accedi</string>
+    <string name="dataError">NO DATA</string>
+    <string name="service_description"></string>
+    <string name="buttonLogin">Accedi</string>
 </resources>

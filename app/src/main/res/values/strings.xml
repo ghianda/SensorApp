@@ -1,17 +1,13 @@
 <resources>
+    <!-- Titles -->
     <string name="app_name">Lumen</string>
-    <string name="edit_message">Enter a message</string>
-    <string name="button_send">Send</string>
-    <string name="text_net_message">Try string_get request</string>
-    <string name="network_button">Connect </string>
-    <string name="text_net_xml_get">Try OLD xml_get request (from url)</string>
-    <string name="selectSensorText">Select a sensor for the get</string>
+    <string name="timeRead_activity_name"> History Search </string>
+    <string name="lastRead_activity_name"> Last Reading </string>
+    <string name="graph_activity_name"> Result </string>
 
 
-    <!-- nuove:___________________________________________-->
-    <string name="btGetRequest">Read the sensor</string>
-    <string name="dateFormat">DD/MM/YYYY</string>
-    <string name="hourFormat">hh:mm</string>
+    <!-- Login -->
+    <string name="btLogin"> Login </string>
 
     <!--connection-->
     <string name="text_toast_net_ok">You are connected! </string>
@@ -37,7 +33,7 @@
     <string name="t">&amp;to=</string>
 
 
-    <!-- GraphActivity -->
+    <!-- ActivityLinearGraph -->
     <string name="tvDisplayAvg">" Average"</string>
     <string name="tvDisplayMin">" Min Value"</string>
     <string name="tvDisplayMax">" Max Value"</string>
@@ -47,4 +43,11 @@
     <!-- Service -->
     <!--TODO cambiare nome app-->
     <string name="service_description"> Lumen service background: check the light value in realTime</string>
+    <string name="title_activity_aaa">AAAA</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
 </resources>

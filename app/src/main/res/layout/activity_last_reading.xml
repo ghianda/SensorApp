@@ -44,26 +44,6 @@
         android:id="@+id/SensorSpinner" />
 
     <TextView
-        android:text=" "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SensorSpinner"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_marginTop="119dp"
-        android:id="@+id/tvDisplayValueResult" />
-
-    <TextView
-        android:id="@+id/tvDisplayTimeResult"
-        android:text=" "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:layout_below="@+id/tvDisplayValueResult"
-        android:layout_alignLeft="@+id/tvDisplayValueResult"
-        android:layout_alignStart="@+id/tvDisplayValueResult" />
-
-    <TextView
         android:text="@string/tvSelectMeter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,13 +57,34 @@
         android:text="@string/btLastReading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="59dp"
-        android:layout_marginStart="59dp"
         android:id="@+id/btLastRead"
-        android:layout_above="@+id/tvDisplayTimeResult"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:onClick="read" />
+        android:onClick="read"
+        android:layout_alignBottom="@+id/tvDisplayValueResult"
+        android:layout_alignRight="@+id/MeterSpinner"
+        android:layout_alignEnd="@+id/MeterSpinner" />
+
+    <TextView
+        android:id="@+id/tvDisplayValueResult"
+        android:text=" "
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="126dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/SensorSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
+
+    <TextView
+        android:id="@+id/tvDisplayTimeResult"
+        android:text=" "
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/btLastRead"
+        android:layout_alignLeft="@+id/tvDisplayValueResult"
+        android:layout_alignStart="@+id/tvDisplayValueResult" />
 
 
 </RelativeLayout>

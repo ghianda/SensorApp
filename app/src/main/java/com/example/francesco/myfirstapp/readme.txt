@@ -16,7 +16,8 @@ ____ TODO
 
 da chiedere
 
-dati ambientali -> richieste particolari?
+1) service -> mettere controllo statico sulla prima attivazione di activit yIntro, sennò
+mi parte un service ogni volta che faccio l'oncreate dell Intro!!
 
 
 

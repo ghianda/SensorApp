@@ -10,17 +10,13 @@ import android.view.View;
  * Created by francesco on 22/12/2016.
  */
 
-public class IntroActivity extends AppCompatActivity {
+public class ActivityIntro extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.intro_activity);
-
-        //start the service in background
-        Intent intent = new Intent(this, LightIntentService.class);
-        startService(intent);
+        setContentView(R.layout.activity_intro);
 
     }
 
@@ -28,14 +24,14 @@ public class IntroActivity extends AppCompatActivity {
     /*  Start Last_Reading button method    */
     public void startLastReadActivity(View view) {
 
-        Intent intent = new Intent(this, LastReadActivity.class);
+        Intent intent = new Intent(this, ActivityLastRead.class);
         startActivity(intent);
     }
 
     /*  Start Time_Get button activity*/
     public void startTimeActivity(View view) {
 
-        Intent intent = new Intent(this, TimeReadActivity.class);
+        Intent intent = new Intent(this, ActivityTimeRead.class);
         startActivity(intent);
     }
 

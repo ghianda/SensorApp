@@ -30,7 +30,7 @@ import com.android.volley.toolbox.Volley;
     */
 
 
-public abstract class AbstractReadingActivity extends AppCompatActivity {
+public abstract class ActivityAbstractReading extends AppCompatActivity {
     //Attribute --------------------------------
     protected final static SensorList allSensors = new SensorList(); //lista di coppie (meter -> elenco sensori)
     protected static ArrayAdapter<String> spinMeterAdapter;
@@ -47,6 +47,7 @@ public abstract class AbstractReadingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(myView());
+        //getActionBar().setDisplayHomeAsUpEnabled(true); //visualizza "freccia indietro" in actionbar
 
         //preparazione degli spinner dei Sensori
         setSensorsSpinner();

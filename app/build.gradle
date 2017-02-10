@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.francesco.myfirstapp"
-        minSdkVersion 15        //minima API necessaria per far funzionare l'app
+        minSdkVersion 16        //minima API necessaria per far funzionare l'app
         targetSdkVersion 25     //appgarantita per funzionante su quell'API o inferiori
         versionCode 1
         versionName "1.0"
@@ -43,9 +43,10 @@ dependencies {
     }
 
 
-    //24
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
+
+    compile 'com.android.support:design:25.1.0'
 
 
     testCompile 'junit:junit:4.12'
@@ -56,5 +57,5 @@ dependencies {
     //MPAndroidChart library
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 
-    //Stream Support
+
 }

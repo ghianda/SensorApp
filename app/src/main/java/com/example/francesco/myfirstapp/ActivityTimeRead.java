@@ -15,7 +15,7 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeReadActivity extends AbstractReadingActivity {
+public class ActivityTimeRead extends ActivityAbstractReading {
 
     //Attribute_------------------------------------------------------------------
     //TODO in futuro da togliere______
@@ -57,6 +57,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(myView());
+        //getActionBar().setDisplayHomeAsUpEnabled(true); //visualizza "freccia indietro" in actionbar
 
         //preparazione degli spinner dei Sensori
         setSensorsSpinner();
@@ -76,7 +77,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
     public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
         //intent to new activiy (mean, count and graph]
         //creating a intent
-        Intent intent = new Intent(this, GraphActivity.class);
+        Intent intent = new Intent(this, ActivityLinearGraph.class);
         //put data in yhe intent
         //todo dovrò metterci array(double), urlMeter
         Sensor parcObj = SensorProjectApp.createParceableDataResponse(response, chosenSensor);
@@ -93,7 +94,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
 
     @Override
     public int myView() {
-        return R.layout.time_reading_activity;
+        return R.layout.activity_time_reading;
     }
 
     @Override
@@ -162,25 +163,25 @@ public class TimeReadActivity extends AbstractReadingActivity {
         View.OnClickListener dateFromListener = (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimeReadActivity.this.showDialog(DATE_FROM_DIALOG_ID);
+                ActivityTimeRead.this.showDialog(DATE_FROM_DIALOG_ID);
             }
         });
         View.OnClickListener dateToListener = (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimeReadActivity.this.showDialog(DATE_TO_DIALOG_ID);
+                ActivityTimeRead.this.showDialog(DATE_TO_DIALOG_ID);
             }
         });
         View.OnClickListener hourFromListener = (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimeReadActivity.this.showDialog(HOUR_FROM_DIALOG_ID);
+                ActivityTimeRead.this.showDialog(HOUR_FROM_DIALOG_ID);
             }
         });
         View.OnClickListener hourToListener = (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimeReadActivity.this.showDialog(HOUR_TO_DIALOG_ID);
+                ActivityTimeRead.this.showDialog(HOUR_TO_DIALOG_ID);
             }
         });
 
@@ -223,7 +224,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
             //update fromDate object
             fromDate.set(selectedYear, selectedMonth, selectedDay);
             // update selected date on button text
-            TimeReadActivity.this.setDisplayDate(btFromDate, fromDate);
+            ActivityTimeRead.this.setDisplayDate(btFromDate, fromDate);
         }
     });
 
@@ -237,7 +238,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
             fromDate.set(Calendar.MINUTE, selectedMinute);
             fromDate.set(Calendar.SECOND, 0);
             // update selected hour on button text
-            TimeReadActivity.this.setDisplayHour(btFromHour, fromDate);
+            ActivityTimeRead.this.setDisplayHour(btFromHour, fromDate);
         }
     });
 
@@ -250,7 +251,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
             //update fromDate object
             toDate.set(selectedYear, selectedMonth, selectedDay);
             // update selected date on button text
-            TimeReadActivity.this.setDisplayDate(btToDate, toDate);
+            ActivityTimeRead.this.setDisplayDate(btToDate, toDate);
 
         }
     });
@@ -266,7 +267,7 @@ public class TimeReadActivity extends AbstractReadingActivity {
             toDate.set(Calendar.MINUTE, selectedMinute);
             toDate.set(Calendar.SECOND, 0);
             // update selected hour on button text
-            TimeReadActivity.this.setDisplayHour(btToHour, toDate);
+            ActivityTimeRead.this.setDisplayHour(btToHour, toDate);
         }
     });
 
