@@ -17,26 +17,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Last Reading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:id="@+id/button2"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:onClick="startLastReadActivity" />
-
-    <Button
-        android:text="Set Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:layout_marginTop="62dp"
-        android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:onClick="startTimeActivity" />
-
     <!-- TODO futuro (eventuale) bottone login-->
     <!--TODO cercare immagine per login - chiedere giovanni (serve un login??) -->
     <ImageButton
@@ -50,5 +30,47 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="13dp"
         android:id="@+id/imageButton" />
+
+    <Button
+        android:text="Last Reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:onClick="startLastReadActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="130dp" />
+
+    <Button
+        android:text="Set Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="startTimeActivity"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_marginTop="42dp"
+        android:text="Servizio in Background"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:id="@+id/switchService" />
 
 </RelativeLayout>

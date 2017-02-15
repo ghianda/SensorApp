@@ -12,26 +12,24 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+
+/**The started service starts the AlarmManager that repeat the Background task. */
 public class StarterService extends Service {
 
-    private static PendingIntent piForStop = null;
     private static final String TAG = "StarterService";
-
-
-    /**
-     * The started service starts the AlarmManager.
-     */
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //create the intent for start NotificationBarAlarm
-        Intent i = new Intent(this, NotificationBarAlarm.class);
+
+
+        //create the intent for start BackgroundTask
+        Intent i = new Intent(this, BackgroundTask.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Repeat the task every 15 seconds (15000)
+        // Repeat the BackgroundTask every 15 seconds (15000)
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 15000, pi);
 
@@ -51,10 +49,5 @@ public class StarterService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "My Service stopped", Toast.LENGTH_LONG).show();
         Log.i(TAG, "onDestroy");
-    }
-
-
-    public static void stopAlarm(){
-
     }
 }

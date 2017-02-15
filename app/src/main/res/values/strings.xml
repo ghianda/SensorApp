@@ -42,6 +42,7 @@
 
     <!-- Service -->
     <!--TODO cambiare nome app-->
+    <string name="pref_service"> Attivazione servizio in background </string>
     <string name="service_description"> Lumen service background: check the light value in realTime</string>
     <string name="title_activity_aaa">AAAA</string>
 

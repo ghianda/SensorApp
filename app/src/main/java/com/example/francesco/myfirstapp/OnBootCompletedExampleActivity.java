@@ -25,4 +25,5 @@ public class OnBootCompletedExampleActivity extends AppCompatActivity {
         NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nMgr.cancelAll();
     }
+
 }

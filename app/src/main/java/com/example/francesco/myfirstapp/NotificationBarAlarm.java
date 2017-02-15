@@ -24,20 +24,19 @@ public class NotificationBarAlarm extends BroadcastReceiver {
 
         notifyManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // OnBootCompletedExampleActivity will be started when the user clicks the notification
+        // ActivityDisplayAlarm will be started when the user clicks the notification
         // in the notification bar
-        Intent notificationIntent = new Intent(context, OnBootCompletedExampleActivity.class);
+        Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-        //sostituisco con
 
         //todo fare funzione che mi crea la notifica per benino
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         builder.setAutoCancel(false);
         builder.setTicker("this is ticker text");
-        builder.setContentTitle("WhatsApp Notification");
+        builder.setContentTitle("Gaia Notification");
         builder.setContentText("You have a new message");
         builder.setSmallIcon(R.drawable.marker2);
         builder.setContentIntent(contentIntent);
