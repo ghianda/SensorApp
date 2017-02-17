@@ -12,6 +12,8 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.serviceRepeatPeriodInMillis;
+
 
 /**The started service starts the AlarmManager that repeat the Background task. */
 public class StarterService extends Service {
@@ -29,9 +31,9 @@ public class StarterService extends Service {
 
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Repeat the BackgroundTask every 15 seconds (15000)
+        // Repeat the BackgroundTask every 10 seconds (10000)
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 15000, pi);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), serviceRepeatPeriodInMillis, pi);
 
         Toast.makeText(this, "My Service started", Toast.LENGTH_LONG).show();
         Log.i(TAG, "Received start id " + startId + ": " + intent);

@@ -14,10 +14,11 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 
 public class ActivityLinearGraph extends AppCompatActivity {
 
@@ -129,15 +130,12 @@ public class ActivityLinearGraph extends AppCompatActivity {
     }
 
 
+
     //set the value in the textview with correct format and unit of measure
     private void setValueInTv(double v, String unit, TextView tv) {
 
-        //formatto il valore in Stringa
-        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
-        String stringValue = frmt.format(v);
-        tv.setText(new StringBuilder()
-                .append(stringValue).append(" ")
-                .append(unit));
+        String stringValue = fixUnit(v, unit);
+        tv.setText(stringValue);
     }
 
 

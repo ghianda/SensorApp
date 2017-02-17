@@ -17,12 +17,8 @@ public class Sensor implements Parcelable {
     private String name;
     private ArrayList<Data> datas = new ArrayList<>();
     private String unitOfMeasure;
-    private int conversionFactor; //(10^x): is for convert in better order (ex: kW instead mW)
+    private int conversionFactor; //(10^x): is for converted from centiUnit (10^-2)
 
-
-    //sensore vuoto
-    public Sensor() {
-    }
 
 
     //sensore senza valori
@@ -44,27 +40,11 @@ public class Sensor implements Parcelable {
     }
 
 
-    public void setUnitOfMeasure(String unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
-    }
-
-    public void setConversionFactor(int conversionFactor) {
-        this.conversionFactor = conversionFactor;
-    }
 
     public void addValue(double value, long timestamp) {
-        //todo da togliere
-        //System.out.println("value-timestamp aggiunto: " + value + "-" + timestamp);
         this.datas.add(new Data(value, timestamp));
     }
 
-    /*TODO
-    public ArrayList<Long> getConvertedValues(){
-        ArrayList<Long> convertedValues = new ArrayList<Long>();
-        this.datas.forEach(d -> convertedValues.add(d.getValue() * this.conversionFactor));
-        return  convertedValues;
-    }
-    */
 
 
     public void setConversionFactorByUrlCode() {
@@ -106,7 +86,7 @@ public class Sensor implements Parcelable {
             }
             case "/pwf": {
                 unitOfMeasure = " ";
-                conversionFactor = 100; //3 cifre
+                conversionFactor = 1000; //3 cifre ( 0 < cos(x) < 1)
                 break;
             }
             case "/cur/1": {
@@ -163,13 +143,6 @@ public class Sensor implements Parcelable {
     //return the data with max value
     public Data findDataWithMaxValue() {
 
-        /*
-        //Comparator for Data (order by Value)
-        Comparator<Data> dataCmp = Comparator.comparing(Data::getValue);
-        //find the max
-        return this.getDatas().stream().max(dataCmp).get();
-        */
-
 
         double maxValue = -10 ^ 12;
         Data winnerData = null;
@@ -189,12 +162,6 @@ public class Sensor implements Parcelable {
     //return the data with min value
     public Data findDataWithMinValue() {
 
-        /*
-        //Comparator for Data (order by Value)
-        Comparator<Data> dataCmp = Comparator.comparing(Data::getValue);
-        //find the max
-        return this.getDatas().stream().min(dataCmp).get();
-        */
 
         double minValue = this.getDatas().get(0).getValue();
         Data winnerData = this.getDatas().get(0);
@@ -216,12 +183,6 @@ public class Sensor implements Parcelable {
 
     public Data findDataWithMinTimeStamp() {
 
-        /*
-        //Comparator for Data (order by Value)
-        Comparator<Data> dataCmp = Comparator.comparing(Data::getTimestamp);
-        //find the max
-        return this.getDatas().stream().min(dataCmp).get();
-        */
 
         long minTimeStamp = 10 ^ 14;
         Data winnerData = null;

@@ -9,13 +9,35 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
+    <!--FROM selection -->
+
+    <!--TO selection -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btTimeRead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btRead"
+            android:onClick="read" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -36,7 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="53dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -54,11 +78,12 @@
             android:layout_marginStart="34dp" />
     </LinearLayout>
 
-    <!--FROM selection -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="102dp"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -83,11 +108,12 @@
             android:text="@string/btHour" />
     </LinearLayout>
 
-    <!--TO selection -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="330dp">
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="0dp"
@@ -108,24 +134,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btHour" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btTimeRead"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btRead"
-            android:onClick="read" />
-
     </LinearLayout>
 
 

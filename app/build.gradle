@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.francesco.myfirstapp"
-        minSdkVersion 16        //minima API necessaria per far funzionare l'app
+        minSdkVersion 15        //minima API necessaria per far funzionare l'app
         targetSdkVersion 25     //appgarantita per funzionante su quell'API o inferiori
         versionCode 1
         versionName "1.0"

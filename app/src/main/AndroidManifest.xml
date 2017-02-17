@@ -41,6 +41,12 @@
             android:label="graph_activity_name"
             android:parentActivityName=".ActivityTimeRead" />
 
+        <activity android:name=".ActivityLogin" />
+        <activity android:name=".ActivityIntroNew" />
+        <activity android:name=".ActivityDisplayAlarm" />
+
+
+
         <!-- ricevitori -->
         <receiver android:name=".NotificationBarAlarm" />
         <receiver
@@ -52,6 +58,7 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".BackgroundTask" />
 
         <!-- ********** SERVICE ***************** -->
         <service
@@ -60,9 +67,7 @@
             android:exported="true" />
         <!-- NOTA BENE [] android:exported -> permetto ad activity di altre app di avviare questo service -->
 
-        <activity android:name=".ActivityLogin" />
-        <activity android:name=".ActivityIntroNew" />
-        <activity android:name=".ActivityDisplayAlarm"></activity>
+
     </application>
 
 </manifest>

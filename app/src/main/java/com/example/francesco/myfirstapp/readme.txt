@@ -14,6 +14,17 @@ test su bottone sendmessage (vecchio) OK
 
 ____ TODO
 
+DA QUI
+mi da errore sulla risposta response (come se fosse vuota):
+provare a fare tutto da dentro il listsner del ParseUrl (come in abstractreading) facebdo partire da li dei metodi
+e senza fargli ritornare roba o agg la response all'hashmap
+
+provare a salvare da dentro volley solo i 4 valori, e poi capire se
+1) se salvo e basta, poi ESCE da volley? me li ritrovo nella var globale? se si, metto in coda una funzione che li tira fuori e fa i vari if
+2) se non esce da volley (??) come faccio a fare i controlli da li dentro? faccio due volley! devo fare il controllo solo alla seconda interrogazione
+(es: facendo prima light e poi power, posso mettere IF(power) -> controlla (tutto dentro il corpo di volley)
+
+
 !) service (ActivityDisplayAlarm):
 
 1 - quando sono su DisplayAlarmManager, se clicco indietro che succede? e i dati li perdo?

@@ -99,8 +99,6 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            // avviso di connessione effettuata
-            //Toast.makeText(this, R.string.text_toast_net_ok, Toast.LENGTH_SHORT).show();
 
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -129,19 +127,15 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             //override ErrorListener method
-                            System.err.println("onErrorResponse() - errore libreria Volley");
-                            System.err.println(error.getMessage());
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                    error.getMessage(), Toast.LENGTH_SHORT);
+                                    R.string.text_toast_net_error, Toast.LENGTH_SHORT);
                             toast.show();
-
                         }
                     }
             );
 
             // Add the request to the RequestQueue.
-            queue.add(simpleRequest_netsens);   //agg richiesta
-            // fine get___________________________________________________________________
+            queue.add(simpleRequest_netsens);
 
         } else {
             //no connessione disponibile: avviso

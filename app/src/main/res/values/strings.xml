@@ -1,6 +1,6 @@
 <resources>
     <!-- Titles -->
-    <string name="app_name">Lumen</string>
+    <string name="app_name">Gaia</string>
     <string name="timeRead_activity_name"> History Search </string>
     <string name="lastRead_activity_name"> Last Reading </string>
     <string name="graph_activity_name"> Result </string>
@@ -11,7 +11,7 @@
 
     <!--connection-->
     <string name="text_toast_net_ok">You are connected! </string>
-    <string name="text_toast_net_error">No Internet Connection! </string>
+    <string name="text_toast_net_error">Problem with Internet Connection! </string>
     <string name="text_toast_net_slow">Maybe the connection is too slowly…</string>
     <string name="text_toast_no_data">No data received!</string>
 
@@ -34,21 +34,24 @@
 
 
     <!-- ActivityLinearGraph -->
-    <string name="tvDisplayAvg">" Average"</string>
-    <string name="tvDisplayMin">" Min Value"</string>
-    <string name="tvDisplayMax">" Max Value"</string>
+    <string name="tvDisplayAvg">Average</string>
+    <string name="tvDisplayMin">Min Value</string>
+    <string name="tvDisplayMax">Max Value</string>
     <string name="dataError"> NO DATA </string>
 
 
     <!-- Service -->
     <!--TODO cambiare nome app-->
-    <string name="pref_service"> Attivazione servizio in background </string>
-    <string name="service_description"> Lumen service background: check the light value in realTime</string>
-    <string name="title_activity_aaa">AAAA</string>
+    <string name="service_description"> Gaia service background: check the light value in realTime</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+
+
+    <!-- Display Error Activity -->
+    <string name="tvDescription">Average of the last three lectures</string>
+    <string name="tvAvgActPowerValue">Active Power</string>
+    <string name="tvAvgLightValue">Light</string>
+    <string name="pref_service">Background Service attivation</string>
+    <string name="selectSensorText"></string>
 
 </resources>

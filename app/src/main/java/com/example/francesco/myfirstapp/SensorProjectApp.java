@@ -3,6 +3,7 @@ package com.example.francesco.myfirstapp;
 import android.app.Application;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -16,12 +17,21 @@ public class SensorProjectApp extends Application {
     public final static String EXTRA_PARCDATARESPONSE = "com.example.francesco.PARCDATARESPONSE";
     public final static String EXTRA_SENSOR = "com.example.francesco.SENSOR";
     public final static String EXTRA_METER = "com.example.francesco.METER";
+    public final static String EXTRA_LIGHT = "com.example.francesco.AVERAGELIGHT";
+    public final static String EXTRA_ACTPOWER = "com.example.francesco.AVERAGEACTPOWER";
+
 
     //parametri
     static final public String valueFormat = "###.###";
+    static final public long serviceRepeatPeriodInMillis = 10000; //10 seconds
+    static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
 
     //Global data (here we store the sensor value(s)
     static private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
+
+
+    //TODO TRY IT
+    //provare a fare qui una struttura semplice dove salverò (dal corpo di volley) solo value+timestamp di light e actPower
 
 
     //METHOD________________________________________________________________________________
@@ -70,6 +80,9 @@ public class SensorProjectApp extends Application {
         //TODO DA TOGLiere
         testUpdate(); //STAMPA A VIDEO la GlobalSensorData
     }
+
+
+
 
 
 
@@ -163,5 +176,30 @@ public class SensorProjectApp extends Application {
             tv.setText(timeStamp);
         }
 
+    }
+
+
+
+    public static String fixUnit(double value, String unit) {
+        String fixedValue;
+        String prefix = "";
+
+        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
+
+        if (!unit.equals(" ")) {
+            //parameter is not Power Factor, then i fix the unit:
+            if (value < 1) {
+                value = value * 1000;
+                prefix = "m";
+            }
+
+            if (value > 1000) {
+                value = value / 1000;
+                prefix = "K";
+            }
+        }
+
+        fixedValue = frmt.format(value) + " " + prefix + unit;
+        return fixedValue;
     }
 }

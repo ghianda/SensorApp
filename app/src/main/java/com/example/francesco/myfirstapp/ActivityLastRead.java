@@ -2,7 +2,7 @@ package com.example.francesco.myfirstapp;
 
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
+import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 
 /**
  * Created by francesco on 31/12/2016.
@@ -46,11 +46,8 @@ public class ActivityLastRead extends ActivityAbstractReading {
         //VALUE RESULT (set textView)
         TextView tvValue = (TextView) findViewById(R.id.tvDisplayValueResult);
 
-        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
-
         String fixedValue = fixUnit(((SensorProjectApp) this.getApplication()).getLastValueFromMeterAndSensor(chosenMeter, chosenSensor)
-                , chosenSensor.getUnitOfMeasure()
-                , frmt);
+                , chosenSensor.getUnitOfMeasure());
         tvValue.setText(fixedValue);
 
 
@@ -71,23 +68,7 @@ public class ActivityLastRead extends ActivityAbstractReading {
     }
 
 
-    private String fixUnit(double value, String unit, DecimalFormat frmt) {
-        String fixedValue;
-        String prefix = "";
 
-        if (value < 1) {
-            value = value * 1000;
-            prefix = "m";
-        }
-
-        if (value > 1000) {
-            value = value / 1000;
-            prefix = "K";
-        }
-
-        fixedValue = frmt.format(value) + " " + prefix + unit;
-        return fixedValue;
-    }
 
 
 

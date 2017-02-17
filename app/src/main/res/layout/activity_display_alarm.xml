@@ -11,14 +11,63 @@
     tools:context="com.example.francesco.myfirstapp.ActivityDisplayAlarm">
 
     <TextView
-        android:text="questa activity visualizzerà: i valori appena letti (power e lumen), istante lettura e suggerimento su azione"
+        android:text="Future: display here an action to do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp" />
+
+    <TextView
+        android:text="@string/tvAvgLightValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="97dp"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="102dp"
-        android:id="@+id/textView5" />
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="133dp"
+        android:id="@+id/textView7" />
+
+    <TextView
+        android:text="@string/tvAvgActPowerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView7"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_marginTop="56dp"
+        android:id="@+id/textView9" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView9"
+        android:layout_alignLeft="@+id/tvLightValue"
+        android:layout_alignStart="@+id/tvLightValue"
+        android:id="@+id/tvActPowerValue" />
+
+    <TextView
+        android:text="@string/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_marginTop="39dp"
+        android:id="@+id/textView11" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/tvLightValue"
+        android:layout_above="@+id/textView9"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

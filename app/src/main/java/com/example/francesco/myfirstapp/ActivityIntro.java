@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.serviceRepeatPeriodInMillis;
+
 /**
  * Created by francesco on 22/12/2016.
  */
@@ -115,14 +117,15 @@ public class ActivityIntro extends AppCompatActivity {
     public void startSchedulerAlarm(View view){
         //restart the alarm in background that repeat the task
 
-        Intent i = new Intent(this, NotificationBarAlarm.class);
+        Intent i = new Intent(this, BackgroundTask.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Repeat the notification every 15 seconds (15000)
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 15000, pi);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+                serviceRepeatPeriodInMillis, pi);
 
         Toast.makeText(this, "My Service RE-started", Toast.LENGTH_LONG).show();
     }
@@ -132,7 +135,7 @@ public class ActivityIntro extends AppCompatActivity {
         // stop the alarm in background
         //here i recreate the pendingIntent that start the alarm and cancel it with alarm manager
 
-        Intent i = new Intent(getApplicationContext(), NotificationBarAlarm.class);
+        Intent i = new Intent(getApplicationContext(), BackgroundTask.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         final PendingIntent piToStop = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);

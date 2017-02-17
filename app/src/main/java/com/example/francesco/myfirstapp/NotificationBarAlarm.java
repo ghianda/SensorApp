@@ -36,7 +36,7 @@ public class NotificationBarAlarm extends BroadcastReceiver {
 
         builder.setAutoCancel(false);
         builder.setTicker("this is ticker text");
-        builder.setContentTitle("Gaia Notification");
+        builder.setContentTitle("Bar Notification");
         builder.setContentText("You have a new message");
         builder.setSmallIcon(R.drawable.marker2);
         builder.setContentIntent(contentIntent);
@@ -44,7 +44,7 @@ public class NotificationBarAlarm extends BroadcastReceiver {
         builder.setSubText("This is subtext...");   //API level 16
 
         //create the notification object
-        Notification myNotification= builder.build();
+        Notification myNotification = builder.build();
 
         //notify:
         notifyManager.notify(1, myNotification);

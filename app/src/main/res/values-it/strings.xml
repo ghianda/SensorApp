@@ -1,13 +1,7 @@
 <resources>
-    <string name="app_name">Lumen</string>
-    <string name="edit_message">Scrivi un messaggio</string>
-    <string name="button_send">Invia</string>
-    <string name="network_button">Connettiti</string>
-    <string name="text_net_message">Prova una richiesta STRING</string>
-    <string name="text_toast_net_error">Non hai connessione a Internet!</string>
+    <string name="app_name">Gaia</string>
+    <string name="text_toast_net_error">La connessione alla rete non risponde</string>
     <string name="text_toast_net_ok">Sei connesso!</string>
-    <string name="text_net_xml_get">Prova una richiesta XML</string>
-    <string name="selectSensorText">Selezionare il sensore da analizzare</string>
     <string name="btLastReading">Ultima Lettura</string>
     <string name="btRead">Leggi</string>
     <string name="from">DA</string>
@@ -20,7 +14,7 @@
     <string name="tvDisplayMax">Massimo</string>
     <string name="tvDisplayMin">Minimo</string>
     <string name="text_toast_net_slow">Forse la connessione è troppo lenta....</string>
-    <string name="text_toast_no_data">" Nessun dato ricevuto !"</string>
+    <string name="text_toast_no_data">Nessun dato ricevuto !</string>
     <string name="graph_activity_name">Risultati</string>
     <string name="lastRead_activity_name">Ultima Lettura</string>
     <string name="timeRead_activity_name">Intervallo di Tempo</string>
@@ -30,4 +24,13 @@
     <string name="dataError">NO DATA</string>
     <string name="service_description"></string>
     <string name="buttonLogin">Accedi</string>
+    <string name="tvDescription">Media delle ultime tre letture</string>
+    <string name="tvAvgActPowerValue">Active Power</string>
+    <string name="tvAvgLightValue">Luminosità</string>
+    <string name="pref_service">Attivazione servizio in background</string>
+    <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
+    <string name="t">&amp;to=</string>
+    <string name="lr">/last_reading</string>
+    <string name="m">&amp;meter=</string>
+    <string name="f">&amp;from=</string>
 </resources>
