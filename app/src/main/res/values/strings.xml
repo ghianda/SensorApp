@@ -61,12 +61,16 @@
     <string name="tickerTextAlarm"> There is a problem </string>
 
     <!-- Type of error -->
-    <string name="errorLowLight"> Low Light </string>
-    <string name="errorHighLight"> High Light </string>
+    <string name="errorTooConsume"> Too Consume </string>
+    <string name="errorTooLowLight"> Too Low Light </string>
+    <string name="errorIntruderAlarm"> Intruder Alarm </string>
+    <string name="errorTooWasteful"> Too waste of Power </string>
 
     <!-- Action suggested -->
-    <string name="suggSwitchOffLight"> Switch OFF Light </string>
-    <string name="suggSwitchOnLight"> Switch ON Light </string>
+    <string name="suggTooConsume"> Check if there is a problem </string>
+    <string name="suggTooLowLight"> Try to switch ON the light </string>
+    <string name="suggIntruderAlarm"> there is a strange energy spike, evaluate if to call the police </string>
+    <string name="suggTooWasteful"> There is too much power for the light readed, try to Switch OFF the light </string>
     <!-- ........................................................................... -->
 
 

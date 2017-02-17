@@ -80,25 +80,6 @@
         android:id="@+id/textView10" />
 
     <TextView
-        android:text="@string/suggestedSolustion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="92dp" />
-
-    <TextView
-        android:id="@+id/tvDispErrActSuggestedAction"
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView5"
-        android:layout_alignRight="@+id/textView11"
-        android:layout_alignEnd="@+id/textView11"
-        android:layout_marginTop="66dp" />
-
-    <TextView
         android:id="@+id/tvDispErrActProblemDetected"
         android:text=""
         android:layout_width="wrap_content"
@@ -107,4 +88,26 @@
         android:layout_alignBottom="@+id/textView10"
         android:layout_alignLeft="@+id/tvActPowerValue"
         android:layout_alignStart="@+id/tvActPowerValue" />
+
+    <TextView
+        android:text="@string/suggestedSolustion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/textView10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tvDispErrActSuggestedAction"
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignRight="@+id/tvActPowerValue"
+        android:layout_alignEnd="@+id/tvActPowerValue"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp" />
 </RelativeLayout>

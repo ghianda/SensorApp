@@ -69,12 +69,14 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
+
     private void doTask(){
 
         ParseXmlUrl(createUrl("/light"));
         ParseXmlUrl(createUrl("/actpw"));
         //now in responseReceived thee is Data response of light and ActPower
     }
+
 
 
 
@@ -142,6 +144,9 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
+
+
+
     private void extractResponse(Netsens newResponse){
 
         if (savedResponse.size() == 0){
@@ -162,6 +167,8 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
+
+
     private void checkResponse(){
         // here i check the threshold and notify if there is some problem
 
@@ -171,6 +178,8 @@ public class BackgroundTask extends BroadcastReceiver {
         //read the data and control if there is a problem
         checkIfNotifyAlarm(contextMaster, averageMeasure);
     }
+
+
 
 
 
@@ -203,6 +212,8 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
+
+
     private String createUrl(String par){
 
         //create the date of now and 15 minutes before
@@ -224,23 +235,65 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
+
+
     private void checkIfNotifyAlarm(Context context, HashMap<String, Double> averageMeasure) {
 
-        //TODO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.notifyValueFormat);
 
+        String problemDetected = "";
+        String contentTextValues = "";
+        String suggestedAction = "";
+        Double avgLight     = averageMeasure.get(keyLight);
+        Double avgActPower  = averageMeasure.get(keyActPower);
 
-        if (true) {
-            // todo  - here i control if there is a problem with value in averageMeasure
-            // todo - [ MOVE HERE PART OF THE CODE WRITE IN createNotify ]
+        //exract the hour of now
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
 
-            //create the right notification
-            Notification myNotification = createNotify(context, averageMeasure);
+        // ActivityDisplayAlarm will be started when the user clicks the notification
+        Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
+        notificationIntent.putExtra(EXTRA_ACTPOWER, avgActPower);
+        notificationIntent.putExtra(EXTRA_LIGHT, avgLight);
 
-            //notify on Notification bar
-            fireNotification(context, myNotification);
+        //Active Power is in centiWatt, so i convert in Watt
+        avgActPower /= 100;
+
+        if (avgActPower > 7500) {
+            // TOO POWER
+            problemDetected = contextMaster.getResources().getString(R.string.errorTooConsume);
+            suggestedAction = contextMaster.getResources().getString(R.string.suggTooConsume);
+            contentTextValues = ("ActPower : " + fixUnit(avgActPower,"W",frmt));
         }
 
-        //TODO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+        if (avgLight < 100) { //100
+            // TOO LOW LUX
+            problemDetected = contextMaster.getResources().getString(R.string.errorTooLowLight);
+            suggestedAction = contextMaster.getResources().getString(R.string.suggTooLowLight);
+            contentTextValues = ("Light : " + fixUnit(avgLight,"Lux",frmt));
+        }
+
+        if (avgActPower > 1000 && (hour < 6 || hour > 19)){
+            //INTRUDER ALARM
+            problemDetected = contextMaster.getResources().getString(R.string.errorIntruderAlarm);
+            suggestedAction = contextMaster.getResources().getString(R.string.suggIntruderAlarm);
+            contentTextValues = formatBothInString(avgLight, avgActPower, frmt);
+        }
+
+        if (avgLight > 400 && avgActPower > 5500){
+            //TOO WASTEFUL
+            problemDetected = contextMaster.getResources().getString(R.string.errorTooWasteful);
+            suggestedAction = contextMaster.getResources().getString(R.string.suggTooWasteful);
+            contentTextValues = formatBothInString(avgLight, avgActPower, frmt);
+        }
+
+        //costruct the notification
+        Notification myNotification = makeNotification(
+                context, notificationIntent,  suggestedAction, contentTextValues, problemDetected);
+
+        //notify on Notification bar
+        fireNotification(context, myNotification);
+
     }
 
 
@@ -248,48 +301,14 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
-    private Notification createNotify(Context context, HashMap<String, Double> averageMeasure){
+    private Notification makeNotification(Context context, Intent i, String action, String text, String problem){
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
-
-        // ActivityDisplayAlarm will be started when the user clicks the notification
-        notificationIntent.putExtra(EXTRA_ACTPOWER, averageMeasure.get(keyActPower));
-        notificationIntent.putExtra(EXTRA_LIGHT, averageMeasure.get(keyLight));
-
-
-        /** here i costruct the message to write in notify and to pass to intent */
-
-        String problemDetected;
-        String contentTextValues;
-        String suggestedAction;
-
-        //here ActPower is in WATT and Light is in Lumen
-        if (averageMeasure.get(keyLight) < 100){
-            // LOW LIGHT CASE
-            problemDetected = contextMaster.getResources().getString(R.string.errorLowLight);
-            suggestedAction = contextMaster.getResources().getString(R.string.suggSwitchOnLight);
-        }
-        else{
-            // HIGH LIGHT CASE
-            problemDetected = contextMaster.getResources().getString(R.string.errorHighLight);
-            suggestedAction = contextMaster.getResources().getString(R.string.suggSwitchOffLight);
-        }
-
-
-        //costruct the content text with formatted values
-
-        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.notifyValueFormat);
-        contentTextValues = (
-                "Light: " + fixUnit(averageMeasure.get(keyLight),"Lux",frmt) +
-                " / "  +
-                "ActivePower: " + fixUnit(averageMeasure.get(keyActPower)/100, "W"));
-
 
         //set the message content
-        builder.setContentTitle(suggestedAction); //here display suggeseted action
-        builder.setContentText(contentTextValues);   //here display the values
-        builder.setSubText(problemDetected);   //here display type of error
+        builder.setContentTitle(action); //here display suggeseted action
+        builder.setContentText(text);   //here display the values
+        builder.setSubText(problem);   //here display type of error
 
         //set the notification property
         builder.setAutoCancel(false);
@@ -299,20 +318,20 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
         //add message to intent for show in DisplayActivityAlarm
-        notificationIntent.putExtra(EXTRA_PROBLEM_DETECTED, problemDetected);
-        notificationIntent.putExtra(EXTRA_SUGGESTED_ACTION, suggestedAction);
+        i.putExtra(EXTRA_PROBLEM_DETECTED, problem);
+        i.putExtra(EXTRA_SUGGESTED_ACTION, action);
 
 
         //Costruct the pending Intent and insert it in the notification
         PendingIntent contentIntent = PendingIntent.getActivity(
-                context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(contentIntent);
 
 
-        //create the notification object and returned it
-        // [[REMEMBER THAT -> builder.build() returned a Notification object]]
-        return (builder.build());
+        //create and return the notification object
+        return builder.build();
     }
+
 
 
 
@@ -331,4 +350,14 @@ public class BackgroundTask extends BroadcastReceiver {
     }
 
 
+
+
+
+
+    private String formatBothInString(Double light, Double power, DecimalFormat frmt) {
+
+        return ("Light: " + fixUnit(light,"Lux",frmt)
+                + " / "
+                + "ActivePower: " + fixUnit(power, "W"));
+    }
 }

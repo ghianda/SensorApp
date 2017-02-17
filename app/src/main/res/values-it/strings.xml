@@ -36,5 +36,13 @@
     <string name="tvDisplayErrorActivityMeter">Hall e aree comuni</string>
     <string name="tvDisplayErrorActivityProblem">Problema rilevato</string>
     <string name="tv_display_error_act_problem">Problema rilevato</string>
-    <string name="suggestedSolustion"></string>
+    <string name="suggestedSolustion">Soluzione suggerita</string>
+    <string name="errorIntruderAlarm">Allarme Intruso</string>
+    <string name="errorTooConsume">Consumi troopo alti</string>
+    <string name="errorTooLowLight">Luce troppo bassa</string>
+    <string name="errorTooWasteful">Possibile spreco di consumi</string>
+    <string name="suggTooWasteful">C\'è un possibile spreco di consumi in base alla luce rilevata, prova a spegnere le luci</string>
+    <string name="suggTooLowLight">Prova ad accendere le luci.</string>
+    <string name="suggTooConsume">Controlla se c\'è un problema</string>
+    <string name="suggIntruderAlarm">C\'è un consumo anomalo per questo orario, considera di controllare di persona o di chiamare la polizia.</string>
 </resources>
