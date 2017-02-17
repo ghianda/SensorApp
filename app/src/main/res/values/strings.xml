@@ -45,13 +45,30 @@
     <string name="service_description"> Gaia service background: check the light value in realTime</string>
 
 
-
-
     <!-- Display Error Activity -->
+    <string name="DisplayErrorActivityLabel"> Problem Detected </string>
     <string name="tvDescription">Average of the last three lectures</string>
     <string name="tvAvgActPowerValue">Active Power</string>
     <string name="tvAvgLightValue">Light</string>
     <string name="pref_service">Background Service attivation</string>
-    <string name="selectSensorText"></string>
+    <string name="tvDisplayErrorActivityMeter"> Hall </string>
+    <string name="tv_display_error_act_problem"> Problem Detected </string>
+    <string name="suggestedSolustion"> Suggested solution </string>
+
+
+    <!-- notification message .................................................... -->
+
+    <string name="tickerTextAlarm"> There is a problem </string>
+
+    <!-- Type of error -->
+    <string name="errorLowLight"> Low Light </string>
+    <string name="errorHighLight"> High Light </string>
+
+    <!-- Action suggested -->
+    <string name="suggSwitchOffLight"> Switch OFF Light </string>
+    <string name="suggSwitchOnLight"> Switch ON Light </string>
+    <!-- ........................................................................... -->
+
+
 
 </resources>

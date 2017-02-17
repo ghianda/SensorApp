@@ -18,11 +18,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_ACTPOWER;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_LIGHT;
+import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_PROBLEM_DETECTED;
+import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SUGGESTED_ACTION;
+import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 import static com.example.francesco.myfirstapp.SensorProjectApp.windowInMillis;
 
 /**
@@ -57,13 +61,7 @@ public class BackgroundTask extends BroadcastReceiver {
         contextMaster = context;
         nowCalendar = Calendar.getInstance();
 
-        //TODO :
-        //1) make get online and save the response in
-        getDataFromNetsens();
-
-        /** Occhio - usare questo */
-        //notifyAlarm(context);   //funziona!!
-
+        doTask();
 
     }
 
@@ -71,7 +69,7 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
-    private void getDataFromNetsens(){
+    private void doTask(){
 
         ParseXmlUrl(createUrl("/light"));
         ParseXmlUrl(createUrl("/actpw"));
@@ -146,13 +144,6 @@ public class BackgroundTask extends BroadcastReceiver {
 
     private void extractResponse(Netsens newResponse){
 
-        /*TODO da togliere:
-        System.out.println("extractResponse -> extracted this:");
-        for (Measure measure: newResponse.getMeasuresList()) {
-            System.out.println(measure.toString());
-        }
-        */
-
         if (savedResponse.size() == 0){
             //insert the first response
             savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
@@ -174,13 +165,11 @@ public class BackgroundTask extends BroadcastReceiver {
     private void checkResponse(){
         // here i check the threshold and notify if there is some problem
 
-        //calulate the doAverage of value
+        //calculate the doAverage of value
         HashMap<String, Double> averageMeasure = doAverage();
 
-
-        /** IF.... varie soglie da ontrollare..
-        /** notify, and if click opern ActivityDisplayAlarm*/
-        notifyAlarm(contextMaster, averageMeasure);
+        //read the data and control if there is a problem
+        checkIfNotifyAlarm(contextMaster, averageMeasure);
     }
 
 
@@ -235,13 +224,25 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
-    private void notifyAlarm(Context context, HashMap<String, Double> averageMeasure){
-        //create the right notification
-        Notification myNotification = createNotify(context, averageMeasure);
+    private void checkIfNotifyAlarm(Context context, HashMap<String, Double> averageMeasure) {
 
-        //notify on Notification bar
-        fireNotification(context, myNotification);
+        //TODO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+
+
+        if (true) {
+            // todo  - here i control if there is a problem with value in averageMeasure
+            // todo - [ MOVE HERE PART OF THE CODE WRITE IN createNotify ]
+
+            //create the right notification
+            Notification myNotification = createNotify(context, averageMeasure);
+
+            //notify on Notification bar
+            fireNotification(context, myNotification);
+        }
+
+        //TODO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
     }
+
 
 
 
@@ -249,39 +250,71 @@ public class BackgroundTask extends BroadcastReceiver {
 
     private Notification createNotify(Context context, HashMap<String, Double> averageMeasure){
 
-        // ActivityDisplayAlarm will be started when the user clicks the notification
-        // in the notification bar
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
-        //todo - potrei mettere degli extra nell'intent con i dati da visualizzare
-        //todo -  e il messaggio da visualizzare in ActivityDisplayAlarm:
+
+        // ActivityDisplayAlarm will be started when the user clicks the notification
         notificationIntent.putExtra(EXTRA_ACTPOWER, averageMeasure.get(keyActPower));
         notificationIntent.putExtra(EXTRA_LIGHT, averageMeasure.get(keyLight));
 
-        System.out.println(" +++++++++ Intent spediti:");
-        System.out.println(averageMeasure.get(keyLight));
-        System.out.println(" e poi ");
-        System.out.println(averageMeasure.get(keyActPower));
+
+        /** here i costruct the message to write in notify and to pass to intent */
+
+        String problemDetected;
+        String contentTextValues;
+        String suggestedAction;
+
+        //here ActPower is in WATT and Light is in Lumen
+        if (averageMeasure.get(keyLight) < 100){
+            // LOW LIGHT CASE
+            problemDetected = contextMaster.getResources().getString(R.string.errorLowLight);
+            suggestedAction = contextMaster.getResources().getString(R.string.suggSwitchOnLight);
+        }
+        else{
+            // HIGH LIGHT CASE
+            problemDetected = contextMaster.getResources().getString(R.string.errorHighLight);
+            suggestedAction = contextMaster.getResources().getString(R.string.suggSwitchOffLight);
+        }
 
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //costruct the content text with formatted values
 
-        //todo la notifica per benino
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.notifyValueFormat);
+        contentTextValues = (
+                "Light: " + fixUnit(averageMeasure.get(keyLight),"Lux",frmt) +
+                " / "  +
+                "ActivePower: " + fixUnit(averageMeasure.get(keyActPower)/100, "W"));
 
+
+        //set the message content
+        builder.setContentTitle(suggestedAction); //here display suggeseted action
+        builder.setContentText(contentTextValues);   //here display the values
+        builder.setSubText(problemDetected);   //here display type of error
+
+        //set the notification property
         builder.setAutoCancel(false);
-        builder.setTicker("this is ticker text");
-        builder.setContentTitle("Gaia Notification");
-        builder.setContentText("You have a new message");
         builder.setSmallIcon(R.drawable.marker2);
-        builder.setContentIntent(contentIntent);
+        builder.setTicker(contextMaster.getResources().getString(R.string.tickerTextAlarm)); //è il testo che appare in alto solo appena arriva la notifica
         builder.setOngoing(true);
-        builder.setSubText("This is subtext...");   //API level 16
+
+
+        //add message to intent for show in DisplayActivityAlarm
+        notificationIntent.putExtra(EXTRA_PROBLEM_DETECTED, problemDetected);
+        notificationIntent.putExtra(EXTRA_SUGGESTED_ACTION, suggestedAction);
+
+
+        //Costruct the pending Intent and insert it in the notification
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        builder.setContentIntent(contentIntent);
+
 
         //create the notification object and returned it
         // [[REMEMBER THAT -> builder.build() returned a Notification object]]
-
         return (builder.build());
     }
+
+
 
 
 

@@ -40,10 +40,14 @@
             android:name=".ActivityLinearGraph"
             android:label="graph_activity_name"
             android:parentActivityName=".ActivityTimeRead" />
+        <activity
+            android:name=".ActivityDisplayAlarm"
+            android:label="@string/DisplayErrorActivityLabel"
+            android:parentActivityName=".ActivityIntro" />
 
+        <!-- todo -->
         <activity android:name=".ActivityLogin" />
         <activity android:name=".ActivityIntroNew" />
-        <activity android:name=".ActivityDisplayAlarm" />
 
 
 

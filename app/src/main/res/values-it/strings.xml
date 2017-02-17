@@ -22,7 +22,7 @@
     <string name="btHour">Ora</string>
     <string name="action_sign_in">Accedi</string>
     <string name="dataError">NO DATA</string>
-    <string name="service_description"></string>
+    <string name="service_description">Servizio in tempo reale di Gaia. Controlla dei parametri in tempo reale e segnala eventuali problemi</string>
     <string name="buttonLogin">Accedi</string>
     <string name="tvDescription">Media delle ultime tre letture</string>
     <string name="tvAvgActPowerValue">Active Power</string>
@@ -33,4 +33,8 @@
     <string name="lr">/last_reading</string>
     <string name="m">&amp;meter=</string>
     <string name="f">&amp;from=</string>
+    <string name="tvDisplayErrorActivityMeter">Hall e aree comuni</string>
+    <string name="tvDisplayErrorActivityProblem">Problema rilevato</string>
+    <string name="tv_display_error_act_problem">Problema rilevato</string>
+    <string name="suggestedSolustion"></string>
 </resources>

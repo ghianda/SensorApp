@@ -19,10 +19,13 @@ public class SensorProjectApp extends Application {
     public final static String EXTRA_METER = "com.example.francesco.METER";
     public final static String EXTRA_LIGHT = "com.example.francesco.AVERAGELIGHT";
     public final static String EXTRA_ACTPOWER = "com.example.francesco.AVERAGEACTPOWER";
+    public final static String EXTRA_PROBLEM_DETECTED = "com.example.francesco.PROBLEM_DETECTED";
+    public final static String EXTRA_SUGGESTED_ACTION = "com.example.francesco.SUGGESTED_ACTION";
 
 
     //parametri
     static final public String valueFormat = "###.###";
+    static final public String notifyValueFormat = "###.#";
     static final public long serviceRepeatPeriodInMillis = 10000; //10 seconds
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
 
@@ -185,6 +188,29 @@ public class SensorProjectApp extends Application {
         String prefix = "";
 
         DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
+
+        if (!unit.equals(" ")) {
+            //parameter is not Power Factor, then i fix the unit:
+            if (value < 1) {
+                value = value * 1000;
+                prefix = "m";
+            }
+
+            if (value > 1000) {
+                value = value / 1000;
+                prefix = "K";
+            }
+        }
+
+        fixedValue = frmt.format(value) + " " + prefix + unit;
+        return fixedValue;
+    }
+
+
+
+    public static String fixUnit(double value, String unit, DecimalFormat frmt) {
+        String fixedValue;
+        String prefix = "";
 
         if (!unit.equals(" ")) {
             //parameter is not Power Factor, then i fix the unit:

@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TODO inserire titolo pagina al poto di MyFirstApp ?? -->
-
-
-    <!--TODO da sistemare le sring in strings resorce
-    TODO Guardare la dim del testo degli spiner (fare le scritte più grandi e "ciccione" (accattivante)-->
-
 
     <Button
         android:text="@string/btLastReading"
