@@ -7,10 +7,10 @@
 
     <Button
         android:text="@string/btLastReading"
+        android:onClick="read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btLastRead"
-        android:onClick="read"
         android:layout_alignBottom="@+id/tvDisplayValueResult"
         android:layout_alignRight="@+id/MeterSpinner"
         android:layout_alignEnd="@+id/MeterSpinner" />

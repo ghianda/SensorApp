@@ -50,68 +50,68 @@ public class Sensor implements Parcelable {
     public void setConversionFactorByUrlCode() {
         switch (this.urlCode) {
             case "/temp": {
-                unitOfMeasure = "°C";
-                conversionFactor = 1;
+                this.unitOfMeasure = "°C";
+                this.conversionFactor = 1;
                 break;
             }
             case "/light": {
-                unitOfMeasure = "Lux";
-                conversionFactor = 1;
+                this.unitOfMeasure = "Lux";
+                this.conversionFactor = 1;
                 break;
             }
             case "/humid": {
-                unitOfMeasure = "%";
-                conversionFactor = 1;
+                this.unitOfMeasure = "%";
+                this.conversionFactor = 1;
                 break;
             }
             case "/reactcon": {
-                unitOfMeasure = "VARh";
-                conversionFactor = 100; //5-6 cifre
+                this.unitOfMeasure = "VARh";
+                this.conversionFactor = 100; //5-6 cifre
                 break;
             }
             case "/apcon": {
-                unitOfMeasure = "VA";
-                conversionFactor = 100; //6-7 cifre
+                this.unitOfMeasure = "VA";
+                this.conversionFactor = 100; //6-7 cifre
                 break;
             }
             case "/con": {
-                unitOfMeasure = "Wh";
-                conversionFactor = 100;  //6-7  cifre
+                this.unitOfMeasure = "Wh";
+                this.conversionFactor = 100;  //6-7  cifre
                 break;
             }
             case "/actpw": {
-                unitOfMeasure = "W";
-                conversionFactor = 100; //5-6 cifre
+                this.unitOfMeasure = "W";
+                this.conversionFactor = 100; //5-6 cifre
                 break;
             }
             case "/pwf": {
-                unitOfMeasure = " ";
-                conversionFactor = 1000; //3 cifre ( 0 < cos(x) < 1)
+                this.unitOfMeasure = " ";
+                this.conversionFactor = 1000; //3 cifre ( 0 < cos(x) < 1)
                 break;
             }
             case "/cur/1": {
-                unitOfMeasure = "A";
-                conversionFactor = 100; //3 cifre
+                this.unitOfMeasure = "A";
+                this.conversionFactor = 100; //3 cifre
                 break;
             }
             case "/cur/3": {
-                unitOfMeasure = "A";
-                conversionFactor = 100; //3 cifre
+                this.unitOfMeasure = "A";
+                this.conversionFactor = 100; //3 cifre
                 break;
             }
             case "/cur/2": {
-                unitOfMeasure = "A";
-                conversionFactor = 100; // 3 cifre
+                this.unitOfMeasure = "A";
+                this.conversionFactor = 100; // 3 cifre
                 break;
             }
             case "/appw": {
-                unitOfMeasure = "VA"; //6-7 cifre
-                conversionFactor = 100;
+                this.unitOfMeasure = "VA"; //6-7 cifre
+                this.conversionFactor = 100;
                 break;
             }
             case "/reactpw": {
-                unitOfMeasure = "VAR"; //6-7 cifre
-                conversionFactor = 100;
+                this.unitOfMeasure = "VAR"; //6-7 cifre
+                this.conversionFactor = 100;
                 break;
             }
             default:

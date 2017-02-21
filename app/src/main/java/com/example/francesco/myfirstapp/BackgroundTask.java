@@ -100,17 +100,11 @@ public class BackgroundTask extends BroadcastReceiver {
                         public void onResponse(Netsens response) {
                             // override onResponse method
                             if (response.getMeasuresList() != null) {
-                                //TODO da togliere
-                                System.out.println(" >>>>>  Inside Volley.onResponse >>>>>>>");
 
                                 extractResponse(response);
 
-                                //TODO da togliere
-                                System.out.println(" >>>>>  Exit Volley.onResponse >>>>>>>");
-
                             } else {
 
-                                //TODO verificare che contextMaster.getApplicationContext() vada bene
                                 Toast.makeText(contextMaster.getApplicationContext(),
                                         R.string.text_toast_no_data, Toast.LENGTH_SHORT).show();
                             }
@@ -199,12 +193,6 @@ public class BackgroundTask extends BroadcastReceiver {
             avg = 0.0;
         }
 
-        //Todo da togliere
-        System.out.println(" ++++++   AVERAGE VALUE:");
-        for ( String key : averageMeasure.keySet()){
-            System.out.println(key + " -> " +averageMeasure.get(key));
-        }
-
         return averageMeasure;
     }
 
@@ -241,6 +229,7 @@ public class BackgroundTask extends BroadcastReceiver {
 
         DecimalFormat frmt = new DecimalFormat(SensorProjectApp.notifyValueFormat);
 
+        Boolean sendNotify = false;
         String problemDetected = "";
         String contentTextValues = "";
         String suggestedAction = "";
@@ -264,13 +253,15 @@ public class BackgroundTask extends BroadcastReceiver {
             problemDetected = contextMaster.getResources().getString(R.string.errorTooConsume);
             suggestedAction = contextMaster.getResources().getString(R.string.suggTooConsume);
             contentTextValues = ("ActPower : " + fixUnit(avgActPower,"W",frmt));
+            sendNotify = true;
         }
 
-        if (avgLight < 100) { //100
+        if (avgLight < 100 && (hour > 6 || hour < 19)) { //100
             // TOO LOW LUX
             problemDetected = contextMaster.getResources().getString(R.string.errorTooLowLight);
             suggestedAction = contextMaster.getResources().getString(R.string.suggTooLowLight);
             contentTextValues = ("Light : " + fixUnit(avgLight,"Lux",frmt));
+            sendNotify = true;
         }
 
         if (avgActPower > 1000 && (hour < 6 || hour > 19)){
@@ -278,6 +269,7 @@ public class BackgroundTask extends BroadcastReceiver {
             problemDetected = contextMaster.getResources().getString(R.string.errorIntruderAlarm);
             suggestedAction = contextMaster.getResources().getString(R.string.suggIntruderAlarm);
             contentTextValues = formatBothInString(avgLight, avgActPower, frmt);
+            sendNotify = true;
         }
 
         if (avgLight > 400 && avgActPower > 5500){
@@ -285,14 +277,27 @@ public class BackgroundTask extends BroadcastReceiver {
             problemDetected = contextMaster.getResources().getString(R.string.errorTooWasteful);
             suggestedAction = contextMaster.getResources().getString(R.string.suggTooWasteful);
             contentTextValues = formatBothInString(avgLight, avgActPower, frmt);
+            sendNotify = true;
         }
 
-        //costruct the notification
-        Notification myNotification = makeNotification(
-                context, notificationIntent,  suggestedAction, contentTextValues, problemDetected);
+        /*TODO DA TOGLIERE_________
+        if(true){
+            problemDetected = "problem test";
+            suggestedAction = "action test";
+            contentTextValues = "example values";
+            sendNotify = true;
+        }
+        //TODO  _______________ */
 
-        //notify on Notification bar
-        fireNotification(context, myNotification);
+
+        if (sendNotify) {
+            //costruct the notification
+            Notification myNotification = makeNotification(
+                    context, notificationIntent, suggestedAction, contentTextValues, problemDetected);
+
+            //notify on Notification bar
+            fireNotification(context, myNotification);
+        }
 
     }
 

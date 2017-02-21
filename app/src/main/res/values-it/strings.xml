@@ -45,4 +45,5 @@
     <string name="suggTooLowLight">Prova ad accendere le luci.</string>
     <string name="suggTooConsume">Controlla se c\'è un problema</string>
     <string name="suggIntruderAlarm">C\'è un consumo anomalo per questo orario, considera di controllare di persona o di chiamare la polizia.</string>
+    <string name="average">Media:</string>
 </resources>

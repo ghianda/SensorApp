@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -18,19 +17,6 @@ import java.util.Locale;
 public class ActivityTimeRead extends ActivityAbstractReading {
 
     //Attribute_------------------------------------------------------------------
-    //TODO in futuro da togliere______
-    //TODO indispensabili se uso il Dialog per i picker, ma dovrò sostituirlo con i FRAGMENT
-    private int year;
-    private int month;
-    private int day;
-    private int hour;
-    private int minute;
-    //TODO _________________
-
-    private TextView tvDisplayFromDate;  // text view per la visualizzazione della data selezionata
-    private TextView tvDisplayToDate;
-    private TextView tvDisplayFromHour;
-    private TextView tvDisplayToHour;
 
     private Button btFromDate; //bottoni per l'avvio dei picker dialog di selezione data/ora
     private Button btFromHour;
@@ -40,10 +26,6 @@ public class ActivityTimeRead extends ActivityAbstractReading {
     //oggetti Calendario inizializzati a oggi
     private static Calendar fromDate = Calendar.getInstance();
     private static Calendar toDate = Calendar.getInstance();
-
-    //key of input form
-    public final static String EXTRA_MESSAGE = "com.example.francesco.MESSAGE";
-    public final static String EXTRA_SENSOR_LR = "com.example.francesco.SENSOR_LR";
 
     //key for Picker Dialog
     static final int DATE_FROM_DIALOG_ID = 911;
@@ -75,11 +57,10 @@ public class ActivityTimeRead extends ActivityAbstractReading {
 
     @Override
     public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
-        //intent to new activiy (mean, count and graph]
+        //intent to new activiy ( line graph)
         //creating a intent
         Intent intent = new Intent(this, ActivityLinearGraph.class);
-        //put data in yhe intent
-        //todo dovrò metterci array(double), urlMeter
+        //put data in the intent
         Sensor parcObj = SensorProjectApp.createParceableDataResponse(response, chosenSensor);
         intent.putExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE, parcObj);
         intent.putExtra(SensorProjectApp.EXTRA_METER, chosenMeter.getUrlString());
@@ -123,6 +104,12 @@ public class ActivityTimeRead extends ActivityAbstractReading {
 
 
     // Native Method_----------------------------------------------------------
+
+
+
+
+
+
 
 
     // display current date in Date button
@@ -196,20 +183,26 @@ public class ActivityTimeRead extends ActivityAbstractReading {
     //selezione del picker da eseguire
     @Override
     protected Dialog onCreateDialog(int id) {
+
+
         //seleziono il picker in base al dialog creato (date o hour)
         switch (id) {
             case DATE_FROM_DIALOG_ID:
                 //  esegue il datePicker e ripesca la data selezionata per il FROM
-                return new DatePickerDialog(this, dateFromPickerListener, year, month, day);
+                return new DatePickerDialog(this, dateFromPickerListener, fromDate.get(Calendar.YEAR),
+                        fromDate.get(Calendar.MONTH), fromDate.get(Calendar.DAY_OF_MONTH));
             case HOUR_FROM_DIALOG_ID:
-                //esegue il timePicker e ripesca l'ora selezionata per il FROM
-                return new TimePickerDialog(this, timeFromPickerListener, hour, minute, true);
+                //  esegue il timePicker e ripesca l'ora selezionata per il FROM
+                return new TimePickerDialog(this, timeFromPickerListener, fromDate.get(Calendar.HOUR_OF_DAY),
+                        fromDate.get(Calendar.MINUTE), true);
             case DATE_TO_DIALOG_ID:
                 //  esegue il datePicker e ripesca la data selezionata per il TO
-                return new DatePickerDialog(this, dateToPickerListener, year, month, day);
+                return new DatePickerDialog(this, dateToPickerListener, toDate.get(Calendar.YEAR),
+                        toDate.get(Calendar.MONTH), toDate.get(Calendar.DAY_OF_MONTH));
             case HOUR_TO_DIALOG_ID:
                 //  esegue il hourPicker e ripesca la data selezionata per il TO
-                return new TimePickerDialog(this, timeToPickerListener, year, month, true);
+                return new TimePickerDialog(this, timeToPickerListener, toDate.get(Calendar.HOUR_OF_DAY),
+                        toDate.get(Calendar.MINUTE), true);
         }
         return null;
     }

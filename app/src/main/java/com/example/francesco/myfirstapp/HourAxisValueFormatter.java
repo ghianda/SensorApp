@@ -46,13 +46,9 @@ public class HourAxisValueFormatter implements IAxisValueFormatter {
     }
 
 
-    public int getDecimalDigits() {
-        return 0;
-    }
-
     private String getHour(long timestamp) {
         try {
-            mDate.setTime(timestamp * 1000);
+            mDate.setTime(timestamp);
             return mDataFormat.format(mDate);
         } catch (Exception ex) {
             return "xx";

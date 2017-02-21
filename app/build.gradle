@@ -36,6 +36,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     // per aggiungere simple-xml:
     compile('org.simpleframework:simple-xml:2.7.1') {
         exclude group: 'stax', module: 'stax-api'
@@ -56,6 +57,7 @@ dependencies {
 
     //MPAndroidChart library
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+
 
 
 }

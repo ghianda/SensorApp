@@ -2,12 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- on/off service in background pref -->
-
-    <!--  ??? <SwitchPreference -->
-
     <CheckBoxPreference
         android:key="pref_service"
         android:title="@string/pref_service"
         android:defaultValue="true" />
+
+    <!-- login data -->
 
 </PreferenceScreen>

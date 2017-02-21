@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,19 +26,21 @@ public class ActivityLinearGraph extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graph);
-        //getActionBar().setDisplayHomeAsUpEnabled(true); //visualizza "freccia indietro" in actionbar
+        setContentView(R.layout.activity_line_graph);
+
 
         //get the data from extra
         Sensor parcSens = getIntent().getParcelableExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE);
         String meterUrl = getIntent().getStringExtra(SensorProjectApp.EXTRA_METER);
 
+        //TODO togliere questo e mettere meter+sensor nella LABEL del grafico
         //Set the title of Activity
         setTitle(parcSens, meterUrl);
 
-        //set the data into TextView (Avg, min, Max)
-        //TODO
-        setAvgTv(parcSens);
+
+
+        //TODO OK
+        //set the Min and Max into TextView
         setMinAndMaxTv(parcSens);
 
 
@@ -46,39 +49,8 @@ public class ActivityLinearGraph extends AppCompatActivity {
     }
 
 
-    /*
-    //calculate the average of value and set into TextView
-    private void setAvgTv(Sensor ss) {
-
-        OptionalDouble avg = ss.getDatas().stream().mapToDouble(Data::getValue).average();
-        TextView tvAvg = (TextView) findViewById(R.id.tvAverage);
-
-        //if the average is present
-        avg.ifPresent((double value) ->
-                setValueInTv(value / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvAvg)
-        );
-
-        //else
-        if (!avg.isPresent()) tvAvg.setText(R.string.dataError);
-    }
-    */
 
 
-    //calculate the average of value and set into TextView
-    private void setAvgTv(Sensor ss) {
-
-        double avg = 0;
-        TextView tvAvg = (TextView) findViewById(R.id.tvAverage);
-
-        if (ss.getDatas().size() > 0) {
-            for (Data data : ss.getDatas()) {
-                avg += data.getValue();
-            }
-            avg /= ss.getDatas().size();
-
-            setValueInTv(avg / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvAvg);
-        } else tvAvg.setText(R.string.dataError);
-    }
 
 
     //set the minimun and maximun value in the textview
@@ -149,21 +121,17 @@ public class ActivityLinearGraph extends AppCompatActivity {
     }
 
 
+
+
+
+
     public void displayLineChart(Sensor ss) {
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
-        //XAMPLE TO set the LiitLine_________________________________
-        YAxis leftAxis = chart.getAxisLeft();
+        //display the avg line
+        displayAverageInGraph(ss, chart);
 
-        LimitLine ll = new LimitLine(140f, "Example");
-        ll.setLineColor(Color.RED);
-        ll.setLineWidth(4f);
-        ll.setTextColor(Color.BLACK);
-        ll.setTextSize(12f);
-
-        leftAxis.addLimitLine(ll);
-        //___________________________________________________________
 
 
         //set the dayAxisFormatter------------------------------------------------------------
@@ -198,18 +166,56 @@ public class ActivityLinearGraph extends AppCompatActivity {
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(xAxisFormatter);
 
-        //-----------------------------------------------------------------------------------
 
-        // Set the marker View
-        /*
-        MyMarkerView myMarkerView= new MyMarkerView(getApplicationContext(),
-                R.layout.custom_marker_view,
-                referenceTimestamp.getAsLong());
-        chart.setMarkerView(myMarkerView);
-        */
-
-        //display the chart
         chart.invalidate();
     }
+
+
+
+
+    private void displayAverageInGraph(Sensor ss, LineChart chart){
+
+        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.notifyValueFormat);
+        YAxis leftAxis = chart.getAxisLeft();
+
+        //build avg value and label
+        double avg = doAverage(ss);
+        String avgLabel = new StringBuilder()
+                .append(getString(R.string.average))
+                .append(" ")
+                .append(fixUnit(avg, ss.getUnitOfMeasure(), frmt))
+                .toString();
+
+        //build LimitLine
+        LimitLine ll = new LimitLine((float)avg, avgLabel);
+
+        ll.setLineColor(Color.RED);
+        ll.setLineWidth(1f);
+        ll.setTextColor(Color.BLACK);
+        ll.setTextSize(12f);
+
+        leftAxis.addLimitLine(ll);
+
+    }
+
+
+
+
+
+
+    private double doAverage(Sensor ss) {
+        double avg = 0;
+
+        if (ss.getDatas().size() > 0) {
+            for (Data data : ss.getDatas()) {
+                avg += data.getValue();
+            }
+            avg /= ss.getDatas().size();
+
+        }
+
+        return avg;
+    }
+
 
 }

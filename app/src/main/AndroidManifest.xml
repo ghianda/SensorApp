@@ -27,29 +27,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OnBootCompletedExampleActivity"></activity>
+        <activity
+            android:name=".ActivityHome"
+            android:label="@string/app_name" />
         <activity
             android:name=".ActivityTimeRead"
             android:label="@string/timeRead_activity_name"
-            android:parentActivityName=".ActivityIntro" />
+            android:parentActivityName=".ActivityHome" />
         <activity
             android:name=".ActivityLastRead"
-            android:label="@string/lastRead_activity_name"
-            android:parentActivityName=".ActivityIntro" />
+            android:label="@string/lastReadActivityName"
+            android:parentActivityName=".ActivityHome" />
+        <activity
+            android:name=".ActivityCompare"
+            android:label="@string/compareActivityName"
+            android:parentActivityName=".ActivityHome" />
         <activity
             android:name=".ActivityLinearGraph"
-            android:label="graph_activity_name"
+            android:label="@string/ResultsActivity"
             android:parentActivityName=".ActivityTimeRead" />
         <activity
             android:name=".ActivityDisplayAlarm"
             android:label="@string/DisplayErrorActivityLabel"
-            android:parentActivityName=".ActivityIntro" />
+            android:parentActivityName=".ActivityHome" />
+        <activity
+            android:name=".ActivityLogin"
+            android:label="@string/loginActivity"
+            android:parentActivityName=".ActivityHome" />
+        <activity
+            android:name=".ActivityCakeGraph"
+            android:label="@string/ResultsActivity"
+            android:parentActivityName=".ActivityCompare"/>
 
         <!-- todo -->
-        <activity android:name=".ActivityLogin" />
+
         <activity android:name=".ActivityIntroNew" />
-
-
 
         <!-- ricevitori -->
         <receiver android:name=".NotificationBarAlarm" />

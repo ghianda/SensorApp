@@ -83,9 +83,7 @@ public class SensorList {
         sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
         sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
         sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/temp", "Temperature"));
         sensors.add(new Sensor("/light", "Light"));
-        sensors.add(new Sensor("/humid", "Humidity"));
         list.put(new Meter("QG/Lighting", "Hall e Aree Comuni"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -171,6 +169,7 @@ public class SensorList {
     }
 
 
+
     //restituisce la lista dei meter (chiavi della lista)
     public Collection<Meter> getMeters() {
         return list.keySet();
@@ -221,12 +220,6 @@ public class SensorList {
     }
 
 
-    //restituisce la lista dei parametri dalla chiave di indice i
-    public Collection<Sensor> getSensorsByIdMeter(int i) {
-
-        Meter m = list.keySet().toArray(new Meter[0])[i];
-        return list.get(m);
-    }
 
 
     //restituisce l'oggetto sensore di indice i nella lista associata al Meter m
@@ -249,23 +242,10 @@ public class SensorList {
     }
 
 
-    //restituisce la lista dei nomi dei sensori dalla chiave di indice i
-    public ArrayList<String> getSensorsNamesByIdMeter(int id) {
-
-        Meter m = list.keySet().toArray(new Meter[0])[id];
-        return getSensorsNamesByMeter(m);
-    }
 
 
     //restituisce la lista dei sensori dal codice url della chiave
     public Collection<Sensor> getSensorsByUrlMeter(String urlMeterCode) {
-
-        /*
-        return (
-                getSensorsByMeter(list.keySet().stream().
-                        filter(m -> m.getUrlString().equals(urlMeterCode)).findFirst().get())
-        );
-        */
 
         Collection<Sensor> sensors = null;
 

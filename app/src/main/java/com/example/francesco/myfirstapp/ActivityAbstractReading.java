@@ -32,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 
 public abstract class ActivityAbstractReading extends AppCompatActivity {
     //Attribute --------------------------------
+
     protected final static SensorList allSensors = new SensorList(); //lista di coppie (meter -> elenco sensori)
     protected static ArrayAdapter<String> spinMeterAdapter;
     protected static ArrayAdapter<String> spinSensorAdapter;
@@ -70,30 +71,25 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
     public abstract void clearValueTextView();
 
 
+
+
+
+
     //Not Abstract Method - button read method
     public void read(View view) {
-        //System.out.println("sto eseguendo il metodo read !!--!!--!!--!!--!!--!!--!!--!!--!!");
-
         createUrl();
-        //System.err.println("url: " + url);
         ParseXmlUrl();
-
-
     }
 
 
-    public void storeResult(Netsens response) {
-        //store the response data in Global Sensor Attribute
-        ((SensorProjectApp) this.getApplication()).setGlobalData(
-                response, chosenMeter, chosenSensor);
-    }
+
 
 
     /* Not Abstract Method -
     *    ====== metodo di rihiesta get XML (simpleXmlRequest with Netsens class parsing ======
     *   produce avviso con mumero di record ottenuti in caso di risposta affermativa del server
     */
-    public void ParseXmlUrl() {
+    protected void ParseXmlUrl() {
 
         //connecting
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -111,9 +107,9 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
                         public void onResponse(Netsens response) {
                             // override onResponse method
                             if (response.getMeasuresList() != null) {
-                                storeResult(response);
-                                displayCountRecord(response); //display toast with number of record received
-                                displayResult(response, chosenMeter, chosenSensor);
+
+                                workOnResponse(response);
+
                             } else {
                                 Toast.makeText(getApplicationContext(),
                                         R.string.text_toast_no_data, Toast.LENGTH_SHORT).show();
@@ -144,10 +140,32 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
     }
 
 
-    public void displayCountRecord(Netsens response) {
+
+    private void workOnResponse(Netsens response) {
+
+        storeResult(response);  //extract and save the measures
+        displayCountRecord(response);   //display toast with number of record received
+
+        //abstract method defined in child activities
+        displayResult(response, chosenMeter, chosenSensor);
+    }
+
+
+    private void storeResult(Netsens response) {
+        //store the response data in Global Sensor Attribute
+        ((SensorProjectApp) this.getApplication()).setGlobalData(
+                response, chosenMeter, chosenSensor);
+    }
+
+
+
+
+    private void displayCountRecord(Netsens response) {
         Toast.makeText(this,
-                new StringBuilder().append("Ricevuti ")
-                        .append(response.getMeasuresList().size()).append(" risultati!")
+                new StringBuilder()
+                        .append(getString(R.string.abstractToastCountPre))
+                        .append(response.getMeasuresList().size())
+                        .append(getString(R.string.abstractToastCountPost))
                 , Toast.LENGTH_SHORT).show();
 
     }
@@ -157,7 +175,7 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
     /* Not Abstract Method -
      * Set the value in the meter Spinner and set update method for Sensor Spinner
      */
-    public void setSensorsSpinner() {
+    protected void setSensorsSpinner() {
 
         //spinner object
         final Spinner meterSpinner = (Spinner) findViewById(getIdMeterSpinner());

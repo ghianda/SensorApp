@@ -12,7 +12,21 @@ import java.util.Locale;
  */
 
 
-public class SensorProjectApp extends Application {
+public class SensorProjectApp extends Application{
+    // key string PREFERENCES for login
+    public static final String PREF_NAME = "GaiaPref";
+    public static final String IS_LOGIN = "IsLoggedIn";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_STATION = "station";
+    public static final String KEY_PASSWORD = "password";
+
+
+    //key string for access
+    public final static String LOGINUSER = "temp";
+    public final static String LOGINSTATION = "723";
+    public final static String LOGINPASSWORD = "5lkz1d";
+
+
     //key string for intent object
     public final static String EXTRA_PARCDATARESPONSE = "com.example.francesco.PARCDATARESPONSE";
     public final static String EXTRA_SENSOR = "com.example.francesco.SENSOR";
@@ -21,20 +35,23 @@ public class SensorProjectApp extends Application {
     public final static String EXTRA_ACTPOWER = "com.example.francesco.AVERAGEACTPOWER";
     public final static String EXTRA_PROBLEM_DETECTED = "com.example.francesco.PROBLEM_DETECTED";
     public final static String EXTRA_SUGGESTED_ACTION = "com.example.francesco.SUGGESTED_ACTION";
+    public final static String EXTRA_CAKE = "com.example.francesco.CAKE";
+    public final static String EXTRA_SENSOR_NAME = "com.example.francesco.EXTRA_SENSOR_NAME";
+    public final static String EXTRA_SENSOR_UNIT = "com.example.francesco.EXTRA_SENSOR_UNIT";
+    public final static String EXTRA_SENSOR_CONVERSION_FACTOR = "com.example.francesco.EXTRA_SENSOR_CONVERSION_FACTOR";
+    public final static String EXTRA_FROM_TIME = "com.example.francesco.EXTRA_FROM_TIME";
+    public final static String EXTRA_TO_TIME = "com.example.francesco.EXTRA_TO_TIME";
 
 
     //parametri
     static final public String valueFormat = "###.###";
     static final public String notifyValueFormat = "###.#";
-    static final public long serviceRepeatPeriodInMillis = 10000; //10 seconds
+    static final public long serviceRepeatPeriodInMillis = 30000; //30 seconds
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
 
     //Global data (here we store the sensor value(s)
     static private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
 
-
-    //TODO TRY IT
-    //provare a fare qui una struttura semplice dove salverò (dal corpo di volley) solo value+timestamp di light e actPower
 
 
     //METHOD________________________________________________________________________________
@@ -81,7 +98,7 @@ public class SensorProjectApp extends Application {
 
 
         //TODO DA TOGLiere
-        testUpdate(); //STAMPA A VIDEO la GlobalSensorData
+        //testUpdate(); //STAMPA A VIDEO la GlobalSensorData
     }
 
 

@@ -1,29 +1,49 @@
 <resources>
     <!-- Titles -->
     <string name="app_name">Gaia</string>
+    <string name="loginActivity"> Login </string>
     <string name="timeRead_activity_name"> History Search </string>
-    <string name="lastRead_activity_name"> Last Reading </string>
-    <string name="graph_activity_name"> Result </string>
+    <string name="lastReadActivityName"> Last Reading </string>
+    <string name="compareActivityName"> Compare </string>
+    <string name="ResultsActivity"> Results </string>
+
+    <!-- Home activity -->
+    <string name="btLastReading">Last Reading</string>
+    <string name="btTimeReading">Time Reading</string>
+    <string name="btCake">Compare</string>
+    <string name="serviceText"> Background Monitoring </string>
 
 
     <!-- Login -->
+    <string name="actionLogout"> Logout </string>
     <string name="btLogin"> Login </string>
+    <string name="btCancelLogin"> Cancel </string>
+    <string name="loginEditStation"> Station </string>
+    <string name="loginEditUser"> User </string>
+    <string name="loginEditPassword"> Password </string>
+    <string name="loginRedirect"> Redirecting&#8230; </string>
+    <string name="failed"> Login failed&#8230; </string>
+    <string name="userPassIncorrect"> Username/Password is incorrect </string>
+    <string name="noDataInsert"> Please enter username and password </string>
 
     <!--connection-->
     <string name="text_toast_net_ok">You are connected! </string>
     <string name="text_toast_net_error">Problem with Internet Connection! </string>
     <string name="text_toast_net_slow">Maybe the connection is too slowly…</string>
     <string name="text_toast_no_data">No data received!</string>
+    <string name="abstractToastCountPre"> Received  </string>
+    <string name="abstractToastCountPost">  results </string>
 
     <!-- Last and Time reading -->
     <string name="tvSelectMeter"> Meter Station </string>
     <string name="tvSelectSensor"> Parameter </string>
     <string name="btRead"> Read </string>
+    <string name="btReadSensor"> Read Sensor </string>
+    <string name="btCompareConsume"> Compare Consume </string>
     <string name="from">FROM</string>
     <string name="to">TO</string>
     <string name="btDate">Date</string>
     <string name="btHour">Hour</string>
-    <string name="btLastReading">Last Reading</string>
 
     <!-- url -->
     <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
@@ -34,7 +54,7 @@
 
 
     <!-- ActivityLinearGraph -->
-    <string name="tvDisplayAvg">Average</string>
+    <string name="average">Average:</string>
     <string name="tvDisplayMin">Min Value</string>
     <string name="tvDisplayMax">Max Value</string>
     <string name="dataError"> NO DATA </string>
@@ -72,7 +92,6 @@
     <string name="suggIntruderAlarm"> there is a strange energy spike, evaluate if to call the police </string>
     <string name="suggTooWasteful"> There is too much power for the light readed, try to Switch OFF the light </string>
     <!-- ........................................................................... -->
-
 
 
 </resources>
