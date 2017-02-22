@@ -31,7 +31,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
     String sensorName, sensorUnit, prefix;
     long fromMillis, toMillis;
     int conversionFactor;
-    HashMap<String, Double> data;
+    HashMap<String, Float> data;
 
     TextView tvFrom, tvTo;
     private PieChart pieChart;
@@ -77,6 +77,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
         pieChart.setHoleRadius(25);
         pieChart.setTransparentCircleRadius(30);
 
+        //TODO
         setCakeListener();
 
         // add data
@@ -93,11 +94,10 @@ public class ActivityCakeGraph extends AppCompatActivity {
     private void addData() {
         List<PieEntry> entries = new ArrayList<>();
 
-
-        //insert data in entries
-        for (int i = 0; i < data.size(); i++)
-            entries.add(new PieEntry(Float.valueOf(data.get(data.keySet().toArray()[i]).toString())
-                    , data.keySet().toArray()[i].toString()));
+        //insert data in entries list
+        for (String key : data.keySet()) {
+            entries.add(new PieEntry(data.get(key), key));
+        }
 
 
         PieDataSet set = new PieDataSet(entries, sensorName);
@@ -109,10 +109,11 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         //apply dataset at chart
         pieChart.setData(data);
-        pieChart.invalidate(); // refresh
 
+        // refresh
+        pieChart.invalidate();
 
-}
+    }
 
 
 
@@ -155,7 +156,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
     private void extractDataFromIntent(){
         //ectract data from intent
         Intent intent    = getIntent();
-        data             = (HashMap<String, Double>)intent.getSerializableExtra(EXTRA_CAKE);
+        data             = (HashMap<String, Float>)intent.getSerializableExtra(EXTRA_CAKE);
         sensorName       = intent.getStringExtra(EXTRA_SENSOR_NAME);
         sensorUnit       = intent.getStringExtra(EXTRA_SENSOR_UNIT);
         conversionFactor = intent.getIntExtra(EXTRA_SENSOR_CONVERSION_FACTOR, 0);
@@ -174,9 +175,12 @@ public class ActivityCakeGraph extends AppCompatActivity {
             System.out.println(meter + "->  " + data.get(meter));
         }
 
+
+
+        prefix = fixPrefixOfUnit();
+
         //todo remove
         System.out.println(" + prefix: " + prefix);
-        prefix = fixPrefixOfUnit();
 
 
     }
@@ -233,8 +237,8 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
 
     private String findMax(){
-        Double max      = 0.0;
-        String winner   = "";
+        float max     = 0;
+        String winner = "";
 
         for( String meter : data.keySet()){
             if(data.get(meter) > max){
@@ -242,6 +246,9 @@ public class ActivityCakeGraph extends AppCompatActivity {
                 max = data.get(meter);
             }
         }
+
+        System.out.println("maxValue : " + max);
+        System.out.println("maxMeter : " + winner);
 
         return winner;
     }

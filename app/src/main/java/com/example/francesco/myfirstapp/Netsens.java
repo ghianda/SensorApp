@@ -24,7 +24,13 @@ public class Netsens {
         return measuresList;
     }
 
+    @Override
+    public String toString() {
+        return "Netsens{" +
 
-
+                "first measure meter= " + measuresList.get(0).getMeter() +
+                "and value= " + measuresList.get(0).getValue() +
+                '}';
+    }
 }
 

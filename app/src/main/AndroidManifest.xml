@@ -42,6 +42,14 @@
             android:name=".ActivityCompare"
             android:label="@string/compareActivityName"
             android:parentActivityName=".ActivityHome" />
+
+        <!-- todo da togliere -->
+        <activity
+            android:name=".ActivityCompare2"
+            android:label="@string/compareActivityName"
+            android:parentActivityName=".ActivityHome" />
+        <!-- ________________ -->
+
         <activity
             android:name=".ActivityLinearGraph"
             android:label="@string/ResultsActivity"
@@ -57,7 +65,7 @@
         <activity
             android:name=".ActivityCakeGraph"
             android:label="@string/ResultsActivity"
-            android:parentActivityName=".ActivityCompare"/>
+            android:parentActivityName=".ActivityCompare2"/>
 
         <!-- todo -->
 

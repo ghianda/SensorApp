@@ -23,6 +23,7 @@ public class SensorList {
 
 
     public SensorList() {
+        //costruttore con liste complete e valori vuoti
 
         list = new HashMap<Meter, ArrayList<Sensor>>();
 
@@ -165,6 +166,24 @@ public class SensorList {
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         list.put(new Meter("Geom/GF/Labs/MP", "Geometri - Forza motrice Laboratori"), sensors);
+
+    }
+
+
+
+    /** COTRUTTORE CHE COMPILA LE METER INSERENDO IL PARAMETRO SENSORS */
+    public SensorList( ArrayList<Sensor> sensors ) {
+
+        list = new HashMap<Meter, ArrayList<Sensor>>();
+
+        //list.put(new Meter("Geom/GF/Labs/Lighting", "Illuminazione Laboratori"), sensors);
+        //list.put(new Meter("Geom/1F/Rooms/Lighting", "Illuminazione Aule 1 Piano Geometri"), sensors);
+        //list.put(new Meter("QG/Lighting", "Hall e Aree Comuni"), sensors);
+        list.put(new Meter("QS", "Blocco Sportivo"), sensors);
+        list.put(new Meter("QG", "Blocco didattico"), sensors);
+        //list.put(new Meter("Geom/GF", "Geometri - Piano Terra"), sensors);
+        //list.put(new Meter("Geom/1F", "Geometri - Primo Piano"), sensors);
+        //list.put(new Meter("Geom/GF/Labs/MP", "Geometri - Forza motrice Laboratori"), sensors);
 
     }
 

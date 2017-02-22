@@ -85,7 +85,8 @@ public class ActivityHome extends AppCompatActivity {
     /*  Start Time_Get button activity*/
     public void startCompareActivity(View view) {
 
-        Intent intent = new Intent(this, ActivityCompare.class);
+        //Intent intent = new Intent(this, ActivityCompare.class);
+        Intent intent = new Intent(this, ActivityCompare2.class);
         startActivity(intent);
     }
 

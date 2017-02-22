@@ -40,11 +40,12 @@ public class ActivityCompare extends AppCompatActivity {
 
     //Attribute_------------------------------------------------------------------
     private HashMap<String, Netsens> savedResponse;
+    HashMap<String, ArrayList<Double>> extractedConsume;
 
-    ArrayList<Sensor> sensors = new ArrayList<Sensor>();
-    ArrayList<Meter> metersToControl = new ArrayList<>();
-    Sensor selectedSensor;
-    private final  SensorList allSensors = new SensorList();
+    private ArrayList<Sensor> sensors = new ArrayList<Sensor>();
+    private ArrayList<Meter> metersToControl = new ArrayList<>();
+    private Sensor selectedSensor;
+    private String typeOflecture = ""; //is "power" or "consume"
 
 
     private Button btFromDate; //bottoni per l'avvio dei picker dialog di selezione data/ora
@@ -71,6 +72,7 @@ public class ActivityCompare extends AppCompatActivity {
 
         //allocate memory
         savedResponse = new HashMap<>();
+        extractedConsume = new HashMap<>();
 
         //create list of object to control
         createSensorsList();
@@ -88,19 +90,32 @@ public class ActivityCompare extends AppCompatActivity {
     }
 
 
+    /** here i create url, get request and store response for each meter
+     * Button compare method
+     * @param view
+     */
+    public void compareConsume(View view) {
+        switch (typeOflecture) {
+            case "power": {
+                for (Meter m : metersToControl) {
 
+                    String url = createUrl(m.getUrlString());
+                    ParseXmlUrl(url);
+                }
+            }
+            break;
+            case "consume": {
+                for (Meter m : metersToControl) {
 
-    //Button compare method
-    public void compareConsume(View view){
-        String url;
+                    String urlFrom = createWindowUrl(m.getUrlString(), fromDate);
+                    String urlTo = createWindowUrl(m.getUrlString(), toDate);
 
-        /** here i create url, get request and store response for each meter */
-        for (Meter m : metersToControl){
-
-            url = createUrl(m.getUrlString());
-            ParseXmlUrl(url);
+                    ParseXmlUrl(urlFrom);
+                    ParseXmlUrl(urlTo);
+                }
+            }
+            break;
         }
-
     }
 
 
@@ -120,21 +135,57 @@ public class ActivityCompare extends AppCompatActivity {
     }
 
 
+    private String createWindowUrl(String meterUrl, Calendar cal){
+
+        //create the date of cal date and 5 minutes before
+        final long postMillis = cal.getTimeInMillis();
+        final long preMillis = postMillis - 300000; // now - 5 minutes
+
+        //create  url for get the last three measure
+        String url = getString(R.string.urlDomain)
+                + getString(R.string.m) + meterUrl + selectedSensor.getUrlString()
+                + getString(R.string.f) + preMillis
+                + getString(R.string.t) + postMillis;
+
+        return url;
+    }
 
 
-    private void extractResponse(Netsens newResponse){
 
-        if (savedResponse.size() < metersToControl.size() - 1){
-            //insert the response
-            savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
-        }
-        else {
-            if (savedResponse.size() == metersToControl.size() - 1) {
 
-                //insert the last response
-                savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+    private void extractResponse(Netsens newResponse) {
 
-                workOnSavedResponse();
+        switch (typeOflecture) {
+            case "power": {
+                if (savedResponse.size() < metersToControl.size() - 1) {
+                    //insert the response
+                    savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+                } else {
+                    if (savedResponse.size() == metersToControl.size() - 1) {
+
+                        //insert the last response
+                        savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+
+                        workOnSavedResponse();
+                    }
+                }
+            }
+            break;
+            case "consume": {
+                if (savedResponse.size() < metersToControl.size() - 1) {
+
+
+                    //insert the response
+                    savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+                } else {
+                    if (savedResponse.size() == metersToControl.size() - 1) {
+
+                        //insert the last response
+                        savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+
+                        workOnSavedResponse();
+                    }
+                }
             }
         }
     }
@@ -254,6 +305,14 @@ public class ActivityCompare extends AppCompatActivity {
                 selectedSensor = sensors.get((int)id);
                 //todo togliere
                 System.out.println(" ++++++++++ ACTIVE COMPARE -> " + selectedSensor.getName());
+
+                //set type of parameter (power or consume):
+                switch (selectedSensor.getUrlString()){
+                    case "/actpw" : typeOflecture = "power"; break;
+                    case "/con"   : typeOflecture = "consume"; break;
+                    default:    break;
+                }
+
             }
 
             @Override
@@ -270,6 +329,7 @@ public class ActivityCompare extends AppCompatActivity {
 
 
     private void createSensorsList(){
+        /*
         sensors.add(new Sensor("/reactcon", "Reactive Energy"));
         sensors.add(new Sensor("/apcon", "Apparent Energy"));
         sensors.add(new Sensor("/con", "Active Energy"));
@@ -280,6 +340,9 @@ public class ActivityCompare extends AppCompatActivity {
         sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
+        */
+        sensors.add(new Sensor("/actpw", "Active Power"));
+        sensors.add(new Sensor("/con", "Active Energy"));
     }
 
 
@@ -289,10 +352,11 @@ public class ActivityCompare extends AppCompatActivity {
         //todo - (ovvero, cerco le meter che hanno quel sensore a disosizione e le aggiungo a metersToControl
         metersToControl.add(new Meter("QG", "Blocco didattico"));
         metersToControl.add(new Meter("QS", "Blocco Sportivo"));
+
     }
 
 
-
+    //for spinner dataset
     private ArrayList<String> sensorsNames(){
         ArrayList<String> names = new ArrayList<>();
 
@@ -303,6 +367,25 @@ public class ActivityCompare extends AppCompatActivity {
         return names;
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
