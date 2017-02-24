@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_bar_home"
+        android:icon="@drawable/marker2"
+        android:title="@string/app_name"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_bar_last_read"
+        android:icon="@drawable/marker2"
+        android:title="@string/lastRead_activity_name"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_bar_time_read"
+        android:icon="@drawable/marker2"
+        android:title="@string/timeRead_activity_name"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_bar_consume"
+        android:icon="@drawable/marker2"
+        android:title="@string/compareActivityName"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
+
+</menu>

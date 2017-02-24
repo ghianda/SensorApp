@@ -12,7 +12,7 @@ import java.util.Locale;
  */
 
 
-public class SensorProjectApp extends Application{
+public class SensorProjectApp extends Application {
     // key string PREFERENCES for login
     public static final String PREF_NAME = "GaiaPref";
     public static final String IS_LOGIN = "IsLoggedIn";
@@ -44,7 +44,7 @@ public class SensorProjectApp extends Application{
 
 
     //parametri
-    static final public String valueFormat = "###.###";
+    static final public String valueFormat = "###.##";
     static final public String notifyValueFormat = "###.#";
     static final public long serviceRepeatPeriodInMillis = 30000; //30 seconds
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
@@ -54,9 +54,7 @@ public class SensorProjectApp extends Application{
     static private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
 
 
-
     //METHOD________________________________________________________________________________
-
 
 
     public void testUpdate() {
@@ -103,10 +101,6 @@ public class SensorProjectApp extends Application{
     }
 
 
-
-
-
-
     public double getLastValueFromMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
         //TODO aggiungere try catch per caso data.size = 0
 
@@ -117,7 +111,6 @@ public class SensorProjectApp extends Application{
         //extract last value added to data list
         return ss.getDatas().get(ss.getDatas().size() - 1).getValue();
     }
-
 
 
     public long getLastTimestampFromMeterAndSensor(Meter chosenMeter, Sensor chosenSensor) {
@@ -200,7 +193,6 @@ public class SensorProjectApp extends Application{
     }
 
 
-
     public static String fixUnit(double value, String unit) {
         String fixedValue;
         String prefix = "";
@@ -225,7 +217,6 @@ public class SensorProjectApp extends Application{
     }
 
 
-
     public static String fixUnit(double value, String unit, DecimalFormat frmt) {
         String fixedValue;
         String prefix = "";
@@ -246,4 +237,5 @@ public class SensorProjectApp extends Application{
         fixedValue = frmt.format(value) + " " + prefix + unit;
         return fixedValue;
     }
+
 }

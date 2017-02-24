@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
@@ -40,6 +42,8 @@ public class ActivityHome extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         session = new SessionManager(getApplicationContext());
+
+        setListenerBottomMenu();
 
         //load the user credentials and display it
         loadUserCredentials();
@@ -86,7 +90,7 @@ public class ActivityHome extends AppCompatActivity {
     public void startCompareActivity(View view) {
 
         //Intent intent = new Intent(this, ActivityCompare.class);
-        Intent intent = new Intent(this, ActivityCompare2.class);
+        Intent intent = new Intent(this, ActivityCompare.class);
         startActivity(intent);
     }
 
@@ -214,5 +218,45 @@ public class ActivityHome extends AppCompatActivity {
         inflater.inflate(R.menu.gaia_intro_menu, menu);
         return true;
     }
+
+
+
+    //listener for bottom menu bar
+    private void setListenerBottomMenu() {
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_bar_home:
+                                start(ActivityHome.class);
+                                break;
+
+                            case R.id.action_bar_last_read:
+                                start(ActivityLastRead.class);
+                                break;
+
+                            case R.id.action_bar_time_read:
+                                start(ActivityTimeRead.class);
+                                break;
+
+                            case R.id.action_bar_consume:
+                                start(ActivityCompare.class);
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
+    }
+
+    private void start(Class clazz){
+        Intent intent = new Intent(getApplicationContext(), clazz);
+        startActivity(intent);
+    }
+
 
 }

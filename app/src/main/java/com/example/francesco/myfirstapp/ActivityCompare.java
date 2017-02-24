@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_CAKE;
@@ -35,17 +36,22 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_CON
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_NAME;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_UNIT;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_TO_TIME;
+import static com.example.francesco.myfirstapp.SensorProjectApp.diffWindowInMillis;
+import static java.lang.Math.abs;
 
 public class ActivityCompare extends AppCompatActivity {
 
     //Attribute_------------------------------------------------------------------
     private HashMap<String, Netsens> savedResponse;
-    HashMap<String, ArrayList<Double>> extractedConsume;
 
-    private ArrayList<Sensor> sensors = new ArrayList<Sensor>();
-    private ArrayList<Meter> metersToControl = new ArrayList<>();
+    float valueFrom, valueTo;
+
+    private ArrayList<Sensor> sensors;
+    private HashMap<String, List<Netsens>> extractedConsume;
+    private SensorList metersToControl;
     private Sensor selectedSensor;
     private String typeOflecture = ""; //is "power" or "consume"
+    private int countResponse;
 
 
     private Button btFromDate; //bottoni per l'avvio dei picker dialog di selezione data/ora
@@ -72,11 +78,15 @@ public class ActivityCompare extends AppCompatActivity {
 
         //allocate memory
         savedResponse = new HashMap<>();
-        extractedConsume = new HashMap<>();
+        countResponse = 0;
 
         //create list of object to control
         createSensorsList();
-        createMeterToControlList();
+
+        //create list of meters with sensors list for eac meters
+        metersToControl = new SensorList(sensors);
+        createExtracetedConsumeStructure();
+
 
         //preparazione degli spinner dei Sensori
         setSensorSpinner();
@@ -90,6 +100,17 @@ public class ActivityCompare extends AppCompatActivity {
     }
 
 
+
+
+
+    private void createExtracetedConsumeStructure() {
+        extractedConsume = new HashMap<>();
+
+    }
+
+
+
+
     /** here i create url, get request and store response for each meter
      * Button compare method
      * @param view
@@ -97,7 +118,7 @@ public class ActivityCompare extends AppCompatActivity {
     public void compareConsume(View view) {
         switch (typeOflecture) {
             case "power": {
-                for (Meter m : metersToControl) {
+                for (Meter m : metersToControl.getMeters()) {
 
                     String url = createUrl(m.getUrlString());
                     ParseXmlUrl(url);
@@ -105,7 +126,7 @@ public class ActivityCompare extends AppCompatActivity {
             }
             break;
             case "consume": {
-                for (Meter m : metersToControl) {
+                for (Meter m : metersToControl.getMeters()) {
 
                     String urlFrom = createWindowUrl(m.getUrlString(), fromDate);
                     String urlTo = createWindowUrl(m.getUrlString(), toDate);
@@ -121,107 +142,154 @@ public class ActivityCompare extends AppCompatActivity {
 
 
 
-    public String createUrl(String meterUrl) {
-
-        //read date and hour from Date and Hour Picker
-        long fromMillis = fromDate.getTimeInMillis();
-        long toMillis = toDate.getTimeInMillis();
-
-        //costruisco l'url
-        return getString(R.string.urlDomain)
-                + getString(R.string.m) + meterUrl + selectedSensor.getUrlString()
-                + getString(R.string.f) + fromMillis
-                + getString(R.string.t) + toMillis;
-    }
-
-
-    private String createWindowUrl(String meterUrl, Calendar cal){
-
-        //create the date of cal date and 5 minutes before
-        final long postMillis = cal.getTimeInMillis();
-        final long preMillis = postMillis - 300000; // now - 5 minutes
-
-        //create  url for get the last three measure
-        String url = getString(R.string.urlDomain)
-                + getString(R.string.m) + meterUrl + selectedSensor.getUrlString()
-                + getString(R.string.f) + preMillis
-                + getString(R.string.t) + postMillis;
-
-        return url;
-    }
 
 
 
 
     private void extractResponse(Netsens newResponse) {
 
+
+
         switch (typeOflecture) {
             case "power": {
-                if (savedResponse.size() < metersToControl.size() - 1) {
+                System.out.println(" >>>>>...... extractResponse: case = power");
+
+                if (savedResponse.size() < metersToControl.getMeters().size() - 1) {
                     //insert the response
                     savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
                 } else {
-                    if (savedResponse.size() == metersToControl.size() - 1) {
+                    if (savedResponse.size() == metersToControl.getMeters().size() - 1) {
 
                         //insert the last response
                         savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
 
-                        workOnSavedResponse();
+                        prepareDataAndSendIt();
                     }
                 }
             }
             break;
+
+
+
             case "consume": {
-                if (savedResponse.size() < metersToControl.size() - 1) {
+                System.out.println("count: " + countResponse);
 
-
+                if (extractedConsume.size() < metersToControl.getMeters().size() - 1){
                     //insert the response
-                    savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+
+                    String keyMeter = newResponse.getMeasuresList().get(0).getMeter();
+                    System.out.println("keyMeter : " + keyMeter);
+                    //check if there is some response of that meter
+                    if(!extractedConsume.containsKey(keyMeter)){
+                        // this newResponse is the first of that measure
+                        ArrayList<Netsens> list = new ArrayList<>();
+                        list.add(newResponse);
+                        System.out.println("[A] inserted: " + newResponse.toString());
+                        extractedConsume.put(keyMeter, list);
+                        countResponse ++;
+                    }
+                    else{
+                        // extractedConsume already contains the key
+                        System.out.println("[B] inserted: " + newResponse.toString());
+                        extractedConsume.get(keyMeter).add(newResponse);
+                        countResponse ++;
+                    }
+
+
                 } else {
-                    if (savedResponse.size() == metersToControl.size() - 1) {
 
-                        //insert the last response
-                        savedResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+                    //insert the last meter
 
-                        workOnSavedResponse();
+                    String keyMeter = newResponse.getMeasuresList().get(0).getMeter();
+                    //check if there is some response of that meter
+                    if (!extractedConsume.containsKey(keyMeter)) {
+                        // this newResponse is the first of that measure
+                        ArrayList<Netsens> list = new ArrayList<>();
+                        list.add(newResponse);
+                        System.out.println("[C] inserted: " + newResponse.toString());
+                        extractedConsume.put(keyMeter, list);
+                        countResponse ++;
+                    } else {
+                        // extractedConsume already contains the key
+                        System.out.println("[D] inserted: " + newResponse.toString());
+                        extractedConsume.get(keyMeter).add(newResponse);
+                        countResponse ++;
                     }
                 }
+
+                //control if all response is inserted
+                if (countResponse == (metersToControl.getMeters().size() * sensors.size())){
+
+                    System.out.println("   -  -  - finish extractResponse -  -  -  ");
+                    prepareDataAndSendIt();
+                }
+
             }
         }
     }
 
 
-    private void workOnSavedResponse(){
+    private void prepareDataAndSendIt(){
 
-        //calculate the doAverage of value
-        HashMap<String, Double> averageMeasure = doAverage();
+        //data to send
+        HashMap<String, Float> data;
 
-        //TODO remove
-        System.out.println("ActivityCOMPARE PRE INTENT: averageMeasure->");
-        for( String meter: averageMeasure.keySet()){
-            System.out.println(meter + "->  " + averageMeasure.get(meter));
+
+
+        //prepare data
+        switch (typeOflecture){
+            case "power" : {
+                System.out.println(" power case ");
+                //calculate the Average
+                data = doAverage();
+                break;
+            }
+            case "consume" : {
+                System.out.println(" consume case ");
+                //calculate the Difference
+                data = doDifference();
+                break;
+            }
+            default: System.out.println(" default case "); data = null;
         }
-        //todo ************+
 
 
         //Prepare to start cakeActivity to display results
         Intent intent = new Intent(this, ActivityCakeGraph.class);
 
-        //put data in the intent
+        //put info in the intent
         selectedSensor.setConversionFactorByUrlCode();
-
-
-        System.out.println("ActivityCOMPARE PRE INTENT: unit-> " + selectedSensor.getUnitOfMeasure());
-        intent.putExtra(EXTRA_CAKE, averageMeasure);
         intent.putExtra(EXTRA_SENSOR_NAME, selectedSensor.getName());
         intent.putExtra(EXTRA_SENSOR_UNIT, selectedSensor.getUnitOfMeasure());
         intent.putExtra(EXTRA_SENSOR_CONVERSION_FACTOR, selectedSensor.getConversionFactor());
         intent.putExtra(EXTRA_FROM_TIME, fromDate.getTimeInMillis());
         intent.putExtra(EXTRA_TO_TIME, toDate.getTimeInMillis());
 
+        //put data in the intent
+        intent.putExtra(EXTRA_CAKE, data);
+
+        //start activity
         startActivity(intent);
 
     }
+
+
+
+    private HashMap<String, Float> doDifference(){
+
+        HashMap<String, Float> differences = new HashMap<>();
+
+        for ( String key : extractedConsume.keySet()){
+            float diff = abs ( extractedConsume.get(key).get(1).getMeasuresList().get(0).getValue()
+                         - extractedConsume.get(key).get(0).getMeasuresList().get(0).getValue());
+            differences.put(key, diff);
+        }
+
+        return differences;
+    }
+
+
+
 
 
 
@@ -281,6 +349,37 @@ public class ActivityCompare extends AppCompatActivity {
 
 
 
+    public String createUrl(String meterUrl) {
+
+        //read date and hour from Date and Hour Picker
+        long fromMillis = fromDate.getTimeInMillis();
+        long toMillis = toDate.getTimeInMillis();
+
+        //costruisco l'url
+        return getString(R.string.urlDomain)
+                + getString(R.string.m) + meterUrl + selectedSensor.getUrlString()
+                + getString(R.string.f) + fromMillis
+                + getString(R.string.t) + toMillis;
+    }
+
+
+    private String createWindowUrl(String meterUrl, Calendar cal){
+
+        //create the date of cal date and 5 minutes before
+        final long postMillis = cal.getTimeInMillis();
+        final long preMillis = postMillis - diffWindowInMillis; // now - 15 minutes
+
+        //create  url for get the last three measure
+        String url = getString(R.string.urlDomain)
+                + getString(R.string.m) + meterUrl + selectedSensor.getUrlString()
+                + getString(R.string.f) + preMillis
+                + getString(R.string.t) + postMillis;
+
+        return url;
+    }
+
+
+
 
 
     protected void setSensorSpinner() {
@@ -304,7 +403,7 @@ public class ActivityCompare extends AppCompatActivity {
                 //salvataggio Oggetto Sensor scelto
                 selectedSensor = sensors.get((int)id);
                 //todo togliere
-                System.out.println(" ++++++++++ ACTIVE COMPARE -> " + selectedSensor.getName());
+                System.out.println(" ++++++++++ ACTIVITY COMPARE -> " + selectedSensor.getName());
 
                 //set type of parameter (power or consume):
                 switch (selectedSensor.getUrlString()){
@@ -341,19 +440,12 @@ public class ActivityCompare extends AppCompatActivity {
         sensors.add(new Sensor("/appw", "Apparent Power"));
         sensors.add(new Sensor("/reactpw", "Reactive Power"));
         */
+        sensors = new ArrayList<>();
+
         sensors.add(new Sensor("/actpw", "Active Power"));
         sensors.add(new Sensor("/con", "Active Energy"));
     }
 
-
-    private void createMeterToControlList(){
-
-        //TODO qui potrei fare una funzione che selezione le meter da esplorare in base al sensore scelto
-        //todo - (ovvero, cerco le meter che hanno quel sensore a disosizione e le aggiungo a metersToControl
-        metersToControl.add(new Meter("QG", "Blocco didattico"));
-        metersToControl.add(new Meter("QS", "Blocco Sportivo"));
-
-    }
 
 
     //for spinner dataset
@@ -565,18 +657,23 @@ public class ActivityCompare extends AppCompatActivity {
 
 
 
-    private HashMap<String, Double> doAverage(){
+    private HashMap<String, Float> doAverage(){
 
-        HashMap<String, Double> averageMeasure = new HashMap<>();
-        Double avg = 0.0;
+        HashMap<String, Float> averageMeasure = new HashMap<>();
+        Double avg;
+        double sum = 0;
 
         for ( String key : savedResponse.keySet()){
             for ( Measure m: savedResponse.get(key).getMeasuresList()){
-                avg += m.getValue();
+
+                //todo l'IF è temporaneo
+                if (m.getValue() > 0)
+                    sum += m.getValue();
             }
-            avg /= savedResponse.get(key).getMeasuresList().size();
-            averageMeasure.put(key, avg);
-            avg = 0.0;
+
+            avg = sum / savedResponse.get(key).getMeasuresList().size();
+            averageMeasure.put(key, Float.valueOf(avg.toString()));
+            sum = 0;
         }
 
         return averageMeasure;

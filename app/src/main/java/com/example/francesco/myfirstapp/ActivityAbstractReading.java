@@ -1,11 +1,15 @@
 package com.example.francesco.myfirstapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,7 +52,8 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(myView());
-        //getActionBar().setDisplayHomeAsUpEnabled(true); //visualizza "freccia indietro" in actionbar
+
+        //setListenerBottomMenu();
 
         //preparazione degli spinner dei Sensori
         setSensorsSpinner();
@@ -225,6 +230,44 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
         });
 
 
+    }
+
+
+    //listener for bottom menu bar
+    private void setListenerBottomMenu() {
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_bar_home:
+                                start(ActivityHome.class);
+                                break;
+
+                            case R.id.action_bar_last_read:
+                                start(ActivityLastRead.class);
+                                break;
+
+                            case R.id.action_bar_time_read:
+                                start(ActivityTimeRead.class);
+                                break;
+
+                            case R.id.action_bar_consume:
+                                start(ActivityCompare.class);
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
+    }
+
+    private void start(Class clazz){
+        Intent intent = new Intent(getApplicationContext(), clazz);
+        startActivity(intent);
     }
 
 }

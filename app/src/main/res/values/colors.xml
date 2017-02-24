@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- app theme -->
+    <color name="colorPrimary">#47C504</color>
+    <color name="colorPrimaryDark">#349202</color>
+    <color name="colorAccent">#FB8F0A</color>
+
+    <!-- generico -->
+    <color name="white"> #FFFFFF</color>
+    <color name="black"> #000000</color>
+
+
+
+    <!-- box -->
+    <color name="backgroundBox">#D8F6CE</color>
+    <color name="borderBox">#BEF781</color>
+
+    <!-- botton search -->
+    <color name="backBtSearch">#47C504</color>
+    <color name="borderBtSearch">#349202</color>
+    <color name="backBtSearchPressed">#3B940B</color>
+
+
 </resources>

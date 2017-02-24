@@ -1,5 +1,9 @@
 package com.example.francesco.myfirstapp;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
@@ -66,6 +70,9 @@ public class ActivityLastRead extends ActivityAbstractReading {
         ((TextView) findViewById(R.id.tvDisplayValueResult)).setText("");
         ((TextView) findViewById(R.id.tvDisplayTimeResult)).setText("");
     }
+
+
+
 
 
 

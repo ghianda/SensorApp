@@ -19,7 +19,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/gaiaTheme">
         <activity android:name=".ActivityIntro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,8 @@
         </activity>
         <activity
             android:name=".ActivityHome"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:parentActivityName=".ActivityLogin"/>
         <activity
             android:name=".ActivityTimeRead"
             android:label="@string/timeRead_activity_name"
@@ -38,14 +39,10 @@
             android:name=".ActivityLastRead"
             android:label="@string/lastReadActivityName"
             android:parentActivityName=".ActivityHome" />
-        <activity
-            android:name=".ActivityCompare"
-            android:label="@string/compareActivityName"
-            android:parentActivityName=".ActivityHome" />
 
         <!-- todo da togliere -->
         <activity
-            android:name=".ActivityCompare2"
+            android:name=".ActivityCompare"
             android:label="@string/compareActivityName"
             android:parentActivityName=".ActivityHome" />
         <!-- ________________ -->
@@ -65,7 +62,7 @@
         <activity
             android:name=".ActivityCakeGraph"
             android:label="@string/ResultsActivity"
-            android:parentActivityName=".ActivityCompare2"/>
+            android:parentActivityName=".ActivityCompare"/>
 
         <!-- todo -->
 

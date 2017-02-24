@@ -6,11 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import static com.example.francesco.myfirstapp.SensorProjectApp.LOGINPASSWORD;
-import static com.example.francesco.myfirstapp.SensorProjectApp.LOGINSTATION;
-import static com.example.francesco.myfirstapp.SensorProjectApp.LOGINUSER;
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -40,13 +37,18 @@ public class ActivityLogin extends AppCompatActivity {
         etStation = (EditText)findViewById(R.id.EtStation);
         etPassword= (EditText)findViewById(R.id.Etpassword);
 
+        //precompile Station
+        etStation.setText("723", TextView.BufferType.EDITABLE);
+
 
 
         //cancel login listener
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //erase the EditTextViews
+                etUser.getText().clear();
+                etPassword.getText().clear();
             }
         });
 
@@ -61,27 +63,16 @@ public class ActivityLogin extends AppCompatActivity {
 
                 // Check if username, password is filled
                 if(username.trim().length() > 0 && password.trim().length() > 0 && station.trim().length() > 0) {
-                    // For testing puspose username, password is checked with sample data
-                    // username = test
-                    // password = test
-                    if (username.equals(LOGINUSER) && password.equals(LOGINPASSWORD)
-                            && station.equals(LOGINSTATION)) {
-                        // Creating user login session
-                        // For testing i am stroing name, email as follow
-                        // Use user real data
-                        Toast.makeText(getApplicationContext(),
-                                getString(R.string.loginRedirect), Toast.LENGTH_SHORT).show();
-                        session.createLoginSession(username, station, password);
+
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.loginRedirect), Toast.LENGTH_SHORT).show();
+                    session.createLoginSession(username, station, password);
 
 
-                        // Starting MainActivity
-                        Intent i = new Intent(getApplicationContext(), ActivityHome.class);
-                        startActivity(i);
-                        finish();
-                    } else {
-                        // username / password doesn't match
-                        alert.showAlertDialog(ActivityLogin.this, getString(R.string.failed), getString(R.string.userPassIncorrect), false);
-                    }
+                    // Starting MainActivity
+                    Intent i = new Intent(getApplicationContext(), ActivityHome.class);
+                    startActivity(i);
+                    finish();
                 }
                 else{
                     // user didn't entered username or password

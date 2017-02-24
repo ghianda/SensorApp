@@ -11,12 +11,6 @@ import android.content.SharedPreferences.Editor;
 
 import java.util.HashMap;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_NAME;
-import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_PASSWORD;
-import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_STATION;
-import static com.example.francesco.myfirstapp.SensorProjectApp.IS_LOGIN;
-import static com.example.francesco.myfirstapp.SensorProjectApp.PREF_NAME;
-
 public class SessionManager {
     // Shared Preferences
     SharedPreferences pref;
@@ -31,9 +25,13 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Sharedpref file name
+    private static final String PREF_NAME = "GaiaPref";
 
-
-
+    // All Shared Preferences Keys
+    private static final String IS_LOGIN = "IsLoggedIn";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_STATION = "station";
+    public static final String KEY_PASSWORD = "password";
 
     // Constructor
     public SessionManager(Context context){
@@ -56,7 +54,7 @@ public class SessionManager {
         // Storing station in pref
         editor.putString(KEY_STATION, station);
 
-        // Storing passwordin pref
+        // Storing password in pref
         editor.putString(KEY_PASSWORD, password);
 
         // commit changes

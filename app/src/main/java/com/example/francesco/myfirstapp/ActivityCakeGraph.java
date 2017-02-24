@@ -126,8 +126,8 @@ public class ActivityCakeGraph extends AppCompatActivity {
         tvTo         = (TextView)findViewById(R.id.cakeToView);
 
         //display on textView
-        SensorProjectApp.fromMillisToDateOnTextView(fromMillis, tvFrom, false);
-        SensorProjectApp.fromMillisToDateOnTextView(toMillis, tvTo, false);
+        SensorProjectApp.fromMillisToDateOnTextView(fromMillis, tvFrom, true);
+        SensorProjectApp.fromMillisToDateOnTextView(toMillis, tvTo, true);
 
     }
 

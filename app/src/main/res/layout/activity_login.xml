@@ -14,6 +14,36 @@
 
 
         <!-- user -->
+
+        <!-- password -->
+
+        <!-- station -->
+
+
+        <Button
+            android:id="@+id/btCancelLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btCancelLogin"
+            android:layout_marginBottom="26dp"
+            android:layout_alignBottom="@+id/btLogin"
+            android:layout_toRightOf="@+id/EtStation"
+            android:layout_toEndOf="@+id/EtStation"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp" />
+
+        <Button
+            android:id="@+id/btLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btLogin"
+            android:layout_below="@+id/EtStation"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="120dp" />
+
         <EditText
             android:id = "@+id/EtUser"
             android:hint = "@string/loginEditUser"
@@ -22,12 +52,12 @@
             android:focusable = "true"
             android:textColorHighlight = "#ff7eff15"
             android:textColorHint = "#ffff25e6"
-            android:layout_below="@+id/imageView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="64dp" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/btLogin"
+            android:layout_toRightOf="@+id/btLogin" />
 
-        <!-- password -->
         <EditText
             android:id="@+id/Etpassword"
             android:hint="@string/loginEditPassword"
@@ -35,14 +65,14 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:layout_below="@+id/editText"
+            android:textColorHint="#ffff299f"
+            android:layout_marginTop="31dp"
+            android:layout_below="@+id/EtUser"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/editText"
-            android:layout_alignEnd="@+id/editText"
-            android:textColorHint="#ffff299f" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-        <!-- station -->
         <EditText
             android:id="@+id/EtStation"
             android:hint="@string/loginEditStation"
@@ -50,33 +80,22 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:layout_marginTop="21dp"
-            android:layout_below="@+id/EtUser"
+            android:layout_marginTop="23dp"
+            android:layout_below="@+id/Etpassword"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-
-        <Button
-            android:id="@+id/btLogin"
+        <TextView
+            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btLogin"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/textView2"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="42dp" />
-
-        <Button
-            android:id="@+id/btCancelLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btCancelLogin"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="68dp" />
+            android:layout_alignBottom="@+id/EtUser"
+            android:layout_toLeftOf="@+id/EtUser"
+            android:layout_toStartOf="@+id/EtUser" />
 
 
 </RelativeLayout>
