@@ -1,6 +1,7 @@
 
 ____ TODO
 ------- GENERALE:
+cambiare k in K nelle unità di misura
 
 mettere i Loader !!!!
 aggiungere fragment con bottone "OK?" prima di fargli fare il logout

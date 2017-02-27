@@ -68,9 +68,6 @@ public class ActivityTimeRead extends ActivityAbstractReading {
         startActivity(intent);
     }
 
-    @Override
-    public void clearValueTextView() {
-    }
 
 
     @Override
@@ -90,17 +87,9 @@ public class ActivityTimeRead extends ActivityAbstractReading {
 
     @Override
     public void createUrl() {
-
-        //read date and hour from Date and Hour Picker
-        long fromMillis = fromDate.getTimeInMillis();
-        long toMillis = toDate.getTimeInMillis();
-
-        //costruisco l'url
-        url = getString(R.string.urlDomain)
-                + getString(R.string.m) + chosenMeter.getUrlString() + chosenSensor.getUrlString()
-                + getString(R.string.f) + fromMillis
-                + getString(R.string.t) + toMillis;
+        url = networkManager.createTimeReadUrl(chosenMeter, chosenSensor, fromDate, toDate);
     }
+
 
 
     // Native Method_----------------------------------------------------------

@@ -39,7 +39,6 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
 
 
-        //TODO OK
         //set the Min and Max into TextView
         setMinAndMaxTv(parcSens);
 
@@ -76,9 +75,6 @@ public class ActivityLinearGraph extends AppCompatActivity {
     private void setMinTv(Sensor ss, TextView tvValue, TextView tvTime) {
 
         Data minValueData = ss.findDataWithMinValue();
-
-        //TODO da togliere
-        System.out.println(minValueData);
 
         setValueInTv(minValueData.getValue() / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvValue);
         setTimeInTv(minValueData, tvTime);
@@ -136,8 +132,6 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
         //set the dayAxisFormatter------------------------------------------------------------
         List<Entry> entries = new ArrayList<>();
-
-        //TODO c'è un modo piu furbo pe tirar fuori i valori dell'asse x inseriti nella chart?
 
         //Extract the Timestamp array
         ArrayList<Long> oldTS = new ArrayList<>();

@@ -17,6 +17,8 @@ public class ActivityIntro extends AppCompatActivity {
         // Session Manager
         session = new SessionManager(getApplicationContext());
 
+        NetworkManager.getInstance(this);
+
         if (session.isLoggedIn()){
             startGaia();
         }

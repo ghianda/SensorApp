@@ -48,7 +48,7 @@ public class SensorProjectApp extends Application {
     static final public String notifyValueFormat = "###.#";
     static final public long serviceRepeatPeriodInMillis = 30000; //30 seconds
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
-    static final public long diffWindowInMillis = 900000; //15 minuti - finestra per letture dei consumi (pre e post)
+
 
     //Global data (here we store the sensor value(s)
     static private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
@@ -208,7 +208,7 @@ public class SensorProjectApp extends Application {
 
             if (value > 1000) {
                 value = value / 1000;
-                prefix = "K";
+                prefix = "k";
             }
         }
 
