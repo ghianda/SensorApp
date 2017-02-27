@@ -38,6 +38,8 @@ public class ActivityLastRead extends ActivityAbstractReading {
 
 
 
+
+
     @Override
     //display in a textview the result value and the time of the reading
     public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {

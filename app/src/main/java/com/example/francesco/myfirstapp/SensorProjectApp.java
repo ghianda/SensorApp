@@ -13,12 +13,6 @@ import java.util.Locale;
 
 
 public class SensorProjectApp extends Application {
-    // key string PREFERENCES for login
-    public static final String PREF_NAME = "GaiaPref";
-    public static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_NAME = "name";
-    public static final String KEY_STATION = "station";
-    public static final String KEY_PASSWORD = "password";
 
 
     //key string for access

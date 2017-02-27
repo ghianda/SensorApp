@@ -1,7 +1,9 @@
 
 ____ TODO
 ------- GENERALE:
-cambiare k in K nelle unità di misura
+
+FARE I PICKER CON I DIALOGFRAGMENT PERCHé COS^ NON FUNGE
+POI, FARE COMPARE FRAGMENT
 
 mettere i Loader !!!!
 aggiungere fragment con bottone "OK?" prima di fargli fare il logout

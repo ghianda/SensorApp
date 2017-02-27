@@ -50,8 +50,6 @@ public class ActivityTimeRead extends ActivityAbstractReading {
 
         // Associo i picker dialog (Time e Date) ai bottoni
         addListenerOnButton();
-
-
     }
 
 
@@ -134,6 +132,7 @@ public class ActivityTimeRead extends ActivityAbstractReading {
         btFromHour = (Button) findViewById(R.id.btFromHour);
         btToDate = (Button) findViewById(R.id.btToDate);
         btToHour = (Button) findViewById(R.id.btToHour);
+
 
         // definizione dei 4 OnClickListener per i bottoni
         View.OnClickListener dateFromListener = (new View.OnClickListener() {
@@ -250,6 +249,8 @@ public class ActivityTimeRead extends ActivityAbstractReading {
             toDate.set(Calendar.SECOND, 0);
             // update selected hour on button text
             ActivityTimeRead.this.setDisplayHour(btToHour, toDate);
+
+
         }
     });
 

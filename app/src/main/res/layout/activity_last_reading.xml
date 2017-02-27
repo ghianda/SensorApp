@@ -39,19 +39,6 @@
             />
         </LinearLayout>
 
-    <ImageButton
-        android:onClick="read"
-        android:id="@+id/btLastRead"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/search_button_states"
-        android:src="@drawable/ic_search_white_48dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:layout_marginEnd="19dp"
-        android:layout_alignBottom="@+id/tvDisplayValueResult"
-        android:layout_alignParentEnd="true" />
-
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -109,5 +96,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="34dp" />
     </LinearLayout>
+
+    <ImageButton
+        android:onClick="read"
+        android:id="@+id/btLastRead"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/search_button_states"
+        android:src="@drawable/ic_search_white_48dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_alignTop="@+id/tvDisplayValueResult"
+        android:layout_alignEnd="@+id/bottom_navigation" />
 
 </RelativeLayout>

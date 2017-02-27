@@ -5,51 +5,6 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:text="@string/btTimeReading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:onClick="startTimeActivity"
-        android:layout_marginBottom="77dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/switchService"
-        android:layout_alignEnd="@+id/switchService" />
-
-    <Button
-        android:text="@string/btLastReading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:onClick="startLastReadActivity"
-        android:layout_alignBaseline="@+id/button3"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp" />
-
-    <Button
-        android:id="@+id/btCakeActivity"
-        android:text="@string/btCake"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button3"
-        android:layout_toStartOf="@+id/button3"
-        android:layout_marginBottom="12dp"
-        android:onClick="startCompareActivity"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-        android:text="@string/serviceText"
-        android:layout_above="@+id/button2"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2"
-        android:layout_marginBottom="105dp" />
-
     <android.support.v7.widget.SwitchCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,7 +48,46 @@
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/bottom_navigation_menu" />
 
+    <Button
+        android:text="@string/btLastReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:onClick="startLastReadActivity"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="26dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="@string/btTimeReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="startTimeActivity"
+        android:layout_marginBottom="73dp"
+        android:layout_above="@+id/btCakeActivity"
+        android:layout_alignEnd="@+id/bottom_navigation" />
+
+    <Button
+        android:id="@+id/btCakeActivity"
+        android:text="@string/btCake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:onClick="startCompareActivity"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_toEndOf="@+id/button2"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:text="@string/serviceText"
+        android:layout_below="@+id/tvStationName"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_marginTop="28dp" />
 
 
 </RelativeLayout>

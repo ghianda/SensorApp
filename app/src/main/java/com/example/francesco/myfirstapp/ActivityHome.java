@@ -22,9 +22,9 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_NAME;
-import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_STATION;
 import static com.example.francesco.myfirstapp.SensorProjectApp.serviceRepeatPeriodInMillis;
+import static com.example.francesco.myfirstapp.SessionManager.KEY_NAME;
+import static com.example.francesco.myfirstapp.SessionManager.KEY_STATION;
 
 /**
  * Created by francesco on 22/12/2016.

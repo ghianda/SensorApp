@@ -21,5 +21,11 @@
     <color name="borderBtSearch">#349202</color>
     <color name="backBtSearchPressed">#3B940B</color>
 
+    <!--botton action (ok, cancel, login ecc) -->
+    <color name="textBtAction">#151515</color>
+    <color name="borderBtAction">#1C1C1C</color>
+    <color name="backBtAction">#F5DA81</color>
+    <color name="backBtActionPressed">#FAAC58</color>
+
 
 </resources>

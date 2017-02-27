@@ -5,6 +5,10 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -76,6 +80,9 @@ public class ActivityCompare extends ActivityAbstractReading {
         powerResponse = new HashMap<>();
         consumeResponse = new HashMap<>();
         countResponse = 0;
+
+        //set bottom menu
+        setListenerBottomMenu();
 
         //create list of object to control
         createSensorsList();
@@ -454,7 +461,50 @@ public class ActivityCompare extends ActivityAbstractReading {
 
 
 
+    //listener for bottom menu bar
+    private void setListenerBottomMenu() {
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
 
+        //TODO TRY
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.getItem(3);
+        item.setChecked(true);
+        //TODO
+
+
+        //set listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_bar_home:
+                                start(ActivityHome.class);
+                                break;
+
+                            case R.id.action_bar_last_read:
+                                start(ActivityLastRead.class);
+                                break;
+
+                            case R.id.action_bar_time_read:
+                                start(ActivityTimeRead.class);
+                                break;
+
+                            case R.id.action_bar_consume:
+                                start(ActivityCompare.class);
+                                break;
+
+                        }
+                        return true;
+                    }
+                });
+    }
+
+    private void start(Class clazz){
+        Intent intent = new Intent(getApplicationContext(), clazz);
+        startActivity(intent);
+    }
 
 
 

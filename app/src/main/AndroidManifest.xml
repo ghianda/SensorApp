@@ -30,7 +30,7 @@
         <activity
             android:name=".ActivityHome"
             android:label="@string/app_name"
-            android:parentActivityName=".ActivityLogin"/>
+            android:parentActivityName=".ActivityLogin" />
         <activity
             android:name=".ActivityTimeRead"
             android:label="@string/timeRead_activity_name"
@@ -62,7 +62,7 @@
         <activity
             android:name=".ActivityCakeGraph"
             android:label="@string/ResultsActivity"
-            android:parentActivityName=".ActivityCompare"/>
+            android:parentActivityName=".ActivityCompare" />
 
         <!-- todo -->
 
@@ -88,7 +88,7 @@
             android:exported="true" />
         <!-- NOTA BENE [] android:exported -> permetto ad activity di altre app di avviare questo service -->
 
-
+        <activity android:name=".ActivityReader"></activity>
     </application>
 
 </manifest>

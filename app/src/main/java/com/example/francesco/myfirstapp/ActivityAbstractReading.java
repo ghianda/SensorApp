@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
         // create NetworkManager
         networkManager = new NetworkManager(this);
 
-        //setListenerBottomMenu();
+        setListenerBottomMenu();
 
         //preparazione degli spinner dei Sensori
         setSensorsSpinner();
@@ -68,8 +69,8 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
 
     //Not Abstract Method - button read method
     public void read(View view) {
-        createUrl();
 
+        createUrl();
         ParseUrl(url);
     }
 
@@ -175,6 +176,13 @@ public abstract class ActivityAbstractReading extends AppCompatActivity {
     private void setListenerBottomMenu() {
         final BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
+
+
+        //TODO TRY
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.getItem(3);
+        item.setChecked(true);
+        //TODO
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

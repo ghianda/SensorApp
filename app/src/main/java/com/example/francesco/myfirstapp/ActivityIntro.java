@@ -31,7 +31,8 @@ public class ActivityIntro extends AppCompatActivity {
 
 
     private void startGaia(){
-        Intent i = new Intent(getApplicationContext(), ActivityHome.class);
+        //Intent i = new Intent(getApplicationContext(), ActivityHome.class);
+        Intent i = new Intent(getApplicationContext(), ActivityReader.class);
         startActivity(i);
         finish();
     }
