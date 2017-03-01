@@ -48,7 +48,7 @@ public class ActivityReader extends AppCompatActivity {
     }
 
 
-    /*
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -57,7 +57,7 @@ public class ActivityReader extends AppCompatActivity {
         System.out.println("ActivityReader -> onRestoreInstanceState-> frag_saved: " + fragmentTag);
         restoreFragmentByTag(fragmentTag);
     }
-    */
+
 
 
 
@@ -129,7 +129,7 @@ public class ActivityReader extends AppCompatActivity {
 
     public void loadFragment(Fragment frag, String tag)
     {
-        FragmentManager fm = getSFragmentManager();
+        FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
@@ -140,6 +140,7 @@ public class ActivityReader extends AppCompatActivity {
         } else
         {
             ft.replace(R.id.fragment_container, frag, tag);
+            fragmentDisplayedTag = tag;
         }
         ft.addToBackStack(null);
 
