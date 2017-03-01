@@ -36,6 +36,13 @@ public class SensorProjectApp extends Application {
     public final static String EXTRA_FROM_TIME = "com.example.francesco.EXTRA_FROM_TIME";
     public final static String EXTRA_TO_TIME = "com.example.francesco.EXTRA_TO_TIME";
 
+    //Key for savedInstanceState
+    public final static String KEY_FRAGMENT_SAVED = "com.example.francesco.KEY_FRAGMENT_SAVED";
+    public final static String HOME_FRAG_TAG = "com.example.francesco.HOME_FRAG_TAG";
+    public final static String LASTREAD_FRAG_TAG= "com.example.francesco.LASTREAD_FRAG_TAG";
+    public final static String TIMEREAD_FRAG_TAG= "com.example.francesco.TIMEREAD_FRAG_TAG";
+    public final static String COMPARE_FRAG_TAG= "com.example.francesco.COMPARE_FRAG_TAG";
+
 
     //parametri
     static final public String valueFormat = "###.##";
@@ -138,9 +145,10 @@ public class SensorProjectApp extends Application {
         //crea un oggetto Sensor (quindi Parceable) dai dati in response
 
         Sensor ss = new Sensor(chosenSensor.getUrlString(), chosenSensor.getName());
+        ss.setConversionFactorByUrlCode();
         //put data into object
         for (Measure m : response.getMeasuresList()) {
-            ss.addValue(m.getValue(), m.getTimeStamp());
+            ss.addValue(m.getValue() / ss.getConversionFactor(), m.getTimeStamp());
         }
 
         return ss;
@@ -224,7 +232,7 @@ public class SensorProjectApp extends Application {
 
             if (value > 1000) {
                 value = value / 1000;
-                prefix = "K";
+                prefix = "k";
             }
         }
 

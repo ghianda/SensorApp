@@ -9,23 +9,39 @@
     <!-- generico -->
     <color name="white"> #FFFFFF</color>
     <color name="black"> #000000</color>
+    <color name="background"> #C3FFAE </color>
 
 
 
     <!-- box -->
     <color name="backgroundBox">#D8F6CE</color>
-    <color name="borderBox">#BEF781</color>
+    <color name="borderBox">#AEFA5E</color>
 
     <!-- botton search -->
     <color name="backBtSearch">#47C504</color>
     <color name="borderBtSearch">#349202</color>
     <color name="backBtSearchPressed">#3B940B</color>
+    <color name="badBtSearch">#FE2E2E</color>
+    <color name="badBtSearchPressed">#DF0101</color>
+    <color name="badborderBtSearch">#A20000</color>
+
+    <!-- botton time and date selection -->
+    <color name="backBtDate">#D8F6CE</color>
+    <color name="borderBtDate">#AEFA5E</color>
+    <color name="backBtDatePressed">#3B940B</color>
+    <color name="badTimeSelection">#FE2E2E</color>
+    <color name="badTimeSelectionPressed">#DF0101</color>
 
     <!--botton action (ok, cancel, login ecc) -->
     <color name="textBtAction">#151515</color>
     <color name="borderBtAction">#1C1C1C</color>
     <color name="backBtAction">#F5DA81</color>
     <color name="backBtActionPressed">#FAAC58</color>
+
+    <!--spinner -->
+    <color name="spinnerBackground">#D8F6CE</color>
+    <color name="spinnerBorder">#BEF781</color>
+    <color name="spinnerText">#424242</color>
 
 
 </resources>

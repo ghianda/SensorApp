@@ -64,6 +64,8 @@
             android:label="@string/ResultsActivity"
             android:parentActivityName=".ActivityCompare" />
 
+        <activity android:name=".ActivityReader"></activity>
+
         <!-- todo -->
 
         <activity android:name=".ActivityIntroNew" />
@@ -88,7 +90,7 @@
             android:exported="true" />
         <!-- NOTA BENE [] android:exported -> permetto ad activity di altre app di avviare questo service -->
 
-        <activity android:name=".ActivityReader"></activity>
+
     </application>
 
 </manifest>

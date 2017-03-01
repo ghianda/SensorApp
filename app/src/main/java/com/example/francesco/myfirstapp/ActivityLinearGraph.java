@@ -23,25 +23,21 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 
 public class ActivityLinearGraph extends AppCompatActivity {
 
+    Sensor parcSens;
+    String meterUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_graph);
 
-
         //get the data from extra
-        Sensor parcSens = getIntent().getParcelableExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE);
-        String meterUrl = getIntent().getStringExtra(SensorProjectApp.EXTRA_METER);
-
-        //TODO togliere questo e mettere meter+sensor nella LABEL del grafico
-        //Set the title of Activity
-        setTitle(parcSens, meterUrl);
-
+        parcSens = getIntent().getParcelableExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE);
+        meterUrl = getIntent().getStringExtra(SensorProjectApp.EXTRA_METER);
 
 
         //set the Min and Max into TextView
         setMinAndMaxTv(parcSens);
-
 
         //put data into LineChart and Display it
         displayLineChart(parcSens);
@@ -76,7 +72,7 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
         Data minValueData = ss.findDataWithMinValue();
 
-        setValueInTv(minValueData.getValue() / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvValue);
+        setValueInTv(minValueData.getValue(), ss.getUnitOfMeasure(), tvValue);
         setTimeInTv(minValueData, tvTime);
     }
 
@@ -86,7 +82,7 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
         Data maxValueData = ss.findDataWithMaxValue();
 
-        setValueInTv(maxValueData.getValue() / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvValue);
+        setValueInTv(maxValueData.getValue(), ss.getUnitOfMeasure(), tvValue);
         setTimeInTv(maxValueData, tvTime);
 
     }
@@ -107,13 +103,11 @@ public class ActivityLinearGraph extends AppCompatActivity {
     }
 
 
-    private void setTitle(Sensor ss, String meterUrl) {
-
-        ((TextView) findViewById(R.id.tvMeterSensorName)).setText(
-                new StringBuilder()
+    private String createLabel(Sensor ss, String meterUrl) {
+        return new StringBuilder()
                         .append(SensorProjectApp.getGlobalSensorData().getMeterNameByUrl(meterUrl))
                         .append("  -  ")
-                        .append(ss.getName()));
+                        .append(ss.getName()).toString();
     }
 
 
@@ -124,16 +118,13 @@ public class ActivityLinearGraph extends AppCompatActivity {
     public void displayLineChart(Sensor ss) {
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
+        List<Entry> entries = new ArrayList<>();
 
         //display the avg line
         displayAverageInGraph(ss, chart);
 
 
-
-        //set the dayAxisFormatter------------------------------------------------------------
-        List<Entry> entries = new ArrayList<>();
-
-        //Extract the Timestamp array
+        //Extract the Timestamp array for set the dayAxisFormatter
         ArrayList<Long> oldTS = new ArrayList<>();
         for (Data data : ss.getDatas()) {
             oldTS.add(data.getTimestamp());
@@ -149,8 +140,11 @@ public class ActivityLinearGraph extends AppCompatActivity {
                     (float) data.getValue()));
         }
 
+        //create Label for legend
+        String label = createLabel(parcSens, meterUrl);
+
         //creo LineDataSet
-        LineDataSet dataSet = new LineDataSet(entries, "label");
+        LineDataSet dataSet = new LineDataSet(entries, label);
 
         //associo LineDataSet all'oggetto LineData da visualizzare
         LineData lineData = new LineData(dataSet);
@@ -161,6 +155,10 @@ public class ActivityLinearGraph extends AppCompatActivity {
         xAxis.setValueFormatter(xAxisFormatter);
 
 
+        //hide Y right Axis
+        chart.getAxisRight().setDrawLabels(false);
+
+        //show the graph
         chart.invalidate();
     }
 

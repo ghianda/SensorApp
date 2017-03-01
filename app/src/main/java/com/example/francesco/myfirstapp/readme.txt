@@ -2,28 +2,29 @@
 ____ TODO
 ------- GENERALE:
 
+rotazione -> torna alla home!! vedere primo link salvato
+
 FARE I PICKER CON I DIALOGFRAGMENT PERCHé COS^ NON FUNGE
 POI, FARE COMPARE FRAGMENT
 
-mettere i Loader !!!!
-aggiungere fragment con bottone "OK?" prima di fargli fare il logout
+ + mettere i Loader !!!!
+ + aggiungere dialog con bottone "OK?" prima di fargli fare il logout
 
 
 ------- service (ActivityDisplayAlarm):
-
+ + grafica dele notifiche!!
 
 ------- TimeReadActivity.java:
 
-mettere il bottone "now" accanto al picker che setta l'ora e la data a oggi
 
 DatePicker >:
-far si che un settaggio erato det picker colori di rosso i bottoni (es from >= to)
+ + far si che un settaggio erato det picker colori di rosso i bottoni (es from >= to)
 
 
 
 
 --PieChart
-aggiungere le percentuali??
+ + aggiungere le percentuali??
 
 
 

@@ -36,8 +36,8 @@
     <string name="abstractToastCountPost">  results </string>
 
     <!-- Last and Time reading -->
-    <string name="tvSelectMeter"> Meter Station </string>
-    <string name="tvSelectSensor"> Parameter </string>
+    <string name="tvSelectMeter">Where</string>
+    <string name="tvSelectSensor">What</string>
     <string name="btRead"> Read </string>
     <string name="btReadSensor"> Read Sensor </string>
     <string name="btCompareConsume"> Compare Consume </string>
@@ -60,6 +60,10 @@
     <string name="tvDisplayMax">Max Value</string>
     <string name="dataError"> NO DATA </string>
 
+    <!-- Descriptions of read fragments -->
+    <string name="descriptionTimeRead"> Displays Parameter values of  Meter in the selected time range </string>
+    <string name="descriptionLastRead"> Displays the last value read from the selected meter related to the selected parameter  </string>
+    <string name="descriptionCompare"> Displays Average or consume of parameter in the selected time range for all the range  </string>
 
     <!-- Service -->
     <!--TODO cambiare nome app-->
@@ -67,6 +71,8 @@
 
 
     <!-- Display Error Activity -->
+
+    <string name="badTimeSelection"> Time Range selected not valid </string>
     <string name="DisplayErrorActivityLabel"> Problem Detected </string>
     <string name="tvDescription">Average of the last three lectures</string>
     <string name="tvAvgActPowerValue">Active Power</string>

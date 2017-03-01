@@ -161,8 +161,8 @@ public class FragmentLastRead extends Fragment
 
 
         //dichiarazione Spinner adapters
-        spinMeterAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.support_simple_spinner_dropdown_item);
-        spinSensorAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.support_simple_spinner_dropdown_item);
+        spinMeterAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item);
+        spinSensorAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item);
 
         // setting MeterAdapter e applicazione allo spinner
         spinMeterAdapter.addAll(allSensors.getMetersName());

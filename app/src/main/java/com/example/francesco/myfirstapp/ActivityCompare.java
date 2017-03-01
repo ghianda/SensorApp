@@ -467,6 +467,7 @@ public class ActivityCompare extends ActivityAbstractReading {
                 findViewById(R.id.bottom_navigation);
 
         //TODO TRY
+
         Menu menu = bottomNavigationView.getMenu();
         MenuItem item = menu.getItem(3);
         item.setChecked(true);

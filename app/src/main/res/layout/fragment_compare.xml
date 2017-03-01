@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.francesco.myfirstapp.FragmentTimeRead">
+    tools:context="com.example.francesco.myfirstapp.FragmentCompare">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,63 +11,15 @@
         android:layout_marginRight="10dp">
 
         <TextView
-            android:id="@+id/tv_time_read_description"
+            android:id="@+id/tv_compare_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/descriptionTimeRead"
+            android:text="@string/descriptionCompare"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
-        <LinearLayout
-            android:id="@+id/LinearLayoutMeter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/tv_time_read_description"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentStart="true">
-
-            <TextView
-                android:text="@string/tvSelectMeter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView" />
-
-            <Spinner
-                android:id="@+id/MeterSpinner"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="34dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayoutSensor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/LinearLayoutMeter"
-            android:layout_alignParentStart="true">
-
-            <TextView
-                android:text="@string/tvSelectSensor"
-                android:layout_width="0dp"
-                android:layout_weight="0.42"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3" />
-
-            <Spinner
-                android:id="@+id/SensorSpinner"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="34dp" />
-        </LinearLayout>
-
-
         <ImageButton
-            android:id="@+id/btTimeRead"
+            android:id="@+id/btCompare"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/bt_search_ok_selector"
@@ -136,7 +88,32 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="60dp" />
 
+        <LinearLayout
+            android:id="@+id/LinearLayoutSensor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="29dp"
+            android:layout_below="@+id/tv_compare_description"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:text="@string/tvSelectSensor"
+                android:layout_width="0dp"
+                android:layout_weight="0.42"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3" />
+
+            <Spinner
+                android:id="@+id/SensorSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp" />
+        </LinearLayout>
+
 
     </RelativeLayout>
+
 
 </FrameLayout>

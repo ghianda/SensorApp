@@ -8,8 +8,8 @@
     <string name="hourFormat"></string>
     <string name="to">A</string>
     <string name="tvSelectInterval"></string>
-    <string name="tvSelectMeter">Stazione di misura</string>
-    <string name="tvSelectSensor">Parametro</string>
+    <string name="tvSelectMeter">Dove</string>
+    <string name="tvSelectSensor">Cosa</string>
     <string name="tvDisplayAvg">Media</string>
     <string name="tvDisplayMax">Massimo</string>
     <string name="tvDisplayMin">Minimo</string>
@@ -46,4 +46,5 @@
     <string name="suggTooConsume">Controlla se c\'è un problema</string>
     <string name="suggIntruderAlarm">C\'è un consumo anomalo per questo orario, considera di controllare di persona o di chiamare la polizia.</string>
     <string name="average">Media:</string>
+    <string name="descriptionTimeRead">Visualizza i valori del parametro selezionato relativi al Meter scelto nell\'intervallo di tempo impostato</string>
 </resources>

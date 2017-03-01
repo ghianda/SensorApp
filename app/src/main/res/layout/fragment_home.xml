@@ -48,38 +48,6 @@
         android:layout_alignEnd="@+id/button2"
         android:layout_marginTop="28dp" />
 
-        <Button
-            android:text="@string/btLastReading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button2"
-            android:onClick="startLastReadActivity"
-            android:layout_marginLeft="45dp"
-            android:layout_marginStart="15dp"
-            android:layout_below="@+id/switchService"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="144dp" />
-
-        <Button
-            android:id="@+id/btCakeActivity"
-            android:text="@string/btCake"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="startCompareActivity"
-            android:layout_alignBaseline="@+id/button2"
-            android:layout_alignBottom="@+id/button2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp" />
-
-        <Button
-        android:text="@string/btTimeReading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:onClick="startTimeActivity"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
     </RelativeLayout>
 
 </FrameLayout>
