@@ -17,7 +17,7 @@
     <string name="text_toast_no_data">Nessun dato ricevuto !</string>
     <string name="graph_activity_name">Risultati</string>
     <string name="lastRead_activity_name">Ultima Lettura</string>
-    <string name="timeRead_activity_name">Intervallo di Tempo</string>
+    <string name="timeReadActivityName">Intervallo di Tempo</string>
     <string name="btDate">Data</string>
     <string name="btHour">Ora</string>
     <string name="action_sign_in">Accedi</string>

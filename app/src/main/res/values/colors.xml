@@ -11,8 +11,6 @@
     <color name="black"> #000000</color>
     <color name="background"> #C3FFAE </color>
 
-
-
     <!-- box -->
     <color name="backgroundBox">#D8F6CE</color>
     <color name="borderBox">#AEFA5E</color>
@@ -42,6 +40,12 @@
     <color name="spinnerBackground">#D8F6CE</color>
     <color name="spinnerBorder">#BEF781</color>
     <color name="spinnerText">#424242</color>
+
+    <!-- linegraph -->
+    <color name="colorLineGraph">#349202</color>
+    <color name="colorCircleLineGraph">#47C504</color>
+    <color name="colorHoleCircleLineGraph">#AEFA5E</color>
+
 
 
 </resources>

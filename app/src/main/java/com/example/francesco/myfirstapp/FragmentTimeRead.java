@@ -63,8 +63,9 @@ public class FragmentTimeRead extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_time_read, container, false);
 
+
+        View view = inflater.inflate(R.layout.fragment_time_read, container, false);
         return view;
     }
 
@@ -110,6 +111,8 @@ public class FragmentTimeRead extends Fragment
         btToHour = (Button) view.findViewById(R.id.btToHour);
 
     }
+
+
 
 
     public void ParseUrl(String url)

@@ -19,7 +19,7 @@
     <item
         android:id="@+id/action_bar_time_read"
         android:icon="@drawable/marker2"
-        android:title="@string/timeRead_activity_name"
+        android:title="@string/timeReadActivityName"
         app:showAsAction="ifRoom"
         android:enabled="true"/>
 

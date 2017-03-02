@@ -2,17 +2,20 @@
     <!-- Titles -->
     <string name="app_name">Gaia</string>
     <string name="loginActivity"> Login </string>
-    <string name="timeRead_activity_name"> History Search </string>
+    <string name="timeReadActivityName"> History Search </string>
     <string name="lastReadActivityName"> Last Reading </string>
-    <string name="lastRead_activity_name"> Last Reading </string>
     <string name="compareActivityName"> Compare </string>
     <string name="ResultsActivity"> Results </string>
 
-    <!-- Home activity -->
-    <string name="btLastReading">Last Reading</string>
-    <string name="btTimeReading">Time Reading</string>
-    <string name="btCake">Compare</string>
+    <!-- Home -->
     <string name="serviceText"> Background Monitoring </string>
+    <string name="today"> Last read </string>
+    <string name="yesterday"> Power </string>
+    <string name="todayParameter"> Power </string>
+    <string name="yesterdayParameter"> Consumption </string>
+    <string name="yesterdayCO2"> CO<sub>2</sub> </string>
+    <string name="yesterdayEuro"> Euro </string>
+
 
 
     <!-- Login -->
@@ -56,8 +59,8 @@
 
     <!-- ActivityLinearGraph -->
     <string name="average">Average:</string>
-    <string name="tvDisplayMin">Min Value</string>
-    <string name="tvDisplayMax">Max Value</string>
+    <string name="tvDisplayMin">Min:</string>
+    <string name="tvDisplayMax">Max:</string>
     <string name="dataError"> NO DATA </string>
 
     <!-- Descriptions of read fragments -->

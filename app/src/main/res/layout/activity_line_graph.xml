@@ -4,79 +4,106 @@
     android:id="@+id/activity_graph"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.francesco.myfirstapp.ActivityLinearGraph">
+    tools:context="com.example.francesco.myfirstapp.ActivityLinearGraph"
+>
 
+
+    <TextView
+        android:id="@+id/titleLineGraphMeter"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/border_box"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+    <TextView
+        android:id="@+id/titleLineGraphSensor"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_box"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@+id/titleLineGraphMeter"/>
+
+    <LinearLayout
+        android:id="@+id/LLMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/titleLineGraphSensor"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/tvDisplayMin"
+            android:text="@string/tvDisplayMin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/border_box"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/tvMin"
+            android:text=""
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/border_box"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/tvMinTime"
+            android:text=""
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/border_box"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/LLMax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/LLMin">
+        <TextView
+            android:id="@+id/tvDisplayMax"
+            android:text="@string/tvDisplayMax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/border_box"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/tvMax"
+            android:text=""
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/border_box"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/tvMaxTime"
+            android:text=""
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/border_box"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="right"/>
+    </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/tvMax"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="47dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/LLMax"/>
 
-    <TextView
-        android:id="@+id/tvMaxTime"
-        android:text=" "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvMax"
-        android:layout_alignBottom="@+id/tvMax"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="38dp"
-        android:layout_marginEnd="38dp" />
-
-    <TextView
-        android:id="@+id/tvMinTime"
-        android:text=" "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvMin"
-        android:layout_alignBottom="@+id/tvMin"
-        android:layout_toLeftOf="@+id/tvMaxTime"
-        android:layout_toStartOf="@+id/tvMaxTime" />
-
-    <TextView
-        android:id="@+id/tvDisplayMin"
-        android:text="@string/tvDisplayMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/tvMin"
-        android:text=" "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDisplayMin"
-        android:layout_toEndOf="@+id/tvDisplayMax"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:id="@+id/tvDisplayMax"
-        android:text="@string/tvDisplayMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/tvMin"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/tvMax"
-        android:text=" "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDisplayMax"
-        android:layout_toEndOf="@+id/tvMin"
-        android:layout_marginTop="15dp" />
 
 </RelativeLayout>

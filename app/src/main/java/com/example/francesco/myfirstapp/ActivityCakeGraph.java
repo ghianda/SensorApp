@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -40,6 +42,8 @@ public class ActivityCakeGraph extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        hideTitleBarIfLandscape();
         setContentView(R.layout.activity_cake_graph);
 
 
@@ -50,6 +54,24 @@ public class ActivityCakeGraph extends AppCompatActivity {
         displayDataOnTextView();
 
         displayCakeGraph();
+
+    }
+
+
+    public void hideTitleBarIfLandscape()
+    {
+
+        Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+
+        int width = display.getWidth();
+        int height = display.getHeight();
+
+        if(width > height)
+        {
+                           /* In Landscape */
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
     }
 
@@ -163,25 +185,12 @@ public class ActivityCakeGraph extends AppCompatActivity {
         fromMillis       = intent.getLongExtra(EXTRA_FROM_TIME, 0);
         toMillis         = intent.getLongExtra(EXTRA_TO_TIME, 0);
 
-        //todo remove
-        System.out.println("ActivityCakeGraph POST extractDataFromIntent:");
-        System.out.println(" + sensorUnit: " + sensorUnit);
-
         //convert from "centiUnit" to "Unit"
         for( String meter: data.keySet()){
             data.put(meter, data.get(meter)/conversionFactor);
-
-            //todo remove
-            System.out.println(meter + "->  " + data.get(meter));
         }
 
-
-
         prefix = fixPrefixOfUnit();
-
-        //todo remove
-        System.out.println(" + prefix: " + prefix);
-
 
     }
 
@@ -208,7 +217,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
             }
 
             if (data.get(maxMeter) > 1000) {
-                prefix = "K";
+                prefix = "k";
             }
         }
 
@@ -219,7 +228,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
                     data.put(meter, data.get(meter) * 1000);
                 }
             }
-            case "K": {
+            case "k": {
                 for (String meter : data.keySet()) {
                     data.put(meter, data.get(meter) / 1000);
                 }

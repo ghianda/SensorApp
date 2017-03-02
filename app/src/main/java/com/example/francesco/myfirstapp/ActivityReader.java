@@ -79,8 +79,8 @@ public class ActivityReader extends AppCompatActivity {
                 break;
 
             case COMPARE_FRAG_TAG:
-                //FragmentCompare fragmentCompare= new FragmentCompare();
-                //loadFragment(fragmentCompare, COMPARE_FRAG_TAG);
+                FragmentCompare fragmentCompare= new FragmentCompare();
+                loadFragment(fragmentCompare, COMPARE_FRAG_TAG);
                 break;
         }
     }
@@ -106,16 +106,19 @@ public class ActivityReader extends AppCompatActivity {
 
                                 FragmentLastRead fragmentLastRead = new FragmentLastRead();
                                 loadFragment(fragmentLastRead, LASTREAD_FRAG_TAG);
+                                setTitle(getString(R.string.lastReadActivityName));
                                 break;
 
                             case R.id.action_bar_time_read:
                                 FragmentTimeRead fragmentTimeRead= new FragmentTimeRead();
                                 loadFragment(fragmentTimeRead, TIMEREAD_FRAG_TAG);
+                                setTitle(getString(R.string.timeReadActivityName));
                                 break;
 
                             case R.id.action_bar_consume:
-                                //FragmentCompare fragmentCompare= new FragmentCompare();
-                                //loadFragment(fragmentCompare, COMPARE_FRAG_TAG);
+                                FragmentCompare fragmentCompare= new FragmentCompare();
+                                loadFragment(fragmentCompare, COMPARE_FRAG_TAG);
+                                setTitle(getString(R.string.compareActivityName));
                                 break;
 
                         }

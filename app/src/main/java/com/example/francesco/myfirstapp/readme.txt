@@ -2,7 +2,10 @@
 ____ TODO
 ------- GENERALE:
 
-rotazione -> torna alla home!! vedere primo link salvato
+
+modificare title activity in base al fragment salvato
+
+
 
 FARE I PICKER CON I DIALOGFRAGMENT PERCHé COS^ NON FUNGE
 POI, FARE COMPARE FRAGMENT
@@ -17,11 +20,6 @@ POI, FARE COMPARE FRAGMENT
 ------- TimeReadActivity.java:
 
 
-DatePicker >:
- + far si che un settaggio erato det picker colori di rosso i bottoni (es from >= to)
-
-
-
 
 --PieChart
  + aggiungere le percentuali??
@@ -29,8 +27,6 @@ DatePicker >:
 
 
 
-++++++ sviluppi futuri
--------- LineChartActivity -> mettere i giorni nelle ascissee non solo le ore (per ora funzione troppo onerosa)
 
 
 

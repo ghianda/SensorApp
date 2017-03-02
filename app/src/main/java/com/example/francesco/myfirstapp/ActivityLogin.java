@@ -70,7 +70,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
                     // Starting MainActivity
-                    Intent i = new Intent(getApplicationContext(), ActivityHome.class);
+                    Intent i = new Intent(getApplicationContext(), ActivityReader.class);
                     startActivity(i);
                     finish();
                 }

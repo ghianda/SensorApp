@@ -33,7 +33,7 @@
             android:parentActivityName=".ActivityLogin" />
         <activity
             android:name=".ActivityTimeRead"
-            android:label="@string/timeRead_activity_name"
+            android:label="@string/timeReadActivityName"
             android:parentActivityName=".ActivityHome" />
         <activity
             android:name=".ActivityLastRead"

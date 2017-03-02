@@ -196,7 +196,7 @@ public class SensorProjectApp extends Application {
 
 
     public static String fixUnit(double value, String unit) {
-        String fixedValue;
+        String fixedValueString;
         String prefix = "";
 
         DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
@@ -214,8 +214,30 @@ public class SensorProjectApp extends Application {
             }
         }
 
-        fixedValue = frmt.format(value) + " " + prefix + unit;
-        return fixedValue;
+        fixedValueString = frmt.format(value) + " " + prefix + unit;
+        return fixedValueString;
+    }
+
+
+
+    public static String findPrefixOfMeasure(Sensor ss) {
+        String prefix = "";
+
+        double exampleValue = ss.getDatas().get(0).getValue();
+        String unit = ss.getUnitOfMeasure();
+
+        if (!unit.equals(" ")) {
+            //parameter is not Power Factor, then i fix the unit:
+            if (exampleValue  < 1) {
+                prefix = "m";
+            }
+
+            if (exampleValue  > 1000) {
+                prefix = "k";
+            }
+        }
+
+        return prefix;
     }
 
 

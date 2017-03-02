@@ -3,6 +3,8 @@ package com.example.francesco.myfirstapp;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -19,22 +21,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.findPrefixOfMeasure;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 
 public class ActivityLinearGraph extends AppCompatActivity {
 
     Sensor parcSens;
-    String meterUrl;
+    String label, meterUrl, prefix, sensorUnit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if view or not title bar (if landscape or not)
+        hideTitleBarIfLandscape();
         setContentView(R.layout.activity_line_graph);
 
         //get the data from extra
         parcSens = getIntent().getParcelableExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE);
         meterUrl = getIntent().getStringExtra(SensorProjectApp.EXTRA_METER);
 
+        setTitle();
 
         //set the Min and Max into TextView
         setMinAndMaxTv(parcSens);
@@ -44,7 +52,36 @@ public class ActivityLinearGraph extends AppCompatActivity {
     }
 
 
+    public void hideTitleBarIfLandscape()
+    {
 
+        Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+
+        int width = display.getWidth();
+        int height = display.getHeight();
+
+        if(width > height)
+        {
+                           /* In Landscape */
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+    }
+
+
+
+    private void setTitle(){
+
+        //create label for title and legend
+        String sensorLabel = createSensorLabel(parcSens);
+
+        TextView tvMeter = (TextView)findViewById(R.id.titleLineGraphMeter);
+        tvMeter.setText(SensorProjectApp.getGlobalSensorData().getMeterNameByUrl(meterUrl));
+
+        TextView tvSensor = (TextView)findViewById(R.id.titleLineGraphSensor);
+        tvSensor.setText(sensorLabel);
+    }
 
 
 
@@ -52,14 +89,17 @@ public class ActivityLinearGraph extends AppCompatActivity {
     private void setMinAndMaxTv(Sensor ss) {
 
         if (ss.getDatas().size() != 0) {
+
             //find and set Min
             TextView tvMin = (TextView) findViewById(R.id.tvMin);
             TextView tvMinTime = (TextView) findViewById(R.id.tvMinTime);
             setMinTv(ss, tvMin, tvMinTime);
+
             //find and set max
             TextView tvMax = (TextView) findViewById(R.id.tvMax);
             TextView tvMaxTime = (TextView) findViewById(R.id.tvMaxTime);
             setMaxTv(ss, tvMax, tvMaxTime);
+
         } else {
             ((TextView) findViewById(R.id.tvMin)).setText(R.string.dataError);
             ((TextView) findViewById(R.id.tvMax)).setText(R.string.dataError);
@@ -103,11 +143,28 @@ public class ActivityLinearGraph extends AppCompatActivity {
     }
 
 
-    private String createLabel(Sensor ss, String meterUrl) {
-        return new StringBuilder()
-                        .append(SensorProjectApp.getGlobalSensorData().getMeterNameByUrl(meterUrl))
-                        .append("  -  ")
-                        .append(ss.getName()).toString();
+    private String createSensorLabel(Sensor ss) {
+
+        ss.setConversionFactorByUrlCode();
+        if (ss.getUnitOfMeasure().equals(" ")) {
+            //power factor
+            return new StringBuilder()
+                    .append(ss.getName())
+                    .append(sensorUnit)
+                    .toString();
+        }
+        else{
+            //not power
+
+            prefix = findPrefixOfMeasure(ss);
+            sensorUnit = ss.getUnitOfMeasure();
+
+            return new StringBuilder()
+                    .append(ss.getName())
+                    .append("  [").append(prefix).append(sensorUnit).append("]  ")
+                    .toString();
+
+        }
     }
 
 
@@ -134,14 +191,15 @@ public class ActivityLinearGraph extends AppCompatActivity {
         long referenceTimestamp = Collections.min(oldTS);
 
 
+        /** NOTE: here i control data values and remove it if zero or too big*/
         //put rearranged timestamp and data value into entries
         for (Data data : ss.getDatas()) {
+            if (data.getValue() != 0 && data.getValue()<1000000)
             entries.add(new Entry((float) data.getTimestamp() - referenceTimestamp,
                     (float) data.getValue()));
         }
 
-        //create Label for legend
-        String label = createLabel(parcSens, meterUrl);
+
 
         //creo LineDataSet
         LineDataSet dataSet = new LineDataSet(entries, label);
@@ -150,6 +208,14 @@ public class ActivityLinearGraph extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
+        //layout preferences
+        dataSet.setDrawValues(false);
+        dataSet.setColor(getResources().getColor(R.color.colorLineGraph));
+        dataSet.setDrawCircles(false);
+        chart.getLegend().setEnabled(false);   // Hide the legend
+
+
+        //X axis formatter
         IAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(xAxisFormatter);
@@ -208,6 +274,8 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
         return avg;
     }
+
+
 
 
 }
