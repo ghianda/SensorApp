@@ -1,6 +1,5 @@
 package com.example.francesco.myfirstapp;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,35 +16,27 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 
 public class FragmentLastRead extends Fragment
 {
-    private final String TAG = "com.example.app.FragmentLastRead";
-    private Activity mActivity;
-
-
-    TextView tvValue , tvTimestamp;
-    Spinner meterSpinner , sensorSpinner;
-
-
-    protected NetworkManager networkManager;
-
-    protected final static SensorList allSensors = new SensorList(); //lista di coppie (meter -> elenco sensori)
-    protected static ArrayAdapter<String> spinMeterAdapter;
-    protected static ArrayAdapter<String> spinSensorAdapter;
-
-    ImageButton lastReadButton;
-
-    protected static Meter chosenMeter; //meter selezionato
-    protected static Sensor chosenSensor; //sensore scelto
-
-    protected String url;
 
 
 
-    public void onAttach(Activity act)
-    {
-        super.onAttach(act);
+    private TextView tvValue , tvTimestamp;
+    private Spinner meterSpinner , sensorSpinner;
 
-        this.mActivity = act;
-    }
+
+    private NetworkManager networkManager;
+
+    private final static SensorList allSensors = new SensorList(); //lista di coppie (meter -> elenco sensori)
+    private static ArrayAdapter<String> spinMeterAdapter;
+    private static ArrayAdapter<String> spinSensorAdapter;
+
+    private ImageButton lastReadButton;
+
+    private static Meter chosenMeter; //meter selezionato
+    private static Sensor chosenSensor; //sensore scelto
+
+    private String url;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -95,7 +86,7 @@ public class FragmentLastRead extends Fragment
 
     public void ParseUrl(String url)
     {
-        NetworkManager.getInstance().getNetsensRequest(url, new SomeCustomListener<Netsens>()
+        NetworkManager.getInstance().getNetsensRequest(url, new CustomListener<Netsens>()
         {
             @Override
             public void getResult(Netsens response)

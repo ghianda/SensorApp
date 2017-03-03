@@ -17,7 +17,7 @@ public class Sensor implements Parcelable {
     private String name;
     private ArrayList<Data> datas = new ArrayList<>();
     private String unitOfMeasure;
-    private int conversionFactor; //(10^x): is for converted from centiUnit (10^-2)
+    private float conversionFactor; //(10^x): is for converted from centiUnit (10^-2)
 
 
 
@@ -30,7 +30,7 @@ public class Sensor implements Parcelable {
     }
 
     //sensore con valore già acquisito
-    public Sensor(String urlCode, String unit, ArrayList<Data> datas, String name, int conv) {
+    public Sensor(String urlCode, String unit, ArrayList<Data> datas, String name, float conv) {
         this.urlCode = urlCode;
         this.unitOfMeasure = unit;
         this.datas = datas;
@@ -66,51 +66,51 @@ public class Sensor implements Parcelable {
             }
             case "/reactcon": {
                 this.unitOfMeasure = "VARh";
-                this.conversionFactor = 100; //5-6 cifre
+                this.conversionFactor = (float)0.1; //are centiKiloVARh (1 / 10^3 * 10^-2)
                 break;
             }
             case "/apcon": {
                 this.unitOfMeasure = "VA";
-                this.conversionFactor = 100; //6-7 cifre
+                this.conversionFactor = (float)0.1; //are centiKiloVARh (1 / 10^3 * 10^-2)
                 break;
             }
             case "/con": {
                 this.unitOfMeasure = "Wh";
-                this.conversionFactor = 100;  //6-7  cifre
+                this.conversionFactor = (float)0.1; //are centiKiloVARh (1 / 10^3 * 10^-2)
                 break;
             }
             case "/actpw": {
                 this.unitOfMeasure = "W";
-                this.conversionFactor = 100; //5-6 cifre
+                this.conversionFactor = 100;
                 break;
             }
             case "/pwf": {
                 this.unitOfMeasure = " ";
-                this.conversionFactor = 1000; //3 cifre ( 0 < cos(x) < 1)
+                this.conversionFactor = 1000; //( 0 < cos(x) < 1)
                 break;
             }
             case "/cur/1": {
                 this.unitOfMeasure = "A";
-                this.conversionFactor = 100; //3 cifre
+                this.conversionFactor = 100;
                 break;
             }
             case "/cur/3": {
                 this.unitOfMeasure = "A";
-                this.conversionFactor = 100; //3 cifre
+                this.conversionFactor = 100;
                 break;
             }
             case "/cur/2": {
                 this.unitOfMeasure = "A";
-                this.conversionFactor = 100; // 3 cifre
+                this.conversionFactor = 100;
                 break;
             }
             case "/appw": {
-                this.unitOfMeasure = "VA"; //6-7 cifre
+                this.unitOfMeasure = "VA";
                 this.conversionFactor = 100;
                 break;
             }
             case "/reactpw": {
-                this.unitOfMeasure = "VAR"; //6-7 cifre
+                this.unitOfMeasure = "VAR";
                 this.conversionFactor = 100;
                 break;
             }
@@ -119,7 +119,7 @@ public class Sensor implements Parcelable {
         }
     }
 
-    public int getConversionFactor() {
+    public float getConversionFactor() {
         return conversionFactor;
     }
 
@@ -230,7 +230,7 @@ public class Sensor implements Parcelable {
             dest.writeList(datas);
         }
         dest.writeString(unitOfMeasure);
-        dest.writeInt(conversionFactor);
+        dest.writeFloat(conversionFactor);
     }
 
     @SuppressWarnings("unused")

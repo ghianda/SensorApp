@@ -32,7 +32,7 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_TO_TIME;
 public class ActivityCakeGraph extends AppCompatActivity {
     String sensorName, sensorUnit, prefix;
     long fromMillis, toMillis;
-    int conversionFactor;
+    float conversionFactor;
     HashMap<String, Float> data;
 
     TextView tvFrom, tvTo;
@@ -181,11 +181,11 @@ public class ActivityCakeGraph extends AppCompatActivity {
         data             = (HashMap<String, Float>)intent.getSerializableExtra(EXTRA_CAKE);
         sensorName       = intent.getStringExtra(EXTRA_SENSOR_NAME);
         sensorUnit       = intent.getStringExtra(EXTRA_SENSOR_UNIT);
-        conversionFactor = intent.getIntExtra(EXTRA_SENSOR_CONVERSION_FACTOR, 0);
+        conversionFactor = intent.getFloatExtra(EXTRA_SENSOR_CONVERSION_FACTOR, (float)0.0);
         fromMillis       = intent.getLongExtra(EXTRA_FROM_TIME, 0);
         toMillis         = intent.getLongExtra(EXTRA_TO_TIME, 0);
 
-        //convert from "centiUnit" to "Unit"
+        //convert to "Unit"
         for( String meter: data.keySet()){
             data.put(meter, data.get(meter)/conversionFactor);
         }

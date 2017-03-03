@@ -66,7 +66,7 @@ public class NetworkManager
 
 
 
-    public void getNetsensRequest(String url, final SomeCustomListener<Netsens> listener) {
+    public void getNetsensRequest(String url, final CustomListener<Netsens> listener) {
         //connecting
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -122,6 +122,17 @@ public class NetworkManager
 
     }
 
+    public String createWindowUrl(String meterUrl, String parUrl, long toMillis){
+
+        final long fromMillis = toMillis - 300000; // toMillis - window millis
+
+        return  context.getString(R.string.urlDomain)
+                + context.getString(R.string.m) + meterUrl + parUrl
+                + context.getString(R.string.f) + fromMillis
+                + context.getString(R.string.t) + toMillis;
+
+    }
+
     public String createLastReadUrl(Meter chosenMeter, Sensor chosenSensor) {
 
         return context.getString(R.string.urlDomain)
@@ -152,6 +163,19 @@ public class NetworkManager
                 + context.getString(R.string.m) + chosenMeter.getUrlString() + chosenSensor.getUrlString()
                 + context.getString(R.string.f) + fromMillis
                 + context.getString(R.string.t) + toMillis;
+    }
+
+
+
+
+
+    public String createLastReadUrl(String meterUrl, String parUrl) {
+
+        return context.getString(R.string.urlDomain)
+                + context.getString(R.string.m)
+                + meterUrl
+                + parUrl
+                + context.getString(R.string.lr);
     }
 
 

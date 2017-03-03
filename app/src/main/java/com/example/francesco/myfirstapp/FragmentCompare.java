@@ -1,6 +1,5 @@
 package com.example.francesco.myfirstapp;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
@@ -40,8 +39,6 @@ public class FragmentCompare extends Fragment {
     private final String energyTag = "ENERGY";
     private final long diffWindowInMillis = 900000; //15 minuti - finestra per letture dei consumi (pre e post)
 
-
-    private Activity mActivity;
     protected NetworkManager networkManager;
 
     //sturtture dati che conterranno le risposte della query
@@ -69,18 +66,7 @@ public class FragmentCompare extends Fragment {
     private Button btToDate;
     private Button btToHour;
 
-    protected String url;
 
-
-
-
-
-    public void onAttach(Activity act)
-    {
-        super.onAttach(act);
-
-        this.mActivity = act;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -194,7 +180,7 @@ public class FragmentCompare extends Fragment {
 
     public void ParseUrl(String url)
     {
-        NetworkManager.getInstance().getNetsensRequest(url, new SomeCustomListener<Netsens>()
+        NetworkManager.getInstance().getNetsensRequest(url, new CustomListener<Netsens>()
         {
             @Override
             public void getResult(Netsens response)

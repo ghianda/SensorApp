@@ -23,6 +23,7 @@ import java.util.List;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.findPrefixOfMeasure;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
+import static java.lang.Math.abs;
 
 public class ActivityLinearGraph extends AppCompatActivity {
 
@@ -194,7 +195,7 @@ public class ActivityLinearGraph extends AppCompatActivity {
         /** NOTE: here i control data values and remove it if zero or too big*/
         //put rearranged timestamp and data value into entries
         for (Data data : ss.getDatas()) {
-            if (data.getValue() != 0 && data.getValue()<1000000)
+            if (data.getValue() != 0 && abs(data.getValue())<1000000000)
             entries.add(new Entry((float) data.getTimestamp() - referenceTimestamp,
                     (float) data.getValue()));
         }

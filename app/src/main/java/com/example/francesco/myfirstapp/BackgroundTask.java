@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -51,8 +50,6 @@ public class BackgroundTask extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        System.out.println( "............ new cycle:");
-        Log.d("BackgroundTask", "onReceive");
 
         //allocate memory
         savedResponse = new HashMap<>();
@@ -74,7 +71,7 @@ public class BackgroundTask extends BroadcastReceiver {
 
         ParseXmlUrl(createUrl("/light"));
         ParseXmlUrl(createUrl("/actpw"));
-        //now in responseReceived thee is Data response of light and ActPower
+        //now in responseReceived there is Data response of light and ActPower
     }
 
 
@@ -280,7 +277,7 @@ public class BackgroundTask extends BroadcastReceiver {
             sendNotify = true;
         }
 
-        /*TODO DA TOGLIERE_________
+        /*TODO DA TOGLIERE_________*/
         if(true){
             problemDetected = "problem test";
             suggestedAction = "action test";

@@ -1,6 +1,5 @@
 package com.example.francesco.myfirstapp;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
@@ -23,8 +22,7 @@ import java.util.Locale;
 
 public class FragmentTimeRead extends Fragment
 {
-    private final String TAG = "com.example.app.FragmentTimeRead";
-    private Activity mActivity;
+
 
     protected NetworkManager networkManager;
 
@@ -53,12 +51,6 @@ public class FragmentTimeRead extends Fragment
 
 
 
-    public void onAttach(Activity act)
-    {
-        super.onAttach(act);
-
-        this.mActivity = act;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -117,7 +109,7 @@ public class FragmentTimeRead extends Fragment
 
     public void ParseUrl(String url)
     {
-        NetworkManager.getInstance().getNetsensRequest(url, new SomeCustomListener<Netsens>()
+        NetworkManager.getInstance().getNetsensRequest(url, new CustomListener<Netsens>()
         {
             @Override
             public void getResult(Netsens response)
@@ -139,10 +131,11 @@ public class FragmentTimeRead extends Fragment
 
 
     public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
-        //intent to new activiy ( line graph)
+
         //creating a intent
         Intent intent = new Intent(getActivity(), ActivityLinearGraph.class);
-        //put data in the intent
+
+        //put data in the intent (NOTE: here value is  divide from ConversionFactor)
         Sensor parcObj = SensorProjectApp.createParceableDataResponse(response, chosenSensor);
         intent.putExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE, parcObj);
         intent.putExtra(SensorProjectApp.EXTRA_METER, chosenMeter.getUrlString());

@@ -26,8 +26,9 @@ public class NotificationBarAlarm extends BroadcastReceiver {
 
         // ActivityDisplayAlarm will be started when the user clicks the notification
         // in the notification bar
-        Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
 
+        //Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
+        Intent notificationIntent = new Intent(context, ActivityIntro.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
 
