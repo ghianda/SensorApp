@@ -38,6 +38,7 @@ public class StarterService extends Service {
         Toast.makeText(this, "My Service started", Toast.LENGTH_LONG).show();
         Log.i(TAG, "Received start id " + startId + ": " + intent);
 
+
         return START_NOT_STICKY;
     }
 

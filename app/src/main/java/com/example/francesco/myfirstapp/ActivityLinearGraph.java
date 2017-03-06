@@ -78,7 +78,7 @@ public class ActivityLinearGraph extends AppCompatActivity {
         String sensorLabel = createSensorLabel(parcSens);
 
         TextView tvMeter = (TextView)findViewById(R.id.titleLineGraphMeter);
-        tvMeter.setText(SensorProjectApp.getGlobalSensorData().getMeterNameByUrl(meterUrl));
+        tvMeter.setText(SensorProjectApp.getGlobalSensorData(getApplicationContext()).getMeterNameByUrl(meterUrl));
 
         TextView tvSensor = (TextView)findViewById(R.id.titleLineGraphSensor);
         tvSensor.setText(sensorLabel);
@@ -181,6 +181,12 @@ public class ActivityLinearGraph extends AppCompatActivity {
         //display the avg line
         displayAverageInGraph(ss, chart);
 
+        //display xaxis and yaxis label
+        TextView tvXaxisLabel = (TextView)findViewById(R.id.tvXaxisLabel);
+        TextView tvYaxisLabel = (TextView)findViewById(R.id.tvYaxisLabel);
+        tvXaxisLabel.setText(R.string.rangeTime);
+        tvYaxisLabel.setText(sensorUnit);
+
 
         //Extract the Timestamp array for set the dayAxisFormatter
         ArrayList<Long> oldTS = new ArrayList<>();
@@ -220,6 +226,7 @@ public class ActivityLinearGraph extends AppCompatActivity {
         IAxisValueFormatter xAxisFormatter = new HourAxisValueFormatter(referenceTimestamp);
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(xAxisFormatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
 
         //hide Y right Axis

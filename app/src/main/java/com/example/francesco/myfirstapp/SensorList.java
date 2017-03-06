@@ -1,5 +1,7 @@
 package com.example.francesco.myfirstapp;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class SensorList {
     private HashMap<Meter, ArrayList<Sensor>> list; // meter -> list of sensors
 
 
-    public SensorList() {
+    public SensorList(Context context) {
         //costruttore con liste complete e valori vuoti
 
         list = new HashMap<Meter, ArrayList<Sensor>>();
@@ -31,159 +33,161 @@ public class SensorList {
 
 
         //make list for only meter Geom/GF/Labs/Lighting
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        list.put(new Meter("Geom/GF/Labs/Lighting", "Illuminazione Laboratori"), sensors);
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        list.put(new Meter("Geom/GF/Labs/Lighting", context.getString(R.string.mm_gf_labslighting)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //make list for only meter Geom/1F/Rooms/Lighting
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        list.put(new Meter("Geom/1F/Rooms/Lighting", "Illuminazione Aule 1 Piano Geometri"), sensors);
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        list.put(new Meter("Geom/1F/Rooms/Lighting", context.getString(R.string.mm_1f_roomslighting)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //make list for only meter Geom/1F/Rooms/53
-        sensors.add(new Sensor("/temp", "Temperature"));
-        sensors.add(new Sensor("/light", "Light"));
-        sensors.add(new Sensor("/humid", "Humidity"));
+        sensors.add(new Sensor("/temp", context.getString(R.string.sstemp)));
+        sensors.add(new Sensor("/light", context.getString(R.string.sslight)));
+        sensors.add(new Sensor("/humid", context.getString(R.string.sshumid)));
         list.put(new Meter("Geom/1F/Rooms/53", "Aula 53"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //make list for only meter Geom/1F/Rooms/54
-        sensors.add(new Sensor("/temp", "Temperature"));
-        sensors.add(new Sensor("/light", "Light"));
-        sensors.add(new Sensor("/humid", "Humidity"));
+        sensors.add(new Sensor("/temp", context.getString(R.string.sstemp)));
+        sensors.add(new Sensor("/light", context.getString(R.string.sslight)));
+        sensors.add(new Sensor("/humid", context.getString(R.string.sshumid)));
         list.put(new Meter("Geom/1F/Rooms/54", "Aula 54"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //make list for only meter Geom/1F/Rooms/55
-        sensors.add(new Sensor("/temp", "Temperature"));
-        sensors.add(new Sensor("/light", "Light"));
-        sensors.add(new Sensor("/humid", "Humidity"));
+        sensors.add(new Sensor("/temp", context.getString(R.string.sstemp)));
+        sensors.add(new Sensor("/light", context.getString(R.string.sslight)));
+        sensors.add(new Sensor("/humid", context.getString(R.string.sshumid)));
         list.put(new Meter("Geom/1F/Rooms/55", "Aula 55"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //add sensor for only meter QG/Lighting
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
+        sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/light", "Light"));
-        list.put(new Meter("QG/Lighting", "Hall e Aree Comuni"), sensors);
+        list.put(new Meter("QG/Lighting", context.getString(R.string.mm_qg_hall_lighting)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //add sensor for only meter QS
-        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
-        sensors.add(new Sensor("/apcon", "Apparent Energy"));
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/appw", "Apparent Power"));
-        sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("QS", "Blocco Sportivo"), sensors);
+        sensors.add(new Sensor("/reactcon", context.getString(R.string.ssreactcon)));
+        sensors.add(new Sensor("/apcon", context.getString(R.string.ssapcon)));
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
+        sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
+        sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
+        sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        list.put(new Meter("QS", context.getString(R.string.mm_qs)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //add sensor for only meter QG
-        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
-        sensors.add(new Sensor("/apcon", "Apparent Energy"));
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/appw", "Apparent Power"));
-        sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("QG", "Blocco didattico"), sensors);
+        sensors.add(new Sensor("/reactcon", context.getString(R.string.ssreactcon)));
+        sensors.add(new Sensor("/apcon", context.getString(R.string.ssapcon)));
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
+        sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
+        sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
+        sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        list.put(new Meter("QG", context.getString(R.string.mm_qg)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //add sensor for only meter Geom/GF
-        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
-        sensors.add(new Sensor("/apcon", "Apparent Energy"));
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/appw", "Apparent Power"));
-        sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("Geom/GF", "Geometri - Piano Terra"), sensors);
+        sensors.add(new Sensor("/reactcon", context.getString(R.string.ssreactcon)));
+        sensors.add(new Sensor("/apcon", context.getString(R.string.ssapcon)));
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
+        sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
+        sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
+        sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        list.put(new Meter("Geom/GF", context.getString(R.string.mm_geom_gf)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //add sensor for only meter Geom/1F
-        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
-        sensors.add(new Sensor("/apcon", "Apparent Energy"));
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/appw", "Apparent Power"));
-        sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("Geom/1F", "Geometri - Primo Piano"), sensors);
+        sensors.add(new Sensor("/reactcon", context.getString(R.string.ssreactcon)));
+        sensors.add(new Sensor("/apcon", context.getString(R.string.ssapcon)));
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
+        sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
+        sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
+        sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        list.put(new Meter("Geom/1F", context.getString(R.string.mm_geom_1f)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
 
 
         //add sensor for only meter Geom/GF/Labs/MP
-        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
-        sensors.add(new Sensor("/apcon", "Apparent Energy"));
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/appw", "Apparent Power"));
-        sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        list.put(new Meter("Geom/GF/Labs/MP", "Geometri - Forza motrice Laboratori"), sensors);
+        sensors.add(new Sensor("/reactcon", context.getString(R.string.ssreactcon)));
+        sensors.add(new Sensor("/apcon", context.getString(R.string.ssapcon)));
+        sensors.add(new Sensor("/con", context.getString(R.string.sscon)));
+        sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
+        sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
+        sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
+        sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
+        sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
+        sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        list.put(new Meter("Geom/GF/Labs/MP", context.getString(R.string.mm_geom_gf_labsmotionpower)), sensors);
 
     }
 
 
 
     /** COTRUTTORE CHE COMPILA LE METER INSERENDO IL PARAMETRO SENSORS */
-    public SensorList( ArrayList<Sensor> sensors ) {
+    public SensorList( ArrayList<Sensor> sensors , Context context) {
 
         list = new HashMap<Meter, ArrayList<Sensor>>();
 
-        //list.put(new Meter("Geom/GF/Labs/Lighting", "Illuminazione Laboratori"), sensors);
-        //list.put(new Meter("Geom/1F/Rooms/Lighting", "Illuminazione Aule 1 Piano Geometri"), sensors);
-        //list.put(new Meter("QG/Lighting", "Hall e Aree Comuni"), sensors);
-        list.put(new Meter("QS", "Blocco Sportivo"), sensors);
-        list.put(new Meter("QG", "Blocco didattico"), sensors);
-        //list.put(new Meter("Geom/GF", "Geometri - Piano Terra"), sensors);
-        //list.put(new Meter("Geom/1F", "Geometri - Primo Piano"), sensors);
-        //list.put(new Meter("Geom/GF/Labs/MP", "Geometri - Forza motrice Laboratori"), sensors);
+        list.put(new Meter("QS", context.getString(R.string.mm_qs)), sensors);
+        list.put(new Meter("QG", context.getString(R.string.mm_qg)), sensors);
+
+        //TODO togliere
+        list.put(new Meter("Geom/1F", context.getString(R.string.mm_geom_1f)), sensors);
+        list.put(new Meter("Geom/GF/Labs/Lighting", context.getString(R.string.mm_gf_labslighting)), sensors);
+        list.put(new Meter("Geom/1F/Rooms/Lighting", context.getString(R.string.mm_1f_roomslighting)), sensors);
+        list.put(new Meter("QG/Lighting", context.getString(R.string.mm_qg_hall_lighting)), sensors);
+        list.put(new Meter("Geom/GF", context.getString(R.string.mm_geom_gf)), sensors);
+        list.put(new Meter("Geom/GF/Labs/MP", context.getString(R.string.mm_geom_gf_labsmotionpower)), sensors);
 
     }
 

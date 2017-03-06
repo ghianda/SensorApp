@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,16 +24,16 @@ import java.util.Locale;
 public class FragmentTimeRead extends Fragment
 {
 
-
     protected NetworkManager networkManager;
 
-    protected final static SensorList allSensors = new SensorList(); //lista di coppie (meter -> elenco sensori)
+    protected static SensorList allSensors = null; //lista di coppie (meter -> elenco sensori)
     protected static ArrayAdapter<String> spinMeterAdapter;
     protected static ArrayAdapter<String> spinSensorAdapter;
 
     private Spinner meterSpinner , sensorSpinner;
 
     private ImageButton timeReadButton;
+    private ProgressBar progressBar;
 
     private Button btFromDate; //bottoni per l'avvio dei picker dialog di selezione data/ora
     private Button btFromHour;
@@ -71,6 +72,8 @@ public class FragmentTimeRead extends Fragment
         // create NetworkManager
         networkManager = new NetworkManager(getActivity().getApplicationContext());
 
+        allSensors = new SensorList(getActivity()); //lista di coppie (meter -> elenco sensori)
+
         //set input listener
         setSensorsSpinner();
         setTimeReadButtonListener();
@@ -97,10 +100,13 @@ public class FragmentTimeRead extends Fragment
 
         timeReadButton = (ImageButton) view.findViewById(R.id.btTimeRead);
 
-        btFromDate = (Button) view.findViewById(R.id.btFragFromDate);
+        btFromDate = (Button) view.findViewById(R.id.btFromDate);
         btToDate = (Button) view.findViewById(R.id.btToDate);
         btFromHour = (Button) view.findViewById(R.id.btFromHour);
         btToHour = (Button) view.findViewById(R.id.btToHour);
+
+        progressBar = (ProgressBar)view.findViewById(R.id.progTimeRead);
+        progressBar.setVisibility(View.GONE); //make invisible
 
     }
 
@@ -140,6 +146,9 @@ public class FragmentTimeRead extends Fragment
         intent.putExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE, parcObj);
         intent.putExtra(SensorProjectApp.EXTRA_METER, chosenMeter.getUrlString());
 
+        //hide the progress bar
+        progressBar.setVisibility(View.GONE);
+
         startActivity(intent);
     }
 
@@ -154,6 +163,10 @@ public class FragmentTimeRead extends Fragment
 
                 if(timeRangeIsOk) {
 
+                    //display the progress bar
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    //make request
                     url = networkManager.createTimeReadUrl(chosenMeter, chosenSensor, fromDate, toDate);
                     ParseUrl(url);
                 }

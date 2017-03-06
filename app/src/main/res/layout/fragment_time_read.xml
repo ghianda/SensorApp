@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/descriptionTimeRead"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
         <LinearLayout
@@ -29,8 +29,9 @@
 
             <TextView
                 android:text="@string/tvSelectMeter"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.28"
                 android:id="@+id/textView" />
 
             <Spinner
@@ -53,7 +54,7 @@
             <TextView
                 android:text="@string/tvSelectSensor"
                 android:layout_width="0dp"
-                android:layout_weight="0.42"
+                android:layout_weight="0.28"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3" />
 
@@ -86,7 +87,7 @@
             android:layout_alignParentStart="true">
 
             <Button
-                android:id="@+id/btFragFromDate"
+                android:id="@+id/btFromDate"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,6 +136,18 @@
             android:layout_above="@+id/LinearLayoutTo"
             android:layout_alignParentStart="true"
             android:layout_marginStart="60dp" />
+
+
+        <ProgressBar
+            android:id="@+id/progTimeRead"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminateDrawable="@drawable/circular_progress_bar"
+            android:layout_above="@+id/imageView1"
+            android:layout_alignStart="@+id/imageView1"
+            android:layout_marginStart="59dp"
+            android:layout_marginBottom="23dp" />
 
 
     </RelativeLayout>

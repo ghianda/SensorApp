@@ -1,0 +1,108 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.francesco.myfirstapp.FragmentLastRead">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_last_read_Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/descriptionLastRead"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutMeter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_last_read_Description"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:text="@string/tvSelectMeter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Spinner
+                android:id="@+id/MeterSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDisplayTimeResult"
+            android:text=" "
+            android:background="@drawable/border_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/tvDisplayValueResult"
+            android:layout_alignEnd="@+id/btLastRead" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/LinearLayoutMeter"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:text="@string/tvSelectSensor"
+                android:layout_width="0dp"
+                android:layout_weight="0.42"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Spinner
+                android:id="@+id/SensorSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDisplayValueResult"
+            android:text=" "
+            android:background="@drawable/border_box"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_marginBottom="11dp"
+            android:layout_above="@+id/tvDisplayTimeResult"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="40dp" />
+
+        <ImageButton
+            android:id="@+id/btLastRead"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bt_search_ok_selector"
+            android:src="@drawable/ic_search_white_48dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/tvDisplayValueResult"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="33dp" />
+
+    </RelativeLayout>
+
+</FrameLayout>

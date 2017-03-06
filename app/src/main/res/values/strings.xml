@@ -10,7 +10,7 @@
     <!-- Home -->
     <string name="serviceText"> Background Monitoring </string>
     <string name="today"> Last read </string>
-    <string name="yesterday"> Power </string>
+    <string name="yesterday"> Yesterday Consume </string>
     <string name="todayParameter"> Power </string>
     <string name="yesterdayParameter"> Consumption </string>
     <string name="yesterdayCO2"> CO<sub>2</sub> </string>
@@ -39,8 +39,8 @@
     <string name="abstractToastCountPost">  results </string>
 
     <!-- Last and Time reading -->
-    <string name="tvSelectMeter">Where</string>
-    <string name="tvSelectSensor">What</string>
+    <string name="tvSelectMeter">Sensor</string>
+    <string name="tvSelectSensor">Parameter</string>
     <string name="btRead"> Read </string>
     <string name="btReadSensor"> Read Sensor </string>
     <string name="btCompareConsume"> Compare Consume </string>
@@ -57,11 +57,12 @@
     <string name="t">&amp;to=</string>
 
 
-    <!-- ActivityLinearGraph -->
+    <!-- LinearGraph -->
     <string name="average">Average:</string>
     <string name="tvDisplayMin">Min:</string>
     <string name="tvDisplayMax">Max:</string>
     <string name="dataError"> NO DATA </string>
+    <string name="rangeTime"> Time Range </string>
 
     <!-- Descriptions of read fragments -->
     <string name="descriptionTimeRead"> Displays Parameter values of  Meter in the selected time range </string>
@@ -102,9 +103,36 @@
     <string name="suggIntruderAlarm"> there is a strange energy spike, evaluate if to call the police </string>
     <string name="suggTooWasteful"> There is too much power for the light readed, try to Switch OFF the light </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!-- ........................................................................... -->
+
+
+    <!--  sensor list -->
+    <string name="ssreactcon">Reactive Energy</string>
+    <string name="ssapcon">Apparent Energy</string>
+    <string name="sscon">Active Energy</string>
+    <string name="ssactpw">Active Power</string>
+    <string name="sspwf">Power Factor</string>
+    <string name="sscur1">Current - 1\' phase</string>
+    <string name="sscur2">Current - 2\' phase</string>
+    <string name="sscur3">Current - 3\' phase</string>
+    <string name="ssappw">Apparent Power</string>
+    <string name="ssreactpw">Reactive Power</string>
+    <string name="sstemp">Temperature</string>
+    <string name="sslight">Light</string>
+    <string name="sshumid">Humidity</string>
+
+
+    <!-- meter list -->
+    <string name="mm_gf_labslighting">Laboratories Illuminations</string>
+    <string name="mm_1f_roomslighting">1\' floor Land Surv. rooms illumination</string>
+    <string name="mm_qs">Sports block</string>
+    <string name="mm_qg">Land Surveyors Block</string>
+    <string name="mm_geom_gf">Ground floor Land Surveyors</string>
+    <string name="mm_geom_1f">1\' floor Land Surveyors</string>
+    <string name="mm_geom_gf_labsmotionpower">Land. Surv. Laboratories driving force </string>
+    <string name="mm_qg_hall_lighting">Hall</string>
+    <string name="mm_qg_lighting"></string>
 
 
 </resources>

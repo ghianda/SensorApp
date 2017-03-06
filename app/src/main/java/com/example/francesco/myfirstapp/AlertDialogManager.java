@@ -32,7 +32,7 @@ public class AlertDialogManager {
 
         //TODO CAMBIARE ICONA SUCCESSO E FALLIMENTO
             //alertDialog.setIcon((status) ? R.drawable.success : R.drawable.fail);
-            alertDialog.setIcon((status) ? R.drawable.marker2 : R.drawable.marker2);
+            alertDialog.setIcon((status) ? R.drawable.ic_done_black_48dp : R.drawable.ic_highlight_off_black_48dp);
 
         // Setting OK Button
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {

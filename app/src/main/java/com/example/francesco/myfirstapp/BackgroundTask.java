@@ -238,7 +238,7 @@ public class BackgroundTask extends BroadcastReceiver {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
         // ActivityDisplayAlarm will be started when the user clicks the notification
-        Intent notificationIntent = new Intent(context, ActivityDisplayAlarm.class);
+        Intent notificationIntent = new Intent(context, ActivityIntro.class);
         notificationIntent.putExtra(EXTRA_ACTPOWER, avgActPower);
         notificationIntent.putExtra(EXTRA_LIGHT, avgLight);
 
@@ -314,7 +314,7 @@ public class BackgroundTask extends BroadcastReceiver {
 
         //set the notification property
         builder.setAutoCancel(false);
-        builder.setSmallIcon(R.drawable.marker2);
+        builder.setSmallIcon(R.drawable.ic_notify);
         builder.setTicker(contextMaster.getResources().getString(R.string.tickerTextAlarm)); //è il testo che appare in alto solo appena arriva la notifica
         builder.setOngoing(true);
 

@@ -46,6 +46,10 @@
     <color name="colorCircleLineGraph">#47C504</color>
     <color name="colorHoleCircleLineGraph">#AEFA5E</color>
 
+    <!-- linear layout -->
+    <color name="borderLinearLayout">#349202</color>
+
+
 
 
 </resources>

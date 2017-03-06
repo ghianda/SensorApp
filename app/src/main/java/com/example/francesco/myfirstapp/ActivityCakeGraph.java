@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_CAKE;
+import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_DATA_CAKE;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_FROM_TIME;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_CONVERSION_FACTOR;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_NAME;
@@ -110,6 +110,9 @@ public class ActivityCakeGraph extends AppCompatActivity {
         Legend l = pieChart.getLegend();
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
+
+        // refresh
+        pieChart.invalidate();
     }
 
 
@@ -132,8 +135,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
         //apply dataset at chart
         pieChart.setData(data);
 
-        // refresh
-        pieChart.invalidate();
+
 
     }
 
@@ -178,7 +180,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
     private void extractDataFromIntent(){
         //ectract data from intent
         Intent intent    = getIntent();
-        data             = (HashMap<String, Float>)intent.getSerializableExtra(EXTRA_CAKE);
+        data             = (HashMap<String, Float>)intent.getSerializableExtra(EXTRA_DATA_CAKE);
         sensorName       = intent.getStringExtra(EXTRA_SENSOR_NAME);
         sensorUnit       = intent.getStringExtra(EXTRA_SENSOR_UNIT);
         conversionFactor = intent.getFloatExtra(EXTRA_SENSOR_CONVERSION_FACTOR, (float)0.0);

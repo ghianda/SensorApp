@@ -48,7 +48,6 @@
         <!-- todo -->
 
         <!-- ricevitori -->
-        <receiver android:name=".NotificationBarAlarm" />
         <receiver
             android:name=".AutostartOnBoot"
             android:enabled="true"
@@ -58,6 +57,7 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+
         <receiver android:name=".BackgroundTask" />
 
         <!-- ********** SERVICE ***************** -->

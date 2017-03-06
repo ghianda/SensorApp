@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/descriptionLastRead"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
 
@@ -32,16 +32,17 @@
 
             <TextView
                 android:text="@string/tvSelectMeter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.28"
                 android:id="@+id/textView"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <Spinner
                 android:id="@+id/MeterSpinner"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="34dp" />
         </LinearLayout>
 
@@ -56,16 +57,16 @@
             <TextView
                 android:text="@string/tvSelectSensor"
                 android:layout_width="0dp"
-                android:layout_weight="0.42"
-                android:layout_height="wrap_content"
+                android:layout_weight="0.28"
+                android:layout_height="match_parent"
                 android:id="@+id/textView3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <Spinner
                 android:id="@+id/SensorSpinner"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="34dp"
                 />
         </LinearLayout>
@@ -103,6 +104,16 @@
             android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true" />
+
+        <ProgressBar
+            android:id="@+id/progressLatRead"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/circular_progress_bar"
+            android:layout_alignBottom="@+id/tvDisplayValueResult"
+            android:layout_alignEnd="@+id/tvDisplayValueResult"
+            android:layout_marginEnd="51dp" />
 
     </RelativeLayout>
 

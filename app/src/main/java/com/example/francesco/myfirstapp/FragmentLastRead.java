@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -16,8 +17,7 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 
 public class FragmentLastRead extends Fragment
 {
-
-
+    private ProgressBar progressBar;
 
     private TextView tvValue , tvTimestamp;
     private Spinner meterSpinner , sensorSpinner;
@@ -25,7 +25,7 @@ public class FragmentLastRead extends Fragment
 
     private NetworkManager networkManager;
 
-    private final static SensorList allSensors = new SensorList(); //lista di coppie (meter -> elenco sensori)
+    private static SensorList allSensors = null;
     private static ArrayAdapter<String> spinMeterAdapter;
     private static ArrayAdapter<String> spinSensorAdapter;
 
@@ -53,16 +53,15 @@ public class FragmentLastRead extends Fragment
 
         findAndSaveInputOutputResource(view);
 
+        //lista di coppie (meter -> elenco sensori)
+        allSensors = new SensorList(getActivity());
+
         // create NetworkManager
         networkManager = new NetworkManager(getActivity().getApplicationContext());
 
         //set input listener
         setSensorsSpinner();
         setLastReadButtonListener();
-
-
-
-
 
     }
 
@@ -80,12 +79,17 @@ public class FragmentLastRead extends Fragment
 
         lastReadButton = (ImageButton) view.findViewById(R.id.btLastRead);
 
+
+        progressBar = (ProgressBar)view.findViewById(R.id.progressLatRead);
+        progressBar.setVisibility(View.GONE); //make invisible
+
     }
 
 
 
     public void ParseUrl(String url)
     {
+        System.out.println(url);
         NetworkManager.getInstance().getNetsensRequest(url, new CustomListener<Netsens>()
         {
             @Override
@@ -123,6 +127,9 @@ public class FragmentLastRead extends Fragment
         setValueInTv(ss.getDatas().get(0).getValue() / ss.getConversionFactor(), ss.getUnitOfMeasure(), tvValue);
         setTimeInTv(ss.getDatas().get(0), tvTimestamp);
 
+        //remove the progress bar
+        progressBar.setVisibility(View.GONE);
+
     }
 
 
@@ -133,6 +140,11 @@ public class FragmentLastRead extends Fragment
             @Override
             public void onClick(View v)
             {
+
+                //display the progress bar
+                progressBar.setVisibility(View.VISIBLE);
+
+                //make request
                 url = networkManager.createLastReadUrl(chosenMeter, chosenSensor);
                 ParseUrl(url);
             }

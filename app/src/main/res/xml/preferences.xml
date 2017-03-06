@@ -3,10 +3,9 @@
 
     <!-- on/off service in background pref -->
     <CheckBoxPreference
-        android:key="pref_service"
-        android:title="@string/pref_service"
-        android:defaultValue="true" />
+    android:key="pref_service"
+    android:title="@string/pref_service"
+    android:defaultValue="true" />
 
-    <!-- login data -->
 
 </PreferenceScreen>

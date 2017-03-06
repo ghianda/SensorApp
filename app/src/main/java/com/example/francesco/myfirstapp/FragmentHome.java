@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.CO2ForWattHour;
+import static com.example.francesco.myfirstapp.SensorProjectApp.euroForKiloWattHour;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 import static com.example.francesco.myfirstapp.ServiceManager.loadThePreferenceState;
 import static com.example.francesco.myfirstapp.ServiceManager.startSchedulerAlarm;
@@ -34,11 +37,13 @@ public class FragmentHome extends Fragment
 
     private ArrayList<Netsens> consumeResponse;
     private ArrayList<Netsens> powerResponse;
+    private float yesterdayCO2, yesterdayEuro;
 
     private TextView tvUserName , tvStationName, tvTodayValue, tvYesterdayConsume,
             tvYesterdayCO2, tvYesterdayEuro;
     private SwitchCompat serviceSwitch;
     private Calendar nowCalendar;
+    private ProgressBar progBarToday, progBarYestCons, progBarYestCO2, progBarYestEuro;
 
 
     private NetworkManager networkManager;
@@ -53,7 +58,6 @@ public class FragmentHome extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         //create session and network manager, and get an instance of calendar
         session = new SessionManager(getActivity().getApplicationContext());
         networkManager = new NetworkManager(getActivity().getApplicationContext());
@@ -62,6 +66,8 @@ public class FragmentHome extends Fragment
         //allocate the memory
         consumeResponse = new ArrayList<>();
         powerResponse = new ArrayList<>();
+        yesterdayCO2 = 0;
+        yesterdayEuro = 0;
 
         return view;
     }
@@ -89,18 +95,13 @@ public class FragmentHome extends Fragment
     private void makeGet(){
         lastReadPower();
         yesterdayConsume();
-
     }
 
-    private void yesterdayConsume(){
-        //TODO
-        getYesterdayConsume();
-        //displayCO2();
-        //displayEuro();
-
-    }
 
     private void lastReadPower(){
+
+        //start progress bar
+        progBarToday.setVisibility(View.VISIBLE);
 
         String urlQG = networkManager.createLastReadUrl("QG", "/actpw");
         String urlQS = networkManager.createLastReadUrl("QS", "/actpw");
@@ -111,7 +112,12 @@ public class FragmentHome extends Fragment
     }
 
 
-    private void getYesterdayConsume (){
+    private void yesterdayConsume(){
+
+        //start progress bar
+        progBarYestCO2.setVisibility(View.VISIBLE);
+        progBarYestEuro.setVisibility(View.VISIBLE);
+        progBarYestCons.setVisibility(View.VISIBLE);
 
         //calculate begin and end time of yesterday
         HashMap<String, Long> fromAndTo = findStartAndStopOfYesterday(nowCalendar);
@@ -121,44 +127,12 @@ public class FragmentHome extends Fragment
         String urlQSfrom = networkManager.createWindowUrl("QS", "/con", fromAndTo.get("00.01"));
         String urlQSto = networkManager.createWindowUrl("QS", "/con", fromAndTo.get("23.59"));
 
-        //TODO togliere
-        System.out.println("urlQGfrom : " + urlQGfrom);
-        System.out.println("urlQGto : " + urlQGto);
-        System.out.println("urlQSfrom : " + urlQSfrom);
-        System.out.println("urlQSto : " + urlQSto);
-
-        //e fare i 4 parse
-
         ParseUrl(urlQGfrom, difference_TAG, 4);
         ParseUrl(urlQGto, difference_TAG, 4);
         ParseUrl(urlQSfrom, difference_TAG, 4);
         ParseUrl(urlQSto, difference_TAG, 4);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -205,6 +179,7 @@ public class FragmentHome extends Fragment
                 // response is power lecture
                 float sum = doSumAndConvertFromCentiUnit(response);
                 setValueInTv(sum, "W", tvTodayValue);
+                progBarToday.setVisibility(View.GONE);
                 break;
             }
             case 4: {
@@ -212,7 +187,11 @@ public class FragmentHome extends Fragment
                 // response is consume lecture
                 ArrayList <Float> consumes = calculateConsumesFromLecture(response);
                 float sum = (consumes.get(0) + consumes.get(1)) * (1000/100); //are centiKiloWattHour
+
                 setValueInTv(sum, "Wh", tvYesterdayConsume);
+                progBarYestCons.setVisibility(View.GONE);
+
+                calculateOtherStatistics(sum);
                 break;
             }
             default:
@@ -220,6 +199,20 @@ public class FragmentHome extends Fragment
                         getString(R.string.text_toast_net_error) , Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+
+    private void calculateOtherStatistics(float kiloWattHour){
+        yesterdayEuro = kiloWattHour * euroForKiloWattHour;
+        yesterdayCO2  = kiloWattHour * CO2ForWattHour;
+
+        setValueInTv(yesterdayEuro, "€", tvYesterdayEuro);
+        setValueInTv(yesterdayCO2, "Kg", tvYesterdayCO2);
+
+        progBarYestEuro.setVisibility(View.GONE);
+        progBarYestCO2.setVisibility(View.GONE);
+
+
     }
 
 
@@ -232,7 +225,6 @@ public class FragmentHome extends Fragment
         for (Netsens resp : response){
             lectures.add(resp.getMeasuresList().get(0).getValue());
         }
-
 
         //sort the lecture;
         Collections.sort(lectures); //ascending order
@@ -260,18 +252,7 @@ public class FragmentHome extends Fragment
     }
 
 
-        //find and save layout variables
-    private void findLayoutVariables(View view){
-        tvUserName         = (TextView) view.findViewById(R.id.tvUserName);
-        tvStationName      = (TextView) view.findViewById(R.id.tvStationName);
-        serviceSwitch      = (SwitchCompat) view.findViewById(R.id.switchService);
 
-        tvTodayValue       = (TextView) view.findViewById(R.id.tvHomeTodayParValue);
-        tvYesterdayConsume = (TextView) view.findViewById(R.id.tvHomeYesterdayParValue);
-        tvYesterdayCO2     = (TextView) view.findViewById(R.id.tvHomeYesterdayCO2);
-        tvYesterdayEuro    = (TextView) view.findViewById(R.id.tvHomeYesterdayEuro);
-
-    }
 
 
 
@@ -325,30 +306,6 @@ public class FragmentHome extends Fragment
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /* set the switch listener */
     public void setServiceSwitch(){
 
@@ -388,6 +345,33 @@ public class FragmentHome extends Fragment
                 }
             }
         });
+    }
+
+
+
+    //find and save layout variables
+    private void findLayoutVariables(View view){
+        tvUserName         = (TextView) view.findViewById(R.id.tvUserName);
+        tvStationName      = (TextView) view.findViewById(R.id.tvStationName);
+        serviceSwitch      = (SwitchCompat) view.findViewById(R.id.switchService);
+
+        tvTodayValue       = (TextView) view.findViewById(R.id.tvHomeTodayParValue);
+        tvYesterdayConsume = (TextView) view.findViewById(R.id.tvHomeYesterdayParValue);
+        tvYesterdayCO2     = (TextView) view.findViewById(R.id.tvHomeYesterdayCO2);
+        tvYesterdayEuro    = (TextView) view.findViewById(R.id.tvHomeYesterdayEuro);
+
+        progBarToday    = (ProgressBar)view.findViewById(R.id.progHomeToday);
+        progBarYestCons = (ProgressBar)view.findViewById(R.id.progHomeYestConsume);
+        progBarYestCO2  = (ProgressBar)view.findViewById(R.id.progHomeYestCO2);
+        progBarYestEuro = (ProgressBar)view.findViewById(R.id.progHomeYestEuro);
+
+        //make invisible
+        progBarToday.setVisibility(View.GONE);
+        progBarYestCons.setVisibility(View.GONE);
+        progBarYestCO2.setVisibility(View.GONE);
+        progBarYestEuro.setVisibility(View.GONE);
+
+
     }
 
 

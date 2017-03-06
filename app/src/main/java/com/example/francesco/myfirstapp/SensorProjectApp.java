@@ -1,6 +1,7 @@
 package com.example.francesco.myfirstapp;
 
 import android.app.Application;
+import android.content.Context;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -15,12 +16,6 @@ import java.util.Locale;
 public class SensorProjectApp extends Application {
 
 
-    //key string for access
-    public final static String LOGINUSER = "temp";
-    public final static String LOGINSTATION = "723";
-    public final static String LOGINPASSWORD = "5lkz1d";
-
-
     //key string for intent object
     public final static String EXTRA_PARCDATARESPONSE = "com.example.francesco.PARCDATARESPONSE";
     public final static String EXTRA_SENSOR = "com.example.francesco.SENSOR";
@@ -29,7 +24,7 @@ public class SensorProjectApp extends Application {
     public final static String EXTRA_ACTPOWER = "com.example.francesco.AVERAGEACTPOWER";
     public final static String EXTRA_PROBLEM_DETECTED = "com.example.francesco.PROBLEM_DETECTED";
     public final static String EXTRA_SUGGESTED_ACTION = "com.example.francesco.SUGGESTED_ACTION";
-    public final static String EXTRA_CAKE = "com.example.francesco.CAKE";
+    public final static String EXTRA_DATA_CAKE = "com.example.francesco.CAKE";
     public final static String EXTRA_SENSOR_NAME = "com.example.francesco.EXTRA_SENSOR_NAME";
     public final static String EXTRA_SENSOR_UNIT = "com.example.francesco.EXTRA_SENSOR_UNIT";
     public final static String EXTRA_SENSOR_CONVERSION_FACTOR = "com.example.francesco.EXTRA_SENSOR_CONVERSION_FACTOR";
@@ -49,14 +44,14 @@ public class SensorProjectApp extends Application {
     static final public String notifyValueFormat = "###.#";
     static final public long serviceRepeatPeriodInMillis = 30000; //30 seconds
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
-
+    static final public float euroForKiloWattHour = (float)0.166646;
+    static final public float CO2ForWattHour = (float)0.00014;
 
     //Global data (here we store the sensor value(s)
-    static private SensorList globalSensorData = new SensorList(); //data with only name parameter (like the spinner menu)
+    static private SensorList globalSensorData; //data with only name parameter (like the spinner menu)
 
 
     //METHOD________________________________________________________________________________
-
 
 
     public static Sensor createParceableDataResponse(Netsens response, Sensor chosenSensor) {
@@ -73,7 +68,9 @@ public class SensorProjectApp extends Application {
 
     }
 
-    public static SensorList getGlobalSensorData() {
+    public static SensorList getGlobalSensorData(Context context) {
+
+        globalSensorData = new SensorList(context.getApplicationContext());
         return globalSensorData;
     }
 

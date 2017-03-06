@@ -1,0 +1,113 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.francesco.myfirstapp.FragmentCompare">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_compare_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/descriptionCompare"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutFrom"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_above="@+id/imageView1"
+            android:layout_alignParentStart="true">
+
+            <Button
+                android:id="@+id/btFromDate"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btDate"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btFromHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btHour"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutTo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btToDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btDate"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btToHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btHour"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/bottom_arrow"
+            android:layout_above="@+id/LinearLayoutTo"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="60dp" />
+
+        <ImageButton
+            android:id="@+id/btCompare"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bt_search_ok_selector"
+            android:src="@drawable/ic_search_white_48dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="17dp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutSensor"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignTop="@+id/LinearLayoutFrom"
+            android:layout_alignParentEnd="true">
+
+            <Spinner
+                android:id="@+id/SensorSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="3dp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>
