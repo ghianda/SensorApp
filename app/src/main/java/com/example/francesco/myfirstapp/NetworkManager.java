@@ -3,7 +3,6 @@ package com.example.francesco.myfirstapp;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -84,8 +83,8 @@ public class NetworkManager
                             }
 
                             else {
-                                Toast.makeText(context.getApplicationContext(),
-                                        R.string.text_toast_no_data, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context.getApplicationContext(),
+                                //        R.string.text_toast_no_data, Toast.LENGTH_SHORT).show();
                                 //clearValueTextView();
                             }
                         }
@@ -93,9 +92,9 @@ public class NetworkManager
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {//override ErrorListener method
-                            Toast toast = Toast.makeText(context.getApplicationContext(),
-                                    R.string.text_toast_net_error, Toast.LENGTH_SHORT);
-                            toast.show();
+                            //Toast toast = Toast.makeText(context.getApplicationContext(),
+                            //        R.string.text_toast_net_error, Toast.LENGTH_SHORT);
+                            //toast.show();
                         }
                     });
 
@@ -103,7 +102,7 @@ public class NetworkManager
         }
         else {
             //no connessione disponibile: avviso
-            Toast.makeText(context, R.string.text_toast_net_error, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.text_toast_net_error, Toast.LENGTH_SHORT).show();
         }
     }
 

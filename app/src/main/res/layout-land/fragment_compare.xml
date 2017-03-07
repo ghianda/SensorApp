@@ -107,6 +107,17 @@
         </LinearLayout>
 
 
+        <ProgressBar
+            android:id="@+id/progCompare"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminateDrawable="@drawable/circular_progress_bar"
+            android:foregroundGravity="center|fill_horizontal"
+            android:layout_above="@+id/btCompare"
+            android:layout_toEndOf="@+id/LinearLayoutFrom" />
+
+
     </RelativeLayout>
 
 

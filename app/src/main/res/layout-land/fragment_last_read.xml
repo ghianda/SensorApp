@@ -103,6 +103,18 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="33dp" />
 
+
+        <ProgressBar
+            android:id="@+id/progressLatRead"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/circular_progress_bar"
+            android:layout_marginEnd="14dp"
+            android:layout_alignBottom="@+id/tvDisplayValueResult"
+            android:layout_alignEnd="@+id/tvDisplayValueResult"
+            android:layout_marginBottom="38dp" />
+
     </RelativeLayout>
 
 </FrameLayout>
