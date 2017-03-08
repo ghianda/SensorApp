@@ -44,7 +44,8 @@ public class SensorProjectApp extends Application {
     static final public String notifyValueFormat = "###.#";
     static final public long serviceRepeatPeriodInMillis = 30000; //30 seconds
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
-    static final public float euroForKiloWattHour = (float)0.166646;
+    static final public long windowYesterdayConsumeRequest = 1800000; //30 minuti - finestra per le letture dei consumi di inizio e fine giornata
+    static final public float euroForKiloWattHour = (float)0.000166646;
     static final public float CO2ForWattHour = (float)0.00014;
 
     //Global data (here we store the sensor value(s)
@@ -128,6 +129,18 @@ public class SensorProjectApp extends Application {
                 prefix = "k";
             }
         }
+
+        fixedValueString = frmt.format(value) + " " + prefix + unit;
+        return fixedValueString;
+    }
+
+
+
+    public static String fixEuro(double value, String unit) {
+        String fixedValueString;
+        String prefix = "";
+
+        DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
 
         fixedValueString = frmt.format(value) + " " + prefix + unit;
         return fixedValueString;

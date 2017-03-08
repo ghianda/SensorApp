@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -30,13 +32,29 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_UNI
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_TO_TIME;
 
 public class ActivityCakeGraph extends AppCompatActivity {
-    String sensorName, sensorUnit, prefix;
-    long fromMillis, toMillis;
-    float conversionFactor;
-    HashMap<String, Float> data;
+    private String sensorName, sensorUnit, prefix;
+    private long fromMillis, toMillis;
+    private float conversionFactor;
+    private HashMap<String, Float> data;
 
-    TextView tvFrom, tvTo;
+    private TextView tvFrom, tvTo;
+    private ImageButton backBt;
     private PieChart pieChart;
+
+    private String lastChartTag;
+
+    private final String totCakeTag = "tot";
+    private final String qgCakeTag = "QG";
+    private final String geom1FCakeTag = "geom1F";
+    private final String geomGFCakeTag = "geomGF";
+
+
+
+
+    private PieData totPieData;
+    private PieData qgPieData;
+    private PieData geomGroundFloorPieData;
+    private PieData geomFirstFloorPieData;
 
 
     @Override
@@ -46,14 +64,355 @@ public class ActivityCakeGraph extends AppCompatActivity {
         hideTitleBarIfLandscape();
         setContentView(R.layout.activity_cake_graph);
 
+        backBt = (ImageButton)findViewById(R.id.cakeBackButton);
+        setButtonListener(backBt);
 
         extractDataFromIntent();
 
         setTitleBar();
+        displayTimeRangeOnTextView();
 
-        displayDataOnTextView();
+        preparePieChart();
+        preparePieDatasets(data);
 
-        displayCakeGraph();
+
+        displayTotCake();
+
+
+    }
+
+
+    private void displayTotCake(){
+
+        lastChartTag = "";
+        displayCakeGraph(totPieData);
+        setCakeListener(totListener);
+        setButtonListener(backBt);
+    }
+
+    private void displayQgCake(){
+
+        lastChartTag = totCakeTag;
+        displayCakeGraph(qgPieData);
+        setCakeListener(qgListener);
+        setButtonListener(backBt);
+    }
+
+    private void displayGeom1FCake(){
+
+        lastChartTag = qgCakeTag;
+        displayCakeGraph(geomFirstFloorPieData);
+        setCakeListener(geomListener);
+        setButtonListener(backBt);
+    }
+
+    private void displayGeomGFCake(){
+
+        lastChartTag = qgCakeTag;
+        displayCakeGraph(geomGroundFloorPieData);
+        setCakeListener(geomListener);
+        setButtonListener(backBt);
+    }
+
+
+
+
+    private OnChartValueSelectedListener totListener = new OnChartValueSelectedListener(){
+        @Override
+        public void onValueSelected(Entry e, Highlight h) {
+
+            switch ((int)h.getX()){
+                case 0: break;  //QS
+                case 1: displayQgCake(); break;
+                default: break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected() {
+        }
+    };
+
+    private OnChartValueSelectedListener qgListener = new OnChartValueSelectedListener(){
+        @Override
+        public void onValueSelected(Entry e, Highlight h) {
+
+            switch ((int)h.getX()){
+                case 0: displayGeomGFCake(); break;
+                case 1: displayGeom1FCake(); break;
+                case 2: break; //QG/Lighting
+                case 3: break; //altro
+                default: break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected() {
+
+        }
+    };
+
+    private OnChartValueSelectedListener geomListener = new OnChartValueSelectedListener(){
+        @Override
+        public void onValueSelected(Entry e, Highlight h) {
+
+        }
+
+        @Override
+        public void onNothingSelected() {
+
+        }
+    };
+
+
+
+
+
+
+
+
+
+    private void preparePieDatasets(HashMap<String, Float> data){
+
+        totPieData = PrepareTotDataSet(data);
+        qgPieData = PrepareQgDataSet(data);
+        geomGroundFloorPieData = PrepareGeomGroundFloorDataSet(data);
+        geomFirstFloorPieData = PrepareGeomFirstFloorDataSet(data);
+
+    }
+
+
+    /**Geom/1F = Geom/1F/Rooms/Lighting + altro
+     * altro = Geom/1F - Geom/1F/Rooms/Lighting */
+    private PieData PrepareGeomFirstFloorDataSet(HashMap<String, Float> data) {
+
+        List<PieEntry> entries = new ArrayList<>();
+
+        float other = data.get(getString(R.string.urlGeomFirstFloor)) -
+                (data.get(getString(R.string.urlGeomRoomsLighting)));
+
+        entries.add(new PieEntry(
+                data.get(getString(R.string.urlGeomRoomsLighting)) , getString(R.string.mm_1f_roomslighting)));
+        entries.add(new PieEntry( other , getString(R.string.other)));
+
+        return makePieDataFromEntries(entries);
+
+    }
+
+
+
+    /**Geom/GF = Geom/GF/Labs/Lighting + Geom/GF/Labs/MP + altro
+     * altro = Geom/GF - (Geom/GF/Labs/Lighting + Geom/GF/Labs/MP) */
+    private PieData PrepareGeomGroundFloorDataSet(HashMap<String, Float> data) {
+
+        List<PieEntry> entries = new ArrayList<>();
+
+        float other = data.get(getString(R.string.urlGeomGF)) -
+                (data.get(getString(R.string.urlGeomLabsLighting)) + data.get(getString(R.string.urlGeomLabsMP)));
+
+        entries.add(new PieEntry(
+                data.get(getString(R.string.urlGeomLabsLighting)) , getString(R.string.mm_gf_labslighting)));
+        entries.add(new PieEntry(
+                data.get(getString(R.string.urlGeomLabsMP)) , getString(R.string.mm_geom_gf_labsmotionpower)));
+        entries.add(new PieEntry( other , getString(R.string.other)));
+
+        return makePieDataFromEntries(entries);
+
+    }
+
+
+
+
+
+
+
+    /**QG = Geom/GF + Geom/1F + QG/Lighting + altro
+     altro = QG - (Geom/GF + Geom/1F + QG/Lighting) */
+    private PieData PrepareQgDataSet(HashMap<String, Float> data) {
+        List<PieEntry> entries = new ArrayList<>();
+
+        float other = data.get(getString(R.string.urlQG)) -
+                (data.get(getString(R.string.urlGeomGF)) + data.get(getString(R.string.urlGeomFirstFloor))
+                        + data.get(getString(R.string.urlQGHallLighting)));
+
+        entries.add(new PieEntry(
+                data.get(getString(R.string.urlGeomGF)) , getString(R.string.mm_geom_gf)));
+        entries.add(new PieEntry(
+                data.get(getString(R.string.urlGeomFirstFloor)) , getString(R.string.mm_geom_1f)));
+        entries.add(new PieEntry(
+                data.get(getString(R.string.urlQGHallLighting)) , getString(R.string.mm_qg_hall_lighting)));
+        entries.add(new PieEntry( other , getString(R.string.other)));
+
+        return makePieDataFromEntries(entries);
+
+    }
+
+
+    /**TOT = QS + QG */
+    private PieData PrepareTotDataSet(HashMap<String, Float> data) {
+
+        List<PieEntry> entries = new ArrayList<>();
+
+        entries.add(new PieEntry(data.get(getString(R.string.urlQS)), getString(R.string.mm_qs)));
+        entries.add(new PieEntry(data.get(getString(R.string.urlQG)), getString(R.string.mm_qg)));
+
+        return makePieDataFromEntries(entries);
+
+    }
+
+
+
+
+
+    private PieData makePieDataFromEntries(List<PieEntry> entries){
+        PieDataSet set = new PieDataSet(entries, sensorName);
+
+        //set preferences
+        set.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        //set value formatter
+        set.setValueFormatter(new PieValueFormatter(prefix, sensorUnit));
+
+
+        PieData pieData = new PieData(set);
+
+        //set preferences
+        pieData.setValueTextSize(20);
+
+        return pieData;
+    }
+
+
+    private void preparePieChart(){
+
+        pieChart = (PieChart) findViewById(R.id.chart);
+        //chart.setDescription(sensorName);
+
+        // enable rotation of the chart by touch
+        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(true);
+
+        // enable hole and configure
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleRadius(25);
+        pieChart.setTransparentCircleRadius(30);
+
+        // hide legends
+        Legend l = pieChart.getLegend();
+        l.setEnabled(false);
+
+        //hide description label
+        pieChart.setContentDescription("");
+
+    }
+
+
+
+
+
+    private void displayCakeGraph(PieData pieData) {
+
+
+        //apply dataset at chart
+        pieChart.setData(pieData);
+
+        // refresh
+        pieChart.invalidate();
+    }
+
+
+
+
+
+    private void setCakeListener(OnChartValueSelectedListener listener) {
+
+        // set a chart value selected listener
+        pieChart.setOnChartValueSelectedListener(listener);
+
+    }
+
+
+
+    //TODO
+    private void setButtonListener(final ImageButton backBt){
+
+        backBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (lastChartTag){
+                    case "": break;
+                    case totCakeTag: displayTotCake(); break;
+                    case qgCakeTag: displayQgCake(); break;
+                    case geom1FCakeTag: displayGeom1FCake(); break;
+                    case geomGFCakeTag: displayGeomGFCake(); break;
+                    default: break;
+                }
+
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void displayTimeRangeOnTextView(){
+
+        tvFrom       = (TextView)findViewById(R.id.cakeFromView);
+        tvTo         = (TextView)findViewById(R.id.cakeToView);
+
+        //display on textView
+        SensorProjectApp.fromMillisToDateOnTextView(fromMillis, tvFrom, true);
+        SensorProjectApp.fromMillisToDateOnTextView(toMillis, tvTo, true);
+
+    }
+
+
+
+
+
+    private void extractDataFromIntent(){
+        //ectract data from intent
+        Intent intent    = getIntent();
+        data             = (HashMap<String, Float>)intent.getSerializableExtra(EXTRA_DATA_CAKE);
+        sensorName       = intent.getStringExtra(EXTRA_SENSOR_NAME);
+        sensorUnit       = intent.getStringExtra(EXTRA_SENSOR_UNIT);
+        conversionFactor = intent.getFloatExtra(EXTRA_SENSOR_CONVERSION_FACTOR, (float)0.0);
+        fromMillis       = intent.getLongExtra(EXTRA_FROM_TIME, 0);
+        toMillis         = intent.getLongExtra(EXTRA_TO_TIME, 0);
+
+        //convert to "Unit" from "centi" or other
+        for( String meter: data.keySet()){
+            data.put(meter, data.get(meter)/conversionFactor);
+        }
+
+        prefix = fixPrefixOfUnit();
+
 
     }
 
@@ -76,67 +435,10 @@ public class ActivityCakeGraph extends AppCompatActivity {
     }
 
 
-
     private void setTitleBar(){
         //set the Title of Activity
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(sensorName + "  [" + prefix + sensorUnit + "]  ");
-    }
-
-
-
-    private void displayCakeGraph() {
-
-        pieChart = (PieChart) findViewById(R.id.chart);
-        //chart.setDescription(sensorName);
-
-        // enable rotation of the chart by touch
-        pieChart.setRotationAngle(0);
-        pieChart.setRotationEnabled(true);
-
-        // enable hole and configure
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleRadius(25);
-        pieChart.setTransparentCircleRadius(30);
-
-        //TODO
-        setCakeListener();
-
-        // add data
-        addData();
-
-
-        // customize legends
-        Legend l = pieChart.getLegend();
-        l.setXEntrySpace(7);
-        l.setYEntrySpace(5);
-
-        // refresh
-        pieChart.invalidate();
-    }
-
-
-    private void addData() {
-        List<PieEntry> entries = new ArrayList<>();
-
-        //insert data in entries list
-        for (String key : data.keySet()) {
-            entries.add(new PieEntry(data.get(key), key));
-        }
-
-
-        PieDataSet set = new PieDataSet(entries, sensorName);
-        set.setColors(ColorTemplate.MATERIAL_COLORS);
-        PieData data = new PieData(set);
-
-        //set preferences
-        data.setValueTextSize(20);
-
-        //apply dataset at chart
-        pieChart.setData(data);
-
-
-
+        actionBar.setTitle(sensorName);
     }
 
 
@@ -144,57 +446,12 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
 
 
-    private void displayDataOnTextView(){
-
-        tvFrom       = (TextView)findViewById(R.id.cakeFromView);
-        tvTo         = (TextView)findViewById(R.id.cakeToView);
-
-        //display on textView
-        SensorProjectApp.fromMillisToDateOnTextView(fromMillis, tvFrom, true);
-        SensorProjectApp.fromMillisToDateOnTextView(toMillis, tvTo, true);
-
-    }
 
 
 
 
-    private void setCakeListener() {
-        // set a chart value selected listener
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
-    }
 
 
-
-
-    private void extractDataFromIntent(){
-        //ectract data from intent
-        Intent intent    = getIntent();
-        data             = (HashMap<String, Float>)intent.getSerializableExtra(EXTRA_DATA_CAKE);
-        sensorName       = intent.getStringExtra(EXTRA_SENSOR_NAME);
-        sensorUnit       = intent.getStringExtra(EXTRA_SENSOR_UNIT);
-        conversionFactor = intent.getFloatExtra(EXTRA_SENSOR_CONVERSION_FACTOR, (float)0.0);
-        fromMillis       = intent.getLongExtra(EXTRA_FROM_TIME, 0);
-        toMillis         = intent.getLongExtra(EXTRA_TO_TIME, 0);
-
-        //convert to "Unit"
-        for( String meter: data.keySet()){
-            data.put(meter, data.get(meter)/conversionFactor);
-        }
-
-        prefix = fixPrefixOfUnit();
-
-    }
 
 
 

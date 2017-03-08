@@ -39,7 +39,7 @@ public class FragmentCompare extends Fragment {
     //Attribute_------------------------------------------------------------------
     private final String powerTag = "POWER";
     private final String energyTag = "ENERGY";
-    private final long diffWindowInMillis = 900000; //15 minuti - finestra per letture dei consumi (pre e post)
+    private final long diffWindowInMillis = 1800000; //30 minuti - finestra per letture dei consumi (pre e post)
 
     protected NetworkManager networkManager;
 
@@ -155,8 +155,7 @@ public class FragmentCompare extends Fragment {
                             for (Meter meter : metersToControl.getMeters()) {
 
                                 String url = networkManager.createTimeReadUrl(meter, selectedSensor, fromDate, toDate);
-                                System.out.println(url);
-                                ParseUrl(url);
+                                ParseUrl(url, meter.getUrlString());
 
                             }
                             break;
@@ -167,9 +166,8 @@ public class FragmentCompare extends Fragment {
                                 String urlFrom = networkManager.createWindowUrl(meter, selectedSensor, fromDate, diffWindowInMillis);
                                 String urlTo = networkManager.createWindowUrl(meter, selectedSensor, toDate, diffWindowInMillis);
 
-                                System.out.println(urlTo);
-                                ParseUrl(urlFrom);
-                                ParseUrl(urlTo);
+                                ParseUrl(urlFrom , meter.getUrlString());
+                                ParseUrl(urlTo , meter.getUrlString());
                             }
                             break;
                         }
@@ -184,7 +182,7 @@ public class FragmentCompare extends Fragment {
     }
 
 
-    public void ParseUrl(String url)
+    public void ParseUrl(String url, final String keyMeter)
     {
         NetworkManager.getInstance().getNetsensRequest(url, new CustomListener<Netsens>()
         {
@@ -192,7 +190,7 @@ public class FragmentCompare extends Fragment {
             public void getResult(Netsens response)
             {
 
-                saveResponse(response);
+                saveResponse(response, keyMeter);
 
             }
         });
@@ -200,7 +198,7 @@ public class FragmentCompare extends Fragment {
     }
 
 
-    private void saveResponse(Netsens newResponse) {
+    private void saveResponse(Netsens newResponse , String keyMeterReceived) {
 
         switch (typeOfLecture) {
             case powerTag : {
@@ -208,13 +206,13 @@ public class FragmentCompare extends Fragment {
                 if (powerResponse.size() < metersToControl.getMeters().size() - 1) {
 
                     //insert the response
-                    powerResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+                    powerResponse.put(keyMeterReceived, newResponse);
 
                 } else {
                     if (powerResponse.size() == metersToControl.getMeters().size() - 1) {
 
                         //insert the last response
-                        powerResponse.put(newResponse.getMeasuresList().get(0).getMeter(), newResponse);
+                        powerResponse.put(keyMeterReceived, newResponse);
 
                         prepareDataAndSendIt();
                     }
@@ -228,44 +226,40 @@ public class FragmentCompare extends Fragment {
 
                 if (consumeResponse.size() < metersToControl.getMeters().size() - 1){
 
-                    //insert the response
-                    String keyMeter = newResponse.getMeasuresList().get(0).getMeter();
 
                     //check if there is some response of that meter
-                    if(!consumeResponse.containsKey(keyMeter)){
+                    if(!consumeResponse.containsKey(keyMeterReceived)){
                         // this newResponse is the first of that measure
                         ArrayList<Netsens> list = new ArrayList<>();
                         list.add(newResponse);
 
-                        consumeResponse.put(keyMeter, list);
+                        consumeResponse.put(keyMeterReceived, list);
                         countResponse ++;
                     }
                     else{
                         // consumeResponse already contains the key
 
-                        consumeResponse.get(keyMeter).add(newResponse);
+                        consumeResponse.get(keyMeterReceived).add(newResponse);
                         countResponse ++;
                     }
 
 
                 } else {
 
-                    //insert the last meter
-                    String keyMeter = newResponse.getMeasuresList().get(0).getMeter();
 
                     //check if there is some response of that meter
-                    if (!consumeResponse.containsKey(keyMeter)) {
+                    if (!consumeResponse.containsKey(keyMeterReceived)) {
 
                         // this newResponse is the first of that measure
                         ArrayList<Netsens> list = new ArrayList<>();
                         list.add(newResponse);
 
-                        consumeResponse.put(keyMeter, list);
+                        consumeResponse.put(keyMeterReceived, list);
                         countResponse ++;
                     } else {
 
                         // consumeResponse already contains the key
-                        consumeResponse.get(keyMeter).add(newResponse);
+                        consumeResponse.get(keyMeterReceived).add(newResponse);
                         countResponse ++;
                     }
                 }
@@ -293,20 +287,20 @@ public class FragmentCompare extends Fragment {
             case powerTag  : {
 
                 //calculate the Average
-                data = doAverage();
+                data = doAverage(powerResponse);
                 break;
             }
             case energyTag : {
 
                 //calculate the Difference
-                data = doDifference();
+                data = doDifference(consumeResponse);
                 break;
             }
             default: data = null;
         }
 
+        //Parse meter name for display
         HashMap<String, Float> dataForCake = parseMeterName(data);
-
 
         //Prepare to start cakeActivity to display results
         Intent intent = new Intent(getActivity(), ActivityCakeGraph.class);
@@ -320,7 +314,7 @@ public class FragmentCompare extends Fragment {
         intent.putExtra(EXTRA_TO_TIME, toDate.getTimeInMillis());
 
         //put data in the intent
-        intent.putExtra(EXTRA_DATA_CAKE, data);
+        intent.putExtra(EXTRA_DATA_CAKE, dataForCake);
 
         //hide the progress bar
         progressBar.setVisibility(View.GONE);
@@ -336,39 +330,9 @@ public class FragmentCompare extends Fragment {
         Resources Res = getActivity().getApplicationContext().getResources();
         HashMap<String, Float> modifiedData = new HashMap<>();
 
-        for (String key : data.keySet()) {
-            if (key.equals("Lighting - Active Energy") || key.equals("Lighting - Active power")) {
-                modifiedData.put(Res.getString(R.string.mm_gf_labslighting), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("Active Energy") || key.equals("Active power")) {
-                modifiedData.put(Res.getString(R.string.mm_1f_roomslighting), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("Geometri-1F-ActiveEnergy") || key.equals("Geometri-1F-ActivePower")) {
-                modifiedData.put(Res.getString(R.string.mm_geom_1f), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("Geometri-GF-ActiveEnergy") || key.equals("Geometri-GF-ActivePower")) {
-                modifiedData.put(Res.getString(R.string.mm_geom_gf), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("Hall-Lighting-ActiveEnergy") || key.equals("Hall-Lighting-ActivePower")) {
-                modifiedData.put(Res.getString(R.string.mm_qg_hall_lighting), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("QS - Active Energy") || key.equals("QS - ActivePower")) {
-                modifiedData.put(Res.getString(R.string.mm_qs), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("QG - Active Energy") || key.equals("QG - ActivePower")) {
-                modifiedData.put(Res.getString(R.string.mm_qg), data.get(key));
-                System.out.println(key);
-            }
-            if (key.equals("FM - Active Energy") || key.equals("FM - ActivePower")) {
-                modifiedData.put(Res.getString(R.string.mm_geom_gf_labsmotionpower), data.get(key));
-                System.out.println(key);
-            }
+
+        for (String key : data.keySet()){
+            modifiedData.put(key , data.get(key));
         }
 
         return modifiedData;
@@ -386,7 +350,7 @@ public class FragmentCompare extends Fragment {
 
 
 
-    private HashMap<String, Float> doDifference(){
+    private HashMap<String, Float> doDifference( HashMap<String, List<Netsens>> consumeResponse ){
 
         HashMap<String, Float> differences = new HashMap<>();
 
@@ -399,7 +363,7 @@ public class FragmentCompare extends Fragment {
         return differences;
     }
 
-    private HashMap<String, Float> doAverage(){
+    private HashMap<String, Float> doAverage(HashMap<String, Netsens> powerResponse){
 
         HashMap<String, Float> averageMeasure = new HashMap<>();
         Double avg;
@@ -480,7 +444,7 @@ public class FragmentCompare extends Fragment {
             case powerTag: {
                 System.out.println("typeOfLecture +++++" + powerTag);
                 // dafault : 5 minute of range
-                fromDate.add(Calendar.MINUTE, -6); break;
+                fromDate.add(Calendar.MINUTE, -10); break;
             }
             case energyTag: {
                 System.out.println("typeOfLecture +++++" + powerTag);

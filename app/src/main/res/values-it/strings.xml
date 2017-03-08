@@ -82,4 +82,6 @@
     <string name="mm_qs">Blocco sportivo</string>
     <string name="mm_qg_hall_lighting">Hall e Aree Comuni</string>
     <string name="yesterdayCO2">" CO<sub>2</sub> "</string>
+    <string name="serviceText">Notifiche</string>
+    <string name="other">Altro</string>
 </resources>

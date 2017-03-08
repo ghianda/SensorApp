@@ -16,17 +16,18 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.CO2ForWattHour;
 import static com.example.francesco.myfirstapp.SensorProjectApp.euroForKiloWattHour;
+import static com.example.francesco.myfirstapp.SensorProjectApp.fixEuro;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 import static com.example.francesco.myfirstapp.ServiceManager.loadThePreferenceState;
 import static com.example.francesco.myfirstapp.ServiceManager.startSchedulerAlarm;
 import static com.example.francesco.myfirstapp.ServiceManager.stopSchedulerAlarm;
 import static com.example.francesco.myfirstapp.SessionManager.KEY_NAME;
 import static com.example.francesco.myfirstapp.SessionManager.KEY_STATION;
+import static java.lang.Math.abs;
 
 
 public class FragmentHome extends Fragment
@@ -218,20 +219,23 @@ public class FragmentHome extends Fragment
 
     private  ArrayList<Float> calculateConsumesFromLecture(ArrayList<Netsens> response){
 
-        ArrayList<Float> lectures = new ArrayList<>();
+        ArrayList<Float> QgLectures = new ArrayList<>();
+        ArrayList<Float> QsLectures = new ArrayList<>();
         ArrayList<Float> consumes = new ArrayList<>();
 
         //extract the lecture
         for (Netsens resp : response){
-            lectures.add(resp.getMeasuresList().get(0).getValue());
+            if (resp.getMeasuresList().get(0).getMeter().equals("QS - Active Energy"))
+                QsLectures.add(resp.getMeasuresList().get(resp.getMeasuresList().size() - 1).getValue());
+
+            if (resp.getMeasuresList().get(0).getMeter().equals("QG - Active Energy"))
+                QgLectures.add(resp.getMeasuresList().get(resp.getMeasuresList().size() - 1).getValue());
+
         }
 
-        //sort the lecture;
-        Collections.sort(lectures); //ascending order
-
         //extract consumes
-        consumes.add( lectures.get(2) - lectures.get(0));
-        consumes.add( lectures.get(3) - lectures.get(1));
+        consumes.add( abs(QgLectures.get(1) - QgLectures.get(0)));
+        consumes.add( abs(QsLectures.get(1) - QsLectures.get(0)));
 
         return consumes;
     }
@@ -269,7 +273,12 @@ public class FragmentHome extends Fragment
     //set the value in the textview with correct format and unit of measure
     private void setValueInTv(float v, String unit, TextView tv) {
 
-        String stringValue = fixUnit(v, unit);
+        String stringValue;
+
+        switch (unit) {
+            case "€"  : stringValue = fixEuro(v, unit); break;
+            default : stringValue = fixUnit(v, unit); break;
+        }
         tv.setText(stringValue);
     }
 

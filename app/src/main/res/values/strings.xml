@@ -8,14 +8,13 @@
     <string name="ResultsActivity"> Results </string>
 
     <!-- Home -->
-    <string name="serviceText"> Background Monitoring </string>
+    <string name="serviceText"> Notify </string>
     <string name="today"> Last read </string>
     <string name="yesterday"> Yesterday Consume </string>
     <string name="todayParameter"> Power </string>
     <string name="yesterdayParameter"> Consumption </string>
     <string name="yesterdayCO2"> CO<sub>2</sub> </string>
     <string name="yesterdayEuro"> Euro </string>
-
 
 
     <!-- Login -->
@@ -49,12 +48,7 @@
     <string name="btDate">Date</string>
     <string name="btHour">Hour</string>
 
-    <!-- url -->
-    <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
-    <string name="m">&amp;meter=</string>
-    <string name="lr">/last_reading</string>
-    <string name="f">&amp;from=</string>
-    <string name="t">&amp;to=</string>
+
 
 
     <!-- LinearGraph -->
@@ -63,6 +57,11 @@
     <string name="tvDisplayMax">Max:</string>
     <string name="dataError"> NO DATA </string>
     <string name="rangeTime"> Time Range </string>
+
+
+    <!-- Cake Graph -->
+    <string name="other">Other</string>
+
 
     <!-- Descriptions of read fragments -->
     <string name="descriptionTimeRead"> Displays Parameter values of  Meter in the selected time range </string>
@@ -125,14 +124,43 @@
 
     <!-- meter list -->
     <string name="mm_gf_labslighting">Laboratories Illuminations</string>
-    <string name="mm_1f_roomslighting">1\' floor Land Surv. rooms illumination</string>
+    <string name="mm_1f_roomslighting">1 floor Land Surv. rooms illumination</string>
     <string name="mm_qs">Sports block</string>
     <string name="mm_qg">Land Surveyors Block</string>
     <string name="mm_geom_gf">Ground floor Land Surveyors</string>
-    <string name="mm_geom_1f">1\' floor Land Surveyors</string>
+    <string name="mm_geom_1f">1 floor Land Surveyors</string>
     <string name="mm_geom_gf_labsmotionpower">Land. Surv. Laboratories driving force </string>
     <string name="mm_qg_hall_lighting">Hall</string>
-    <string name="mm_qg_lighting"></string>
+    <string name="title_activity_reader2">ActivityReader2</string>
+
+
+    <!-- meter url -->
+    <string name="urlQG">QG</string>
+    <string name="urlQS">QS</string>
+    <string name="urlQGHallLighting">QG/Lighting</string>
+    <string name="urlGeomGF">Geom/GF</string>
+    <string name="urlGeomFirstFloor">Geom/1F</string>
+    <string name="urlGeomLabsMP">Geom/GF/Labs/MP</string>
+    <string name="urlGeomRoomsLighting">Geom/1F/Rooms/Lighting</string>
+    <string name="urlGeomLabsLighting">Geom/GF/Labs/Lighting</string>
+
+
+    <!-- url -->
+    <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
+    <string name="m">&amp;meter=</string>
+    <string name="lr">/last_reading</string>
+    <string name="f">&amp;from=</string>
+    <string name="t">&amp;to=</string>
+
+
+
+
+
+
+
+
+
+
 
 
 </resources>

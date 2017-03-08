@@ -26,7 +26,7 @@ public class ServiceManager {
 
         //load preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        Boolean isChecked = sharedPref.getBoolean("pref_service", true); //default: true
+        Boolean isChecked = sharedPref.getBoolean("pref_service", false); //default: true
 
         serviceSwitch.setChecked(isChecked);
     }

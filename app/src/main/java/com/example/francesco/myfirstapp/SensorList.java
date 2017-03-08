@@ -188,7 +188,6 @@ public class SensorList {
         list.put(new Meter("QG/Lighting", context.getString(R.string.mm_qg_hall_lighting)), sensors);
         list.put(new Meter("Geom/GF", context.getString(R.string.mm_geom_gf)), sensors);
         list.put(new Meter("Geom/GF/Labs/MP", context.getString(R.string.mm_geom_gf_labsmotionpower)), sensors);
-
     }
 
 

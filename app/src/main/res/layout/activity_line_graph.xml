@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.francesco.myfirstapp.ActivityLinearGraph"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
 >
 
 
@@ -14,14 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@drawable/border_box"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
     <TextView
         android:id="@+id/titleLineGraphSensor"
         android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_box"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_below="@+id/titleLineGraphMeter"/>
 
@@ -31,6 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:background="@drawable/border_box"
+        android:padding="3dp"
         android:layout_below="@+id/LLMin">
         <TextView
             android:id="@+id/tvDisplayMax"
@@ -38,7 +40,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:background="@drawable/border_box"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -47,7 +48,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="@drawable/border_box"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -56,7 +56,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@drawable/border_box"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:gravity="right"/>
     </LinearLayout>
@@ -67,6 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/titleLineGraphSensor"
+        android:background="@drawable/border_box"
+        android:padding="3dp"
         android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/tvDisplayMin"
@@ -74,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:background="@drawable/border_box"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -83,7 +84,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="@drawable/border_box"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -92,7 +92,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@drawable/border_box"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:gravity="right"/>
 
@@ -100,9 +99,9 @@
 
 
     <TextView
-
         android:id="@+id/tvXaxisLabel"
-        android:text="TEST LABEL"
+        android:text=""
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -119,12 +118,14 @@
         android:layout_below="@+id/tvYaxisLabel" />
 
     <TextView
-        android:text="YAXIS LABEL"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:id="@+id/tvYaxisLabel"
+        android:layout_marginStart="26dp"
         android:layout_below="@+id/LLMax"
+        android:textStyle="bold"
         android:layout_alignParentStart="true" />
 
 

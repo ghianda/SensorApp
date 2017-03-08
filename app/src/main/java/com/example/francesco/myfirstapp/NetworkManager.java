@@ -12,6 +12,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.Calendar;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.windowYesterdayConsumeRequest;
+
 /**
  * Created by francesco on 26/02/2017.
  */
@@ -123,7 +125,7 @@ public class NetworkManager
 
     public String createWindowUrl(String meterUrl, String parUrl, long toMillis){
 
-        final long fromMillis = toMillis - 300000; // toMillis - window millis
+        final long fromMillis = toMillis - windowYesterdayConsumeRequest; // toMillis - window millis
 
         return  context.getString(R.string.urlDomain)
                 + context.getString(R.string.m) + meterUrl + parUrl
