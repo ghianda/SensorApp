@@ -6,6 +6,7 @@
     <string name="lastReadActivityName"> Last Reading </string>
     <string name="compareActivityName"> Compare </string>
     <string name="ResultsActivity"> Results </string>
+    <string name="SettingsActivity"> Settings </string>
 
     <!-- Home -->
     <string name="serviceText"> Notify </string>
@@ -47,8 +48,6 @@
     <string name="to">TO</string>
     <string name="btDate">Date</string>
     <string name="btHour">Hour</string>
-
-
 
 
     <!-- LinearGraph -->
@@ -154,13 +153,26 @@
 
 
 
+    <!-- Settings -->
+    <string name="settingsRestoreComplete"> Value restored </string>
+    <string name="settingsSaveError"> Current value is not accepted </string>
+    <string name="settingsSaveComplete"> Save completed </string>
+    <string name="settingsBtRestore"> Restore </string>
+    <string name="settingsBtSave"> Save </string>
+    <string name="settingsParameterPreference"> Parameter Preferences </string>
+    <string name="settingsSwitchPreference"> Notify Preferences </string>
+    <string name="settingsAccounInfo"> Account Info </string>
+    <string name="settingsEuro">" Euro for kWh"</string>
+    <string name="settingsCO2">" CO<sub>2</sub> Kg for Wh "</string>
+    <string name="settingsServiceRepeat"> Service repeat every minutes </string>
 
-
-
-
-
-
-
+    <string-array name="selectClockNotify">
+        <item>30 sec</item>
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>30 min</item>
+        <item>60 min</item>
+    </string-array>
 
 
 </resources>

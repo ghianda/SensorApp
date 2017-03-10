@@ -1,16 +1,21 @@
 package com.example.francesco.myfirstapp;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.COMPARE_FRAG_TAG;
 import static com.example.francesco.myfirstapp.SensorProjectApp.HOME_FRAG_TAG;
@@ -21,12 +26,14 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.TIMEREAD_FRAG_TA
 public class ActivityReader extends AppCompatActivity {
 
     private String fragmentDisplayedTag;
+    private View customView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
-
+        setActionBarLayoutAndButton();
+        setTitleBar(getString(R.string.app_name));
 
         //set bottom menu
         setListenerBottomMenu();
@@ -41,9 +48,7 @@ public class ActivityReader extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString("MyString", "Welcome back to Android");
         outState.putString(KEY_FRAGMENT_SAVED, fragmentDisplayedTag);
-        System.out.println("ActivityReader -> onSaveInstanceState -> frag_saved: " + fragmentDisplayedTag);
 
     }
 
@@ -54,8 +59,45 @@ public class ActivityReader extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         String fragmentTag = savedInstanceState.getString(KEY_FRAGMENT_SAVED);
-        System.out.println("ActivityReader -> onRestoreInstanceState-> frag_saved: " + fragmentTag);
         restoreFragmentByTag(fragmentTag);
+    }
+
+
+
+
+    private void setActionBarLayoutAndButton(){
+
+        final Activity thisActivity = this;
+        ActionBar mActionBar = getSupportActionBar();
+
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+
+        LayoutInflater li = LayoutInflater.from(this);
+
+        View customView = li.inflate(R.layout.gaia_action_bar, null);
+        this.customView = customView;
+
+        mActionBar.setCustomView(customView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
+        ImageButton btLogout = (ImageButton)    customView.findViewById(R.id.logout);
+        btLogout .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SessionManager(getApplicationContext()).logoutUser();
+            }
+        });
+
+        ImageButton btSettings = (ImageButton)    customView.findViewById(R.id.settings);
+        btSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(thisActivity , ActivitySettings.class);
+                startActivity(i);
+            }
+        });
+
     }
 
 
@@ -100,31 +142,38 @@ public class ActivityReader extends AppCompatActivity {
 
                                 FragmentHome fragmentHome = new FragmentHome();
                                 loadFragment(fragmentHome, HOME_FRAG_TAG);
+                                setTitleBar(getString(R.string.app_name));
                                 break;
 
                             case R.id.action_bar_last_read:
 
                                 FragmentLastRead fragmentLastRead = new FragmentLastRead();
                                 loadFragment(fragmentLastRead, LASTREAD_FRAG_TAG);
-                                setTitle(getString(R.string.lastReadActivityName));
+                                setTitleBar(getString(R.string.lastReadActivityName));
                                 break;
 
                             case R.id.action_bar_time_read:
                                 FragmentTimeRead fragmentTimeRead= new FragmentTimeRead();
                                 loadFragment(fragmentTimeRead, TIMEREAD_FRAG_TAG);
-                                setTitle(getString(R.string.timeReadActivityName));
+                                setTitleBar(getString(R.string.timeReadActivityName));
                                 break;
 
                             case R.id.action_bar_consume:
                                 FragmentCompare fragmentCompare= new FragmentCompare();
                                 loadFragment(fragmentCompare, COMPARE_FRAG_TAG);
-                                setTitle(getString(R.string.compareActivityName));
+                                setTitleBar(getString(R.string.compareActivityName));
                                 break;
 
                         }
                         return true;
                     }
                 });
+    }
+
+
+    private void setTitleBar(String title){
+        TextView tvTitle = (TextView) customView.findViewById(R.id.ActionBarTitle);
+        tvTitle.setText(title);
     }
 
 
@@ -152,32 +201,4 @@ public class ActivityReader extends AppCompatActivity {
 
 
 
-
-
-    // Overrided method for logout button
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        SessionManager session = new SessionManager(getApplicationContext());
-
-        switch (item.getItemId()) {
-
-            case R.id.action_logout:
-                session.logoutUser();
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.gaia_intro_menu, menu);
-        return true;
-    }
 }

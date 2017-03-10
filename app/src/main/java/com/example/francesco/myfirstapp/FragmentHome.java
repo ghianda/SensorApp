@@ -1,15 +1,12 @@
 package com.example.francesco.myfirstapp;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,15 +15,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.CO2ForWattHour;
-import static com.example.francesco.myfirstapp.SensorProjectApp.euroForKiloWattHour;
+import static com.example.francesco.myfirstapp.SensorProjectApp.co2PrefTag;
+import static com.example.francesco.myfirstapp.SensorProjectApp.euroPrefTag;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixEuro;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
-import static com.example.francesco.myfirstapp.ServiceManager.loadThePreferenceState;
-import static com.example.francesco.myfirstapp.ServiceManager.startSchedulerAlarm;
-import static com.example.francesco.myfirstapp.ServiceManager.stopSchedulerAlarm;
-import static com.example.francesco.myfirstapp.SessionManager.KEY_NAME;
-import static com.example.francesco.myfirstapp.SessionManager.KEY_STATION;
 import static java.lang.Math.abs;
 
 
@@ -40,16 +32,18 @@ public class FragmentHome extends Fragment
     private ArrayList<Netsens> powerResponse;
     private float yesterdayCO2, yesterdayEuro;
 
-    private TextView tvUserName , tvStationName, tvTodayValue, tvYesterdayConsume,
+
+    private TextView tvTodayValue, tvYesterdayConsume,
             tvYesterdayCO2, tvYesterdayEuro;
-    private SwitchCompat serviceSwitch;
+
     private Calendar nowCalendar;
     private ProgressBar progBarToday, progBarYestCons, progBarYestCO2, progBarYestEuro;
 
 
     private NetworkManager networkManager;
-    private SessionManager session;
-    private HashMap<String, String> userCredentials;
+    private SharedPreferences sharedPref;
+
+
 
 
 
@@ -59,10 +53,12 @@ public class FragmentHome extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //create session and network manager, and get an instance of calendar
-        session = new SessionManager(getActivity().getApplicationContext());
+        //create network manager, and get an instance of calendar
         networkManager = new NetworkManager(getActivity().getApplicationContext());
         nowCalendar = Calendar.getInstance();
+
+        //load preferences
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
         //allocate the memory
         consumeResponse = new ArrayList<>();
@@ -78,12 +74,6 @@ public class FragmentHome extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         findLayoutVariables(view);
-
-        //load the user credentials and display it
-        loadUserCredentials();
-
-        //set the listener on Service switch and load the user last state
-        setServiceSwitch();
 
         //make get http for hme value
         makeGet();
@@ -165,7 +155,7 @@ public class FragmentHome extends Fragment
 
         //check if all response are saved
         if (savedResponses.size() == expectedResponses) {
-            /** DO WORK */
+
             doWorkOnResponses(savedResponses);
         }
     }
@@ -204,8 +194,12 @@ public class FragmentHome extends Fragment
 
 
     private void calculateOtherStatistics(float kiloWattHour){
-        yesterdayEuro = kiloWattHour * euroForKiloWattHour;
-        yesterdayCO2  = kiloWattHour * CO2ForWattHour;
+
+        float euroForWattHour = sharedPref.getFloat(euroPrefTag, (float)0.166646);
+        float  CO2ForHour = sharedPref.getFloat(co2PrefTag, (float)0.14);
+
+        yesterdayEuro = kiloWattHour * (euroForWattHour/1000);
+        yesterdayCO2  = kiloWattHour * (CO2ForHour/1000);
 
         setValueInTv(yesterdayEuro, "€", tvYesterdayEuro);
         setValueInTv(yesterdayCO2, "Kg", tvYesterdayCO2);
@@ -261,13 +255,7 @@ public class FragmentHome extends Fragment
 
 
 
-    private void loadUserCredentials(){
-        userCredentials =  session.getUserDetails();
 
-        tvUserName.setText(userCredentials.get(KEY_NAME));
-        tvStationName.setText(userCredentials.get(KEY_STATION));
-
-    }
 
 
     //set the value in the textview with correct format and unit of measure
@@ -315,54 +303,15 @@ public class FragmentHome extends Fragment
 
 
 
-    /* set the switch listener */
-    public void setServiceSwitch(){
-
-        Context context = getActivity().getApplicationContext();
-        loadThePreferenceState(serviceSwitch, context);
-        setServiceSwitchListener();
-
-    }
 
 
-    /* Set Switch Service listener */
-    public void setServiceSwitchListener(){
 
-        serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be true if the switch is in the On position
 
-                if (isChecked) {
-                    //save the choice...
-                    SharedPreferences.Editor editor = PreferenceManager.
-                            getDefaultSharedPreferences(getActivity().getApplicationContext()).edit();
-                    editor.putBoolean("pref_service", true);
-                    editor.apply();
-
-                    //... and start the service
-                    startSchedulerAlarm(buttonView, getActivity());
-                } else {
-                    //save the choice...
-                    SharedPreferences.Editor editor = PreferenceManager.
-                            getDefaultSharedPreferences(getActivity().getApplicationContext()).edit();
-                    editor.putBoolean("pref_service", false);
-                    editor.apply();
-
-                    //...and stop the service
-                    stopSchedulerAlarm(buttonView, getActivity());
-                }
-            }
-        });
-    }
 
 
 
     //find and save layout variables
     private void findLayoutVariables(View view){
-        tvUserName         = (TextView) view.findViewById(R.id.tvUserName);
-        tvStationName      = (TextView) view.findViewById(R.id.tvStationName);
-        serviceSwitch      = (SwitchCompat) view.findViewById(R.id.switchService);
 
         tvTodayValue       = (TextView) view.findViewById(R.id.tvHomeTodayParValue);
         tvYesterdayConsume = (TextView) view.findViewById(R.id.tvHomeYesterdayParValue);

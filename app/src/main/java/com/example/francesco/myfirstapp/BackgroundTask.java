@@ -253,7 +253,9 @@ public class BackgroundTask extends BroadcastReceiver {
             sendNotify = true;
         }
 
-        if (avgLight < 100 && (hour > 6 || hour < 19)) { //100
+        //TODO SOSTITUIRE VERSIONE TEST
+        //if (avgLight < 100 && (hour > 6 || hour < 19)) { //100
+        if(true){
             // TOO LOW LUX
             problemDetected = contextMaster.getResources().getString(R.string.errorTooLowLight);
             suggestedAction = contextMaster.getResources().getString(R.string.suggTooLowLight);
@@ -277,15 +279,6 @@ public class BackgroundTask extends BroadcastReceiver {
             sendNotify = true;
         }
 
-        /*TODO DA TOGLIERE_________*/
-        if(true){
-            problemDetected = "problem test";
-            suggestedAction = "action test";
-            contentTextValues = "example values";
-            sendNotify = true;
-        }
-        //TODO  _______________ */
-
 
         if (sendNotify) {
             //costruct the notification
@@ -308,9 +301,9 @@ public class BackgroundTask extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         //set the message content
-        builder.setContentTitle(action); //here display suggeseted action
+        builder.setContentTitle(problem); //here display type of error
         builder.setContentText(text);   //here display the values
-        builder.setSubText(problem);   //here display type of error
+        builder.setSubText(action);   //here display suggeseted action
 
         //set the notification property
         builder.setAutoCancel(false);

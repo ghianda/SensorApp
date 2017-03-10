@@ -27,13 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivityReader" />
+
+        <activity
+            android:name=".ActivitySettings"
+            android:label="@string/SettingsActivity"
+            android:parentActivityName=".ActivityReader" />
         <activity
             android:name=".ActivityLinearGraph"
             android:label="@string/ResultsActivity"
-            android:parentActivityName=".ActivityReader" />
-        <activity
-            android:name=".ActivityDisplayAlarm"
-            android:label="@string/DisplayErrorActivityLabel"
             android:parentActivityName=".ActivityReader" />
         <activity
             android:name=".ActivityLogin"
@@ -66,7 +68,7 @@
             android:exported="true" />
         <!-- NOTA BENE [] android:exported -> permetto ad activity di altre app di avviare questo service -->
 
-        <activity android:name=".ActivityReader" />
+
     </application>
 
 </manifest>

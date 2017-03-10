@@ -84,4 +84,16 @@
     <string name="yesterdayCO2">" CO<sub>2</sub> "</string>
     <string name="serviceText">Notifiche</string>
     <string name="other">Altro</string>
+    <string name="lastReadActivityName">Ultima Lettura</string>
+    <string name="settingsAccounInfo">I tuoi dati</string>
+    <string name="settingsEuro">Euro per Wh</string>
+    <string name="settingsCO2">CO<sub>2</sub> Kg per Wh</string>
+    <string name="settingsSwitchPreference">Preferenze sulle notifiche</string>
+    <string name="settingsParameterPreference">Parametri</string>
+    <string name="settingsServiceRepeat">Effettua controllo dati ogni</string>
+    <string name="settingsBtRestore">Ripristina</string>
+    <string name="settingsBtSave">Salva</string>
+    <string name="settingsSaveComplete">Modifiche salvate</string>
+    <string name="settingsSaveError">I valori inseriti non sono accettabili</string>
+    <string name="settingsRestoreComplete">Parametri rispristinati ai valori di default</string>
 </resources>

@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.serviceRepeatPeriodInMillis;
+import static com.example.francesco.myfirstapp.ActivitySettings.serviceRepeatPeriodInMillis;
 
 
 /**The started service starts the AlarmManager that repeat the Background task. */

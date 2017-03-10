@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -38,18 +39,34 @@ public class SensorProjectApp extends Application {
     public final static String TIMEREAD_FRAG_TAG= "com.example.francesco.TIMEREAD_FRAG_TAG";
     public final static String COMPARE_FRAG_TAG= "com.example.francesco.COMPARE_FRAG_TAG";
 
+    //KEY FO PREFERENCE VALUES
+    public static final String co2PrefTag = "CO2";
+    public static final String euroPrefTag = "EURO";
+    public static final String clockPositionPrefTag = "POSITION";
+    public static final String clockPMillisPrefTag = "MILLIS";
+    public static final String serviceOnOffPfreTag = "PREF_SERVICE_ON_OFF";
 
-    //parametri
+    //formatter
     static final public String valueFormat = "###.##";
     static final public String notifyValueFormat = "###.#";
-    static final public long serviceRepeatPeriodInMillis = 30000; //30 seconds
+
+    //parametri di default
     static final public long windowInMillis = 900000; //15 minuti - finestra per ultime letture del servizio per poi farne la media
     static final public long windowYesterdayConsumeRequest = 1800000; //30 minuti - finestra per le letture dei consumi di inizio e fine giornata
-    static final public float euroForKiloWattHour = (float)0.000166646;
-    static final public float CO2ForWattHour = (float)0.00014;
+    static final public int defaultServiceRepeatPeriodPosition = 3; //30 minuti
+    static final public Boolean defaultNotifyActivated = true;
+    static final public float defaultEuroForWattHour = (float)0.166646;
+    static final public float defaultCO2ForWattHour = (float)0.14;
+    static public ArrayList<Long> clockChoice;
+
+
+
 
     //Global data (here we store the sensor value(s)
     static private SensorList globalSensorData; //data with only name parameter (like the spinner menu)
+
+
+
 
 
     //METHOD________________________________________________________________________________
@@ -81,7 +98,6 @@ public class SensorProjectApp extends Application {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(millis);
 
-        //TODO VERSIONE ITALIANA (bruttino così :) )
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
         int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -91,18 +107,12 @@ public class SensorProjectApp extends Application {
 
 
         if (shortVersion) {
-            //TODO VERSIONE INGLESE - capire come settare (se si può) il formato mm/dd/yyyy di %tD in versione dd/mm/yyyy
-            //String timestamp = String.format(Locale.getDefault(),
-            //       "%tl:%tM %tp - %tD", cal, cal, cal, cal);
-            //vrsione italiana:
+
             String timeStamp = String.format(Locale.getDefault(),
                     "%02d:%02d:%02d - %02d/%02d/%04d", hour, minute, second, day, month, year);
             tv.setText(timeStamp);
         } else {
-            //TODO VERSIONE INGLESE - capire come settare (se si può) il formato mm/dd/yyyy di %tD in versione dd/mm/yyyy
-            //String timestamp = String.format(Locale.getDefault(),
-            //        "Read at:  %tl:%tM %tp  of  %tD", cal, cal, cal, cal);
-            //vrsione italiana:
+
             String timeStamp = String.format(Locale.getDefault(),
                     "Read at:  %02d:%02d:%02d  of  %02d/%02d/%04d", hour, minute, second, day, month, year);
             tv.setText(timeStamp);
@@ -188,6 +198,20 @@ public class SensorProjectApp extends Application {
 
         fixedValue = frmt.format(value) + " " + prefix + unit;
         return fixedValue;
+    }
+
+
+
+    public static void createClockChoiceArray() {
+
+        clockChoice = new ArrayList<>();
+
+        clockChoice.add((long)30000);
+        clockChoice.add((long)300000);
+        clockChoice.add((long)600000);
+        clockChoice.add((long)1800000);
+        clockChoice.add((long)3600000);
+
     }
 
 }

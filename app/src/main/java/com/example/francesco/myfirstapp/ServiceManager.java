@@ -13,22 +13,23 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-import android.widget.Toast;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.serviceRepeatPeriodInMillis;
+import static com.example.francesco.myfirstapp.SensorProjectApp.serviceOnOffPfreTag;
 
 /** there is static method for service  management */
 public class ServiceManager {
 
 
     /* Load the preference and set the switch state */
-    public static void loadThePreferenceState(SwitchCompat serviceSwitch, Context context){
+    public static Boolean loadThePreferenceState(SwitchCompat serviceSwitch, Context context){
 
         //load preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        Boolean isChecked = sharedPref.getBoolean("pref_service", false); //default: true
+        Boolean isChecked = sharedPref.getBoolean(serviceOnOffPfreTag, true); //default: true
 
         serviceSwitch.setChecked(isChecked);
+
+        return isChecked;
     }
 
 
@@ -36,7 +37,7 @@ public class ServiceManager {
 
 
 
-    public static void startSchedulerAlarm(View view, Activity activity){
+    public static void startSchedulerAlarm(View view, Activity activity, long period){
         //restart the alarm in background that repeat the task
 
         Intent i = new Intent(activity, BackgroundTask.class);
@@ -47,9 +48,8 @@ public class ServiceManager {
         // Repeat the notification every 15 seconds (15000)
         AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-                serviceRepeatPeriodInMillis, pi);
+                period, pi);
 
-        Toast.makeText(activity, "My Service RE-started", Toast.LENGTH_LONG).show();
     }
 
 
@@ -65,8 +65,6 @@ public class ServiceManager {
         AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(piToStop);
 
-
-        Toast.makeText(activity, "My Service is stopped", Toast.LENGTH_LONG).show();
 
     }
 }
