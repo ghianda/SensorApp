@@ -7,7 +7,15 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by francesco on 11/01/2017.
@@ -40,11 +48,15 @@ public class SensorProjectApp extends Application {
     public final static String COMPARE_FRAG_TAG= "com.example.francesco.COMPARE_FRAG_TAG";
 
     //KEY FO PREFERENCE VALUES
-    public static final String co2PrefTag = "CO2";
-    public static final String euroPrefTag = "EURO";
-    public static final String clockPositionPrefTag = "POSITION";
-    public static final String clockPMillisPrefTag = "MILLIS";
-    public static final String serviceOnOffPfreTag = "PREF_SERVICE_ON_OFF";
+    public static final String KEY_isLoginPref = "IsLoggedIn";
+    public static final String KEY_namePref = "name";
+    public static final String KEY_stationPref = "station";
+    public static final String KEY_passwordPref = "password";
+    public static final String KEY_co2Pref = "CO2";
+    public static final String KEY_euroPref = "EURO";
+    public static final String KEY_clockPositionPref = "POSITION";
+    public static final String KEY_clockPMillisPref = "MILLIS";
+    public static final String KEY_serviceOnOffPref = "PREF_SERVICE_ON_OFF";
 
     //formatter
     static final public String valueFormat = "###.##";
@@ -58,8 +70,6 @@ public class SensorProjectApp extends Application {
     static final public float defaultEuroForWattHour = (float)0.166646;
     static final public float defaultCO2ForWattHour = (float)0.14;
     static public ArrayList<Long> clockChoice;
-
-
 
 
     //Global data (here we store the sensor value(s)
@@ -213,5 +223,43 @@ public class SensorProjectApp extends Application {
         clockChoice.add((long)3600000);
 
     }
+
+
+
+    //TODO TRYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+
+    public static Comparator<Sensor> sensorComparatorByName = new Comparator<Sensor>() {
+        @Override
+        public int compare(Sensor s1, Sensor s2) {
+            return s1.getName().compareTo(s2.getName());
+        }
+    };
+
+
+
+
+    public static HashMap sortByKeysName(HashMap map) {
+
+        List list = new LinkedList(map.entrySet());
+        // Defined Custom Comparator here
+
+        Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((Map.Entry) (o1)).getKey())
+                        .compareTo(((Map.Entry) (o2)).getKey());
+            }
+        });
+
+        // Here I am copying the sorted list in HashMap
+        // using LinkedHashMap to preserve the insertion order
+        HashMap sortedHashMap = new LinkedHashMap();
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            Map.Entry entry = (Map.Entry) it.next();
+            sortedHashMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedHashMap;
+    }
+
+    // TODO TRUYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 
 }

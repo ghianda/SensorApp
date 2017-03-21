@@ -11,43 +11,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.francesco.myfirstapp.ActivityLogin">
 
-
-    <EditText
-        android:id = "@+id/EtUser"
-        android:hint = "@string/loginEditUser"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:focusable = "true"
-        android:textColorHighlight = "@color/colorPrimary"
-        android:textColorHint = "@color/colorAccent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/Etpassword"
-        android:hint="@string/loginEditPassword"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:textColorHighlight = "@color/colorPrimary"
-        android:textColorHint = "@color/colorAccent"
-        android:layout_below="@+id/EtUser"
+        app:srcCompat="@drawable/logopiccolo"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp" />
+        android:layout_below="@+id/linearLayout2" />
 
-    <EditText
-        android:id="@+id/EtStation"
-        android:hint="@string/loginEditStation"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="22dp"
-        android:textColorHighlight = "@color/colorPrimary"
-        android:textColorHint = "@color/colorAccent"
-        android:layout_below="@+id/Etpassword"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:text="User"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:id = "@+id/EtUser"
+            android:hint = "@string/loginEditUser"
+            android:layout_width = "0dp"
+            android:layout_weight="5"
+            android:layout_height = "match_parent"
+            android:focusable = "true"
+            android:textColorHighlight = "@color/colorPrimary"
+            android:textColorHint = "@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="Password"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <EditText
+            android:id="@+id/Etpassword"
+            android:hint="@string/loginEditPassword"
+            android:layout_width = "0dp"
+            android:layout_weight="5"
+            android:layout_height = "match_parent"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:textColorHighlight = "@color/colorPrimary"
+            android:textColorHint = "@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:text="Station"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:id="@+id/EtStation"
+            android:hint="@string/loginEditStation"
+            android:layout_width = "0dp"
+            android:layout_weight="5"
+            android:layout_height = "match_parent"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:textColorHighlight = "@color/colorPrimary"
+            android:textColorHint = "@color/colorAccent" />
+    </LinearLayout>
+
+
 
     <Button
         android:id="@+id/btLogin"

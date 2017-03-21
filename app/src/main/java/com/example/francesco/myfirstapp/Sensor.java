@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by francesco on 28/12/2016.
  */
@@ -48,6 +50,8 @@ public class Sensor implements Parcelable {
 
 
     public void setConversionFactorByUrlCode() {
+        //the correct value is misuredValue / conversionFactor
+
         switch (this.urlCode) {
             case "/temp": {
                 this.unitOfMeasure = "°C";
@@ -66,22 +70,22 @@ public class Sensor implements Parcelable {
             }
             case "/reactcon": {
                 this.unitOfMeasure = "VARh";
-                this.conversionFactor = (float)0.1; //are centiKiloVARh (1 / 10^3 * 10^-2)
+                this.conversionFactor = (float)0.1; //centiKiloVARh (1 / 10^3 * 10^-2)
                 break;
             }
             case "/apcon": {
                 this.unitOfMeasure = "VA";
-                this.conversionFactor = (float)0.1; //are centiKiloVARh (1 / 10^3 * 10^-2)
+                this.conversionFactor = (float)0.1; //centiKiloVARh (1 / 10^3 * 10^-2)
                 break;
             }
             case "/con": {
                 this.unitOfMeasure = "Wh";
-                this.conversionFactor = (float)0.1; //are centiKiloVARh (1 / 10^3 * 10^-2)
+                this.conversionFactor = (float)0.1; //centiKiloVARh (1 / 10^3 * 10^-2)
                 break;
             }
             case "/actpw": {
                 this.unitOfMeasure = "W";
-                this.conversionFactor = 100;
+                this.conversionFactor = 100; //centi (10^-2)
                 break;
             }
             case "/pwf": {
@@ -91,27 +95,27 @@ public class Sensor implements Parcelable {
             }
             case "/cur/1": {
                 this.unitOfMeasure = "A";
-                this.conversionFactor = 100;
+                this.conversionFactor = 100; //centi (10^-2)
                 break;
             }
             case "/cur/3": {
                 this.unitOfMeasure = "A";
-                this.conversionFactor = 100;
+                this.conversionFactor = 100; //centi (10^-2)
                 break;
             }
             case "/cur/2": {
                 this.unitOfMeasure = "A";
-                this.conversionFactor = 100;
+                this.conversionFactor = 100; //centi (10^-2)
                 break;
             }
             case "/appw": {
                 this.unitOfMeasure = "VA";
-                this.conversionFactor = 100;
+                this.conversionFactor = 100; //centi (10^-2)
                 break;
             }
             case "/reactpw": {
                 this.unitOfMeasure = "VAR";
-                this.conversionFactor = 100;
+                this.conversionFactor = 100; //centi (10^-2)
                 break;
             }
             default:
@@ -149,10 +153,11 @@ public class Sensor implements Parcelable {
 
         for (Data data : this.getDatas()) {
 
-            if (data.getValue() > maxValue) {
-                maxValue = data.getValue();
-                winnerData = data;
-            }
+            if (data.getValue() != 0 && abs(data.getValue())<1000000000)
+                if (data.getValue() > maxValue) {
+                    maxValue = data.getValue();
+                    winnerData = data;
+                }
         }
 
         return winnerData;
@@ -166,38 +171,18 @@ public class Sensor implements Parcelable {
         double minValue = this.getDatas().get(0).getValue();
         Data winnerData = this.getDatas().get(0);
 
-        //TODO da togliere
-        System.out.println(minValue);
-
         for (Data data : this.getDatas()) {
 
-            if (data.getValue() < minValue) {
-                minValue = data.getValue();
-                winnerData = data;
-            }
+            if (data.getValue() != 0 && abs(data.getValue())<1000000000)
+                if (data.getValue() < minValue) {
+                 minValue = data.getValue();
+                    winnerData = data;
+                }
         }
 
         return winnerData;
     }
 
-
-    public Data findDataWithMinTimeStamp() {
-
-
-        long minTimeStamp = 10 ^ 14;
-        Data winnerData = null;
-
-        for (Data data : this.getDatas()) {
-
-            if (data.getTimestamp() < minTimeStamp) {
-                minTimeStamp = data.getTimestamp();
-                winnerData = data;
-            }
-        }
-
-        return winnerData;
-
-    }
 
 
     // IMPLEMENT PARCEABLE METHOD ***************************
@@ -211,7 +196,7 @@ public class Sensor implements Parcelable {
             datas = null;
         }
         unitOfMeasure = in.readString();
-        conversionFactor = in.readInt();
+        conversionFactor = in.readFloat();
     }
 
     @Override

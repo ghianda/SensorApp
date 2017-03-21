@@ -28,12 +28,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:orientation="vertical"
-        android:layout_below="@+id/textView2">
+        android:layout_below="@+id/textView2"
+        android:padding="2dp">
         <LinearLayout
             android:id="@+id/LLuser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="2dp">
             <TextView
                 android:text="User"
                 android:layout_width="0dp"
@@ -55,7 +57,8 @@
         <LinearLayout
             android:id="@+id/LLstation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="2dp">
             <TextView
                 android:text="Station"
                 android:layout_width="0dp"
@@ -95,7 +98,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/border"
-        android:layout_below="@+id/textView3">
+        android:layout_below="@+id/textView3"
+        android:padding="2dp">
 
         <!-- SWITCH -->
         <LinearLayout
@@ -112,15 +116,16 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="10"
+                android:layout_weight="8"
                 android:layout_height="match_parent"
                 android:id="@+id/textView6"
                 android:text="@string/serviceText"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:gravity="center_vertical"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="0dp"
-                android:layout_weight="4"
+                android:layout_weight="6"
                 android:layout_height="wrap_content"
                 android:id="@+id/switchService"/>
         </LinearLayout>
@@ -140,14 +145,15 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="10"
-                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="@string/settingsServiceRepeat"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <Spinner
                 android:layout_width="0dp"
-                android:layout_weight="4"
+                android:layout_weight="6"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinnerClock" />
 
@@ -172,7 +178,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/border"
-        android:layout_below="@+id/textView4">
+        android:layout_below="@+id/textView4"
+        android:padding="2dp">
 
         <!-- EURO -->
         <LinearLayout
@@ -190,6 +197,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="8"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="@string/settingsEuro"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -221,9 +229,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="8"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="@string/settingsCO2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:gravity="center_vertical"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <EditText
                 android:id="@+id/editTextCo2"

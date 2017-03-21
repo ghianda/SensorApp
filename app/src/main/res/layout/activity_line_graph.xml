@@ -26,28 +26,30 @@
         android:layout_below="@+id/titleLineGraphMeter"/>
 
 
+    <TextView
+        android:id="@+id/tvDisplayMax"
+        android:text="@string/tvDisplayMax"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@+id/tvDisplayMin"
+        android:layout_marginTop="8dp"/>
     <LinearLayout
         android:id="@+id/LLMax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:background="@drawable/border_box"
         android:padding="3dp"
-        android:layout_below="@+id/LLMin">
-        <TextView
-            android:id="@+id/tvDisplayMax"
-            android:text="@string/tvDisplayMax"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        android:layout_below="@+id/LLMin"
+        android:layout_toEndOf="@+id/tvDisplayMax">
+
 
         <TextView
             android:id="@+id/tvMax"
             android:text=""
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -55,35 +57,36 @@
             android:text=""
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="5"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:gravity="right"/>
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/tvDisplayMin"
+        android:text="@string/tvDisplayMin"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@+id/titleLineGraphSensor"
+        android:layout_alignParentStart="true" />
     <LinearLayout
         android:id="@+id/LLMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/titleLineGraphSensor"
         android:background="@drawable/border_box"
         android:padding="3dp"
-        android:layout_alignParentStart="true">
-        <TextView
-            android:id="@+id/tvDisplayMin"
-            android:text="@string/tvDisplayMin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
+        android:layout_alignTop="@+id/tvDisplayMin"
+        android:layout_toEndOf="@+id/tvDisplayMax">
 
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
             android:id="@+id/tvMin"
             android:text=""
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
@@ -91,7 +94,7 @@
             android:text=""
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="5"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:gravity="right"/>
 
@@ -123,7 +126,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:id="@+id/tvYaxisLabel"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="10dp"
         android:layout_below="@+id/LLMax"
         android:textStyle="bold"
         android:layout_alignParentStart="true" />

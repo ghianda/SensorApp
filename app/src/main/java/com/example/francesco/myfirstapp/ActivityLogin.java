@@ -3,6 +3,7 @@ package com.example.francesco.myfirstapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,5 +82,23 @@ public class ActivityLogin extends AppCompatActivity {
                 }
                 }
             });
+    }
+
+
+
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(this, getString(R.string.settingsbackPressed), Toast.LENGTH_LONG).show();
+        //return;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                Toast.makeText(this, getString(R.string.settingsbackPressed), Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

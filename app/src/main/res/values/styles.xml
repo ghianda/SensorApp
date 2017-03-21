@@ -29,9 +29,15 @@
     <style name="gaiaTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
     </style>
 
-    <style name="gaiaTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="gaiaTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
+
+
 
     <style name="gaiaTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

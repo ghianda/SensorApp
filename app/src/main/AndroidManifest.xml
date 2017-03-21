@@ -39,8 +39,7 @@
             android:parentActivityName=".ActivityReader" />
         <activity
             android:name=".ActivityLogin"
-            android:label="@string/loginActivity"
-            android:parentActivityName=".ActivityReader" />
+            android:label="@string/loginActivity" />
         <activity
             android:name=".ActivityCakeGraph"
             android:label="@string/ResultsActivity"

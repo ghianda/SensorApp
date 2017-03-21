@@ -214,6 +214,7 @@ public class FragmentCompare extends Fragment {
                         //insert the last response
                         powerResponse.put(keyMeterReceived, newResponse);
 
+                        //and do work on data
                         prepareDataAndSendIt();
                     }
                 }
@@ -264,8 +265,8 @@ public class FragmentCompare extends Fragment {
                     }
                 }
 
-                //control if all response is inserted
-                if (countResponse == (metersToControl.getMeters().size() * sensors.size())){
+                //control if all response is inserted (2 because there is FROM and TO values)
+                if (countResponse == (metersToControl.getMeters().size() * 2)){
 
                     prepareDataAndSendIt();
                 }
@@ -319,6 +320,10 @@ public class FragmentCompare extends Fragment {
         //hide the progress bar
         progressBar.setVisibility(View.GONE);
 
+        //TODO RIMUOVERE
+        System.out.println("FRAGMENT COMPARE  ++++>"   );
+        //TODO RIMUOVERE
+
         //start activity
         startActivity(intent);
 
@@ -368,18 +373,30 @@ public class FragmentCompare extends Fragment {
         HashMap<String, Float> averageMeasure = new HashMap<>();
         Double avg;
         double sum = 0;
+        int count = 0;
 
         for ( String key : powerResponse.keySet()){
             for ( Measure m: powerResponse.get(key).getMeasuresList()){
 
                 //todo l'IF è un controllo interno sui valori
-                if (m.getValue() > 0)
+                if (m.getValue() != 0 && abs(m.getValue())<1000000000) {
                     sum += m.getValue();
+                    count++;
+                }
             }
 
-            avg = sum / powerResponse.get(key).getMeasuresList().size();
-            averageMeasure.put(key, Float.valueOf(avg.toString()));
+
+            if(count>0) {
+                avg = sum / count;
+                averageMeasure.put(key, Float.valueOf(avg.toString()));
+            }
+            else{
+                averageMeasure.put(key, (float)0.0);
+            }
+
+            //restore
             sum = 0;
+            count = 0;
         }
 
         return averageMeasure;

@@ -52,20 +52,23 @@
 
     <!-- LinearGraph -->
     <string name="average">Average:</string>
-    <string name="tvDisplayMin">Min:</string>
-    <string name="tvDisplayMax">Max:</string>
+    <string name="tvDisplayMin">Min</string>
+    <string name="tvDisplayMax">Max</string>
     <string name="dataError"> NO DATA </string>
-    <string name="rangeTime"> Time Range </string>
+    <string name="rangeTime"> Time </string>
 
 
     <!-- Cake Graph -->
     <string name="other">Other</string>
+    <string name="cakeTot"> Total </string>
 
 
-    <!-- Descriptions of read fragments -->
+    <!-- Descriptions -->
     <string name="descriptionTimeRead"> Displays Parameter values of  Meter in the selected time range </string>
     <string name="descriptionLastRead"> Displays the last value read from the selected meter related to the selected parameter  </string>
     <string name="descriptionCompare"> Displays Average or consume of parameter in the selected time range for all the range  </string>
+    <string name="descriptionCake"> Click on slice for look inside </string>
+
 
     <!-- Service -->
     <!--TODO cambiare nome app-->
@@ -111,9 +114,9 @@
     <string name="sscon">Active Energy</string>
     <string name="ssactpw">Active Power</string>
     <string name="sspwf">Power Factor</string>
-    <string name="sscur1">Current - 1\' phase</string>
-    <string name="sscur2">Current - 2\' phase</string>
-    <string name="sscur3">Current - 3\' phase</string>
+    <string name="sscur1">Current (F1)</string>
+    <string name="sscur2">Current (F2)</string>
+    <string name="sscur3">Current (F3)</string>
     <string name="ssappw">Apparent Power</string>
     <string name="ssreactpw">Reactive Power</string>
     <string name="sstemp">Temperature</string>
@@ -126,11 +129,21 @@
     <string name="mm_1f_roomslighting">1 floor Land Surv. rooms illumination</string>
     <string name="mm_qs">Sports block</string>
     <string name="mm_qg">Land Surveyors Block</string>
-    <string name="mm_geom_gf">Ground floor Land Surveyors</string>
-    <string name="mm_geom_1f">1 floor Land Surveyors</string>
+    <string name="mm_geom_gf">Floor 0 Land Surveyors</string>
+    <string name="mm_geom_1f">Floor 1 Land Surveyors</string>
     <string name="mm_geom_gf_labsmotionpower">Land. Surv. Laboratories driving force </string>
     <string name="mm_qg_hall_lighting">Hall</string>
-    <string name="title_activity_reader2">ActivityReader2</string>
+
+
+    <!-- meter list for cake legend name-->
+    <string name="cake_gf_labslighting">Laboratories Illuminations</string>
+    <string name="cake_1f_roomslighting">Rooms illumination</string>
+    <string name="cake_qs">Sports block</string>
+    <string name="cake_qg">Land Surveyors Block</string>
+    <string name="cake_geom_gf">Floor 0 Land Surveyors</string>
+    <string name="cake_geom_1f">Floor 1 Land Surveyors</string>
+    <string name="cake_geom_gf_labsmotionpower">Laboratories driving force </string>
+    <string name="cake_qg_hall_lighting">Hall</string>
 
 
     <!-- meter url -->
@@ -162,17 +175,19 @@
     <string name="settingsParameterPreference"> Parameter Preferences </string>
     <string name="settingsSwitchPreference"> Notify Preferences </string>
     <string name="settingsAccounInfo"> Account Info </string>
-    <string name="settingsEuro">" Euro for kWh"</string>
-    <string name="settingsCO2">" CO<sub>2</sub> Kg for Wh "</string>
-    <string name="settingsServiceRepeat"> Service repeat every minutes </string>
+    <string name="settingsEuro">Euro for kWh</string>
+    <string name="settingsCO2">CO<sub>2</sub>Kg for Wh</string>
+    <string name="settingsServiceRepeat">Control data every</string>
+    <string name="settingsbackPressed"> Please insert your credentials or close the app </string>
 
     <string-array name="selectClockNotify">
-        <item>30 sec</item>
+        <item>30 sec (test)</item>
         <item>5 min</item>
         <item>10 min</item>
         <item>30 min</item>
         <item>60 min</item>
     </string-array>
+    <string name="action_sign_in">Login</string>
 
 
 </resources>

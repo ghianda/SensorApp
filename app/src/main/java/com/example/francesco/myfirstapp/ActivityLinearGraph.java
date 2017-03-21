@@ -63,9 +63,14 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
         if(width > height)
         {
-                           /* In Landscape */
+            /* In Landscape */
+
+            //fullscreen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+            //hide action bar
+            getSupportActionBar().hide();
         }
 
     }
@@ -216,10 +221,11 @@ public class ActivityLinearGraph extends AppCompatActivity {
         chart.setData(lineData);
 
         //layout preferences
-        dataSet.setDrawValues(false);
-        dataSet.setColor(getResources().getColor(R.color.colorLineGraph));
+        dataSet.setLineWidth(2);                                                //larghezza linea plot
+        dataSet.setDrawValues(false);                                           //valori nei punti
+        dataSet.setColor(getResources().getColor(R.color.colorLineGraph));      //colore linea
         dataSet.setDrawCircles(false);
-        chart.getLegend().setEnabled(false);   // Hide the legend
+        chart.getLegend().setEnabled(false);                                    // Hide the legend
 
 
         //X axis formatter

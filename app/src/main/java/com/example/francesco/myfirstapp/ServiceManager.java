@@ -14,18 +14,18 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.serviceOnOffPfreTag;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_serviceOnOffPref;
 
 /** there is static method for service  management */
 public class ServiceManager {
 
 
     /* Load the preference and set the switch state */
-    public static Boolean loadThePreferenceState(SwitchCompat serviceSwitch, Context context){
+    public static Boolean loadThePreferenceSwitchState(SwitchCompat serviceSwitch, Context context){
 
         //load preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        Boolean isChecked = sharedPref.getBoolean(serviceOnOffPfreTag, true); //default: true
+        Boolean isChecked = sharedPref.getBoolean(KEY_serviceOnOffPref, true); //default: true
 
         serviceSwitch.setChecked(isChecked);
 

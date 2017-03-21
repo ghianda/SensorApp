@@ -4,7 +4,11 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+
+import static com.example.francesco.myfirstapp.SensorProjectApp.sensorComparatorByName;
+import static com.example.francesco.myfirstapp.SensorProjectApp.sortByKeysName;
 
 /**
  * Created by francesco on 22/12/2016.
@@ -19,7 +23,7 @@ import java.util.HashMap;
 
 
 
-public class SensorList {
+public class SensorList{
 
     private HashMap<Meter, ArrayList<Sensor>> list; // meter -> list of sensors
 
@@ -37,9 +41,12 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
         sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
         sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/GF/Labs/Lighting", context.getString(R.string.mm_gf_labslighting)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
+
 
 
         //make list for only meter Geom/1F/Rooms/Lighting
@@ -47,6 +54,8 @@ public class SensorList {
         sensors.add(new Sensor("/actpw", context.getString(R.string.ssactpw)));
         sensors.add(new Sensor("/pwf", context.getString(R.string.sspwf)));
         sensors.add(new Sensor("/cur/1", context.getString(R.string.sscur1)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/1F/Rooms/Lighting", context.getString(R.string.mm_1f_roomslighting)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -56,6 +65,8 @@ public class SensorList {
         sensors.add(new Sensor("/temp", context.getString(R.string.sstemp)));
         sensors.add(new Sensor("/light", context.getString(R.string.sslight)));
         sensors.add(new Sensor("/humid", context.getString(R.string.sshumid)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/1F/Rooms/53", "Aula 53"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -65,6 +76,8 @@ public class SensorList {
         sensors.add(new Sensor("/temp", context.getString(R.string.sstemp)));
         sensors.add(new Sensor("/light", context.getString(R.string.sslight)));
         sensors.add(new Sensor("/humid", context.getString(R.string.sshumid)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/1F/Rooms/54", "Aula 54"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -74,6 +87,8 @@ public class SensorList {
         sensors.add(new Sensor("/temp", context.getString(R.string.sstemp)));
         sensors.add(new Sensor("/light", context.getString(R.string.sslight)));
         sensors.add(new Sensor("/humid", context.getString(R.string.sshumid)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/1F/Rooms/55", "Aula 55"), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -87,6 +102,8 @@ public class SensorList {
         sensors.add(new Sensor("/cur/2", context.getString(R.string.sscur2)));
         sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/light", "Light"));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("QG/Lighting", context.getString(R.string.mm_qg_hall_lighting)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -103,6 +120,8 @@ public class SensorList {
         sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
         sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("QS", context.getString(R.string.mm_qs)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -119,6 +138,8 @@ public class SensorList {
         sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
         sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("QG", context.getString(R.string.mm_qg)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -135,6 +156,8 @@ public class SensorList {
         sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
         sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/GF", context.getString(R.string.mm_geom_gf)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -151,6 +174,8 @@ public class SensorList {
         sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
         sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/1F", context.getString(R.string.mm_geom_1f)), sensors);
         //pulisco la lista sensors
         sensors = new ArrayList<Sensor>();
@@ -167,7 +192,12 @@ public class SensorList {
         sensors.add(new Sensor("/cur/3", context.getString(R.string.sscur3)));
         sensors.add(new Sensor("/appw", context.getString(R.string.ssappw)));
         sensors.add(new Sensor("/reactpw", context.getString(R.string.ssreactpw)));
+        //TODO TRY
+        Collections.sort(sensors, sensorComparatorByName);
         list.put(new Meter("Geom/GF/Labs/MP", context.getString(R.string.mm_geom_gf_labsmotionpower)), sensors);
+
+        //TODO TRY TO SORT THE MAP
+        list = sortByKeysName(list);
 
     }
 
@@ -181,7 +211,6 @@ public class SensorList {
         list.put(new Meter("QS", context.getString(R.string.mm_qs)), sensors);
         list.put(new Meter("QG", context.getString(R.string.mm_qg)), sensors);
 
-        //TODO togliere
         list.put(new Meter("Geom/1F", context.getString(R.string.mm_geom_1f)), sensors);
         list.put(new Meter("Geom/GF/Labs/Lighting", context.getString(R.string.mm_gf_labslighting)), sensors);
         list.put(new Meter("Geom/1F/Rooms/Lighting", context.getString(R.string.mm_1f_roomslighting)), sensors);
@@ -279,4 +308,6 @@ public class SensorList {
 
         return sensors;
     }
+
+
 }

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import static com.example.francesco.myfirstapp.SensorProjectApp.co2PrefTag;
-import static com.example.francesco.myfirstapp.SensorProjectApp.euroPrefTag;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_co2Pref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_euroPref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixEuro;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 import static java.lang.Math.abs;
@@ -195,8 +195,8 @@ public class FragmentHome extends Fragment
 
     private void calculateOtherStatistics(float kiloWattHour){
 
-        float euroForWattHour = sharedPref.getFloat(euroPrefTag, (float)0.166646);
-        float  CO2ForHour = sharedPref.getFloat(co2PrefTag, (float)0.14);
+        float euroForWattHour = sharedPref.getFloat(KEY_euroPref, (float)0.166646);
+        float  CO2ForHour = sharedPref.getFloat(KEY_co2Pref, (float)0.14);
 
         yesterdayEuro = kiloWattHour * (euroForWattHour/1000);
         yesterdayCO2  = kiloWattHour * (CO2ForHour/1000);

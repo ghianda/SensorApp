@@ -245,6 +245,9 @@ public class BackgroundTask extends BroadcastReceiver {
         //Active Power is in centiWatt, so i convert in Watt
         avgActPower /= 100;
 
+
+        /** Set your custom alarms and threshold
+         *
         if (avgActPower > 7500) {
             // TOO POWER
             problemDetected = contextMaster.getResources().getString(R.string.errorTooConsume);
@@ -253,9 +256,8 @@ public class BackgroundTask extends BroadcastReceiver {
             sendNotify = true;
         }
 
-        //TODO SOSTITUIRE VERSIONE TEST
-        //if (avgLight < 100 && (hour > 6 || hour < 19)) { //100
-        if(true){
+
+        if (avgLight < 100 && (hour > 6 || hour < 19)) { //100
             // TOO LOW LUX
             problemDetected = contextMaster.getResources().getString(R.string.errorTooLowLight);
             suggestedAction = contextMaster.getResources().getString(R.string.suggTooLowLight);
@@ -278,8 +280,23 @@ public class BackgroundTask extends BroadcastReceiver {
             contentTextValues = formatBothInString(avgLight, avgActPower, frmt);
             sendNotify = true;
         }
+        */
 
 
+
+        /** Example notify */
+        if (true) {
+            problemDetected = "Example error";
+            suggestedAction = "Example of suggested solution";
+            contentTextValues = formatBothInString(avgLight, avgActPower, frmt);
+            sendNotify = true;
+        }
+
+
+
+
+
+        //create the notify and send it
         if (sendNotify) {
             //costruct the notification
             Notification myNotification = makeNotification(

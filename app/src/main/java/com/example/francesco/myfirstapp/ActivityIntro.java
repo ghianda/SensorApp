@@ -16,13 +16,36 @@ public class ActivityIntro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        // Clear the Notification Bar after you've clicked on the message in the Notification Bar
+        clearNOtify();
+        startApp();
+
+    }
+
+    @Override
+    protected void onResume() {
+        clearNOtify();
+        startApp();
+
+        super.onResume();
+    }
+
+
+
+    private void clearNOtify(){
+
+        // Clear the Notification Bar
         NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nMgr.cancelAll();
+    }
+
+
+
+    private void startApp(){
 
         // Session Manager
         session = new SessionManager(getApplicationContext());
 
+        //Network Manager
         NetworkManager.getInstance(this);
 
         if (session.isLoggedIn()){
@@ -34,6 +57,7 @@ public class ActivityIntro extends AppCompatActivity {
         }
 
     }
+
 
 
 

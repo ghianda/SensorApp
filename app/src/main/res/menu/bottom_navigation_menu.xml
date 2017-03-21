@@ -12,7 +12,7 @@
     <item
         android:id="@+id/action_bar_last_read"
         android:icon="@drawable/power"
-        android:title="@string/lastRead_activity_name"
+        android:title="@string/lastReadActivityName"
         app:showAsAction="ifRoom"
         android:enabled="true"/>
 

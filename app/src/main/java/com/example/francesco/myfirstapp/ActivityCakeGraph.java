@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -30,6 +31,7 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_CON
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_NAME;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_UNIT;
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_TO_TIME;
+import static com.github.mikephil.charting.components.Legend.LegendPosition.PIECHART_CENTER;
 
 public class ActivityCakeGraph extends AppCompatActivity {
     private String sensorName, sensorUnit, prefix;
@@ -37,7 +39,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
     private float conversionFactor;
     private HashMap<String, Float> data;
 
-    private TextView tvFrom, tvTo;
+    private TextView tvFrom, tvTo, tvCurrentCake;
     private ImageButton backBt;
     private PieChart pieChart;
 
@@ -65,6 +67,8 @@ public class ActivityCakeGraph extends AppCompatActivity {
         setContentView(R.layout.activity_cake_graph);
 
         backBt = (ImageButton)findViewById(R.id.cakeBackButton);
+        tvCurrentCake = (TextView)findViewById(R.id.tvCakeCurrentCake);
+
         setButtonListener(backBt);
 
         extractDataFromIntent();
@@ -76,6 +80,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
         preparePieDatasets(data);
 
 
+        //dislay firts data rapresentation
         displayTotCake();
 
 
@@ -86,6 +91,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         lastChartTag = "";
         displayCakeGraph(totPieData);
+        tvCurrentCake.setText(getString(R.string.cakeTot));
         setCakeListener(totListener);
         setButtonListener(backBt);
     }
@@ -94,6 +100,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         lastChartTag = totCakeTag;
         displayCakeGraph(qgPieData);
+        tvCurrentCake.setText(getString(R.string.mm_qg));
         setCakeListener(qgListener);
         setButtonListener(backBt);
     }
@@ -102,6 +109,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         lastChartTag = qgCakeTag;
         displayCakeGraph(geomFirstFloorPieData);
+        tvCurrentCake.setText(getString(R.string.mm_geom_1f));
         setCakeListener(geomListener);
         setButtonListener(backBt);
     }
@@ -110,9 +118,11 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         lastChartTag = qgCakeTag;
         displayCakeGraph(geomGroundFloorPieData);
+        tvCurrentCake.setText(getString(R.string.mm_geom_gf));
         setCakeListener(geomListener);
         setButtonListener(backBt);
     }
+
 
 
 
@@ -188,12 +198,13 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         List<PieEntry> entries = new ArrayList<>();
 
-        float other = data.get(getString(R.string.urlGeomFirstFloor)) -
-                (data.get(getString(R.string.urlGeomRoomsLighting)));
+        float other = data.get(getString(R.string.urlGeomFirstFloor)) - (data.get(getString(R.string.urlGeomRoomsLighting)));
 
-        entries.add(new PieEntry(
-                data.get(getString(R.string.urlGeomRoomsLighting)) , getString(R.string.mm_1f_roomslighting)));
-        entries.add(new PieEntry( other , getString(R.string.other)));
+        entries.add(
+                new PieEntry(data.get(getString(R.string.urlGeomRoomsLighting)) , getString(R.string.cake_1f_roomslighting)));
+
+        if(other>0)
+            entries.add(new PieEntry( other , getString(R.string.other)));
 
         return makePieDataFromEntries(entries);
 
@@ -210,11 +221,13 @@ public class ActivityCakeGraph extends AppCompatActivity {
         float other = data.get(getString(R.string.urlGeomGF)) -
                 (data.get(getString(R.string.urlGeomLabsLighting)) + data.get(getString(R.string.urlGeomLabsMP)));
 
-        entries.add(new PieEntry(
-                data.get(getString(R.string.urlGeomLabsLighting)) , getString(R.string.mm_gf_labslighting)));
-        entries.add(new PieEntry(
-                data.get(getString(R.string.urlGeomLabsMP)) , getString(R.string.mm_geom_gf_labsmotionpower)));
-        entries.add(new PieEntry( other , getString(R.string.other)));
+        entries.add(
+                new PieEntry(data.get(getString(R.string.urlGeomLabsLighting)) , getString(R.string.cake_gf_labslighting)));
+        entries.add(
+                new PieEntry(data.get(getString(R.string.urlGeomLabsMP)) , getString(R.string.cake_geom_gf_labsmotionpower)));
+
+        if(other>0)
+            entries.add(new PieEntry( other , getString(R.string.other)));
 
         return makePieDataFromEntries(entries);
 
@@ -235,13 +248,14 @@ public class ActivityCakeGraph extends AppCompatActivity {
                 (data.get(getString(R.string.urlGeomGF)) + data.get(getString(R.string.urlGeomFirstFloor))
                         + data.get(getString(R.string.urlQGHallLighting)));
 
-        entries.add(new PieEntry(
-                data.get(getString(R.string.urlGeomGF)) , getString(R.string.mm_geom_gf)));
-        entries.add(new PieEntry(
-                data.get(getString(R.string.urlGeomFirstFloor)) , getString(R.string.mm_geom_1f)));
-        entries.add(new PieEntry(
-                data.get(getString(R.string.urlQGHallLighting)) , getString(R.string.mm_qg_hall_lighting)));
-        entries.add(new PieEntry( other , getString(R.string.other)));
+        entries.add(
+                new PieEntry(data.get(getString(R.string.urlGeomGF)) , getString(R.string.cake_geom_gf)));
+        entries.add(
+                new PieEntry(data.get(getString(R.string.urlGeomFirstFloor)) , getString(R.string.cake_geom_1f)));
+        entries.add(
+                new PieEntry(data.get(getString(R.string.urlQGHallLighting)) , getString(R.string.cake_qg_hall_lighting)));
+        if(other>0)
+            entries.add(new PieEntry( other , getString(R.string.other)));
 
         return makePieDataFromEntries(entries);
 
@@ -253,8 +267,8 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         List<PieEntry> entries = new ArrayList<>();
 
-        entries.add(new PieEntry(data.get(getString(R.string.urlQS)), getString(R.string.mm_qs)));
-        entries.add(new PieEntry(data.get(getString(R.string.urlQG)), getString(R.string.mm_qg)));
+        entries.add(new PieEntry(data.get(getString(R.string.urlQS)), getString(R.string.cake_qs)));
+        entries.add(new PieEntry(data.get(getString(R.string.urlQG)), getString(R.string.cake_qg)));
 
         return makePieDataFromEntries(entries);
 
@@ -265,7 +279,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
 
     private PieData makePieDataFromEntries(List<PieEntry> entries){
-        PieDataSet set = new PieDataSet(entries, sensorName);
+        PieDataSet set = new PieDataSet(entries, "");
 
         //set preferences
         set.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -289,20 +303,25 @@ public class ActivityCakeGraph extends AppCompatActivity {
         //chart.setDescription(sensorName);
 
         // enable rotation of the chart by touch
-        pieChart.setRotationAngle(0);
+        pieChart.setRotationAngle(180);
         pieChart.setRotationEnabled(true);
 
         // enable hole and configure
         pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleRadius(25);
-        pieChart.setTransparentCircleRadius(30);
+        pieChart.setHoleRadius(50);
+        pieChart.setTransparentCircleRadius(55);
+        pieChart.setDrawSliceText(false);
 
         // hide legends
         Legend l = pieChart.getLegend();
-        l.setEnabled(false);
+        //l.setEnabled(false);
+        l.setPosition(PIECHART_CENTER);
 
         //hide description label
         pieChart.setContentDescription("");
+        Description d = new Description();
+        d.setText("");
+        pieChart.setDescription(d);
 
     }
 
@@ -426,10 +445,14 @@ public class ActivityCakeGraph extends AppCompatActivity {
         int height = display.getHeight();
 
         if(width > height)
-        {
-                           /* In Landscape */
+        {   /* In Landscape */
+
+            //hide the androd notify bar
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+            //hide action bar
+            getSupportActionBar().hide();
         }
 
     }

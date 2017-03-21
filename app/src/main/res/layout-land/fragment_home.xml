@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,258 +11,199 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <LinearLayout
-            android:id="@+id/LLuser"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="User"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <TextView
-                android:id="@+id/tvUserName"
-                android:text=" "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/LLstation"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/LLuser">
-
-            <TextView
-                android:text="Station"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <TextView
-                android:id="@+id/tvStationName"
-                android:text=""
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-        </LinearLayout>
-
-
-        <!-- _______________ TODAY _______________ -->
-        <TextView
-            android:id="@+id/TvToday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_below="@+id/LLswitch"/>
-
-        <LinearLayout
-            android:id="@+id/LLtoday"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/TvToday"
-            android:background="@drawable/border"
-            android:padding="3dip">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/bottom_arrow"/>
-
-            <TextView
-                android:id="@+id/tvHomeTodayParName"
-                android:text="@string/todayParameter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <TextView
-                android:id="@+id/tvHomeTodayParValue"
-                android:text=""
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:gravity="right"/>
-
-            <ProgressBar
-                android:id="@+id/progHomeToday"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:indeterminateDrawable="@drawable/circular_progress_bar"
-                android:layout_toEndOf="@+id/TvYesterday" />
-        </LinearLayout>
-
-        <!-- ================= YESTERDAY =====================- -->
 
         <TextView
             android:id="@+id/TvYesterday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yesterday"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_below="@+id/LLtoday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/LLallYesterday"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="46dp" />
 
-        <!-- _______________ consume _______________ -->
-        <LinearLayout
-            android:id="@+id/LLyesterdayConsume"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/TvYesterday"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/border"
-            android:padding="3dip">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/bottom_arrow"/>
-
-            <TextView
-                android:text="@string/yesterdayParameter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <TextView
-                android:id="@+id/tvHomeYesterdayParValue"
-                android:text=""
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:gravity="right"/>
-
-            <ProgressBar
-                android:id="@+id/progHomeYestConsume"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:indeterminateDrawable="@drawable/circular_progress_bar"/>
-        </LinearLayout>
-
-        <!-- _______________ CO2 _______________ -->
-        <LinearLayout
-            android:id="@+id/LLyesterdayCO2"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/LLyesterdayConsume"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/border"
-            android:padding="3dip">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/bottom_arrow"/>
-
-            <TextView
-                android:text="@string/yesterdayCO2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <TextView
-                android:id="@+id/tvHomeYesterdayCO2"
-                android:text=""
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:background="@drawable/border_box"
-                android:gravity="right"/>
-
-            <ProgressBar
-                android:id="@+id/progHomeYestCO2"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:indeterminateDrawable="@drawable/circular_progress_bar" />
-        </LinearLayout>
-
-        <!-- _______________ euro _______________ -->
-        <LinearLayout
-            android:id="@+id/LLyesterdayEuro"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/LLyesterdayCO2"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="19dp"
-            android:background="@drawable/border"
-            android:padding="3dip">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/bottom_arrow"/>
-
-            <TextView
-                android:text="@string/yesterdayEuro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <TextView
-                android:id="@+id/tvHomeYesterdayEuro"
-                android:text=""
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@drawable/border_box"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:gravity="right"/>
-
-            <ProgressBar
-                android:id="@+id/progHomeYestEuro"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:indeterminateDrawable="@drawable/circular_progress_bar" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/TvToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/LLtoday"
+            android:layout_alignParentStart="true" />
 
         <LinearLayout
-            android:id="@+id/LLswitch"
+            android:id="@+id/LLallYesterday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/LLstation"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:layout_toEndOf="@+id/TvYesterday"
+            android:layout_marginLeft="15dp">
+
+            <!-- _______________ consume _______________ -->
+            <LinearLayout
+                android:id="@+id/LLyesterdayConsume"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:padding="0dip">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/consumption" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="@string/yesterdayParameter"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/tvHomeYesterdayParValue"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/border_box"
+                    android:gravity="right"
+                    android:text=""
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ProgressBar
+                    android:id="@+id/progHomeYestConsume"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:indeterminateDrawable="@drawable/circular_progress_bar" />
+            </LinearLayout>
+
+            <!-- _______________ CO2 _______________ -->
+            <LinearLayout
+                android:id="@+id/LLyesterdayCO2"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="16dp"
+                android:padding="0dip">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/co2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="3.93"
+                    android:gravity="top"
+                    android:text="@string/yesterdayCO2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/tvHomeYesterdayCO2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/border_box"
+                    android:gravity="right"
+                    android:text=""
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ProgressBar
+                    android:id="@+id/progHomeYestCO2"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:indeterminateDrawable="@drawable/circular_progress_bar" />
+            </LinearLayout>
+
+            <!-- _______________ euro _______________ -->
+            <LinearLayout
+                android:id="@+id/LLyesterdayEuro"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="19dp"
+                android:padding="0dip">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/euro" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="@string/yesterdayEuro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/tvHomeYesterdayEuro"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/border_box"
+                    android:gravity="right"
+                    android:text=""
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ProgressBar
+                    android:id="@+id/progHomeYestEuro"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:indeterminateDrawable="@drawable/circular_progress_bar" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLtoday"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_above="@+id/TvYesterday"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/border"
+            android:padding="3dip"
+            android:layout_alignStart="@+id/LLallYesterday">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/actpower" />
 
             <TextView
+                android:id="@+id/tvHomeTodayParName"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                android:text="@string/serviceText"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:layout_weight="4"
+                android:text="@string/todayParameter"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-            <android.support.v7.widget.SwitchCompat
+            <TextView
+                android:id="@+id/tvHomeTodayParValue"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/switchService"/>
+                android:layout_weight="3"
+                android:background="@drawable/border_box"
+                android:gravity="right"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <ProgressBar
+                android:id="@+id/progHomeToday"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_toEndOf="@+id/TvYesterday"
+                android:indeterminateDrawable="@drawable/circular_progress_bar" />
         </LinearLayout>
 
 

@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import static com.example.francesco.myfirstapp.ActivitySettings.serviceRepeatPeriodInMillis;
+import static com.example.francesco.myfirstapp.ActivitySettings._serviceRepeatPeriodInMillis;
 
 
 /**The started service starts the AlarmManager that repeat the Background task. */
@@ -33,7 +33,8 @@ public class StarterService extends Service {
 
         // Repeat the BackgroundTask every 10 seconds (10000)
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), serviceRepeatPeriodInMillis, pi);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+                _serviceRepeatPeriodInMillis, pi);
 
         Toast.makeText(this, "My Service started", Toast.LENGTH_LONG).show();
         Log.i(TAG, "Received start id " + startId + ": " + intent);

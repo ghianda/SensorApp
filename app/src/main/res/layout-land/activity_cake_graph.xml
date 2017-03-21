@@ -1,44 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_cake_graph"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp"
     tools:context="com.example.francesco.myfirstapp.ActivityCakeGraph">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_box"
+        android:padding="3dp"
+        android:id="@+id/linearLayout3">
+        <TextView
+            android:id="@+id/cakeToView"
+            android:text="TextView"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:src="@drawable/right_arrow"/>
+
+
+        <TextView
+            android:id="@+id/cakeFromView"
+            android:text="TextView"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/cakeDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_centerHorizontal="true"
+        android:text="@string/descriptionCake"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    <TextView
+        android:id="@+id/tvCakeCurrentCake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@drawable/border"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignParentEnd="true" />
+
 
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/linearLayout3"
+        android:layout_below="@id/tvCakeCurrentCake"/>
 
-    <TextView
-        android:id="@+id/cakeFromView"
-        android:text="TextView"
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView13"
-        android:layout_toRightOf="@+id/textView13"
-        android:layout_toEndOf="@+id/textView13"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        />
+        app:srcCompat="@drawable/left_64"
+        android:background="@android:color/transparent"
+        android:id="@+id/cakeBackButton"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/cakeToView"
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="11dp"
-        android:layout_marginEnd="11dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>

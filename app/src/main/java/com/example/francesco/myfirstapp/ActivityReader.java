@@ -81,8 +81,9 @@ public class ActivityReader extends AppCompatActivity {
         mActionBar.setCustomView(customView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
+
         ImageButton btLogout = (ImageButton)    customView.findViewById(R.id.logout);
-        btLogout .setOnClickListener(new View.OnClickListener() {
+        btLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new SessionManager(getApplicationContext()).logoutUser();

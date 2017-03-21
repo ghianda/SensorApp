@@ -1,10 +1,12 @@
 package com.example.francesco.myfirstapp;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by francesco on 28/12/2016.
  */
 
-public class Meter {
+public class Meter implements Comparable<Meter>{
 
 
     private String urlCode;
@@ -22,5 +24,10 @@ public class Meter {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(@NonNull Meter o) {
+        return this.name.compareTo(o.getName());
     }
 }

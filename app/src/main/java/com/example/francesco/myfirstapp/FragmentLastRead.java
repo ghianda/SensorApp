@@ -157,6 +157,7 @@ public class FragmentLastRead extends Fragment
 
 
 
+
     /*
      * Set the value in the meter Spinner and set update method for Sensor Spinner
      */
@@ -169,6 +170,7 @@ public class FragmentLastRead extends Fragment
 
         // setting MeterAdapter e applicazione allo spinner
         spinMeterAdapter.addAll(allSensors.getMetersName());
+        //spinMeterAdapter.sort(spinComp);
         meterSpinner.setAdapter(spinMeterAdapter);
 
         //definizione del setOnItemSelectedListener per MeterSpinner

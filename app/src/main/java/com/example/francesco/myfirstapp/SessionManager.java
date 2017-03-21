@@ -8,36 +8,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 import java.util.HashMap;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_isLoginPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_namePref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_passwordPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_stationPref;
+
 public class SessionManager {
     // Shared Preferences
-    SharedPreferences pref;
+    SharedPreferences _pref;
 
     // Editor for Shared preferences
-    Editor editor;
+    Editor _editor;
 
     // Context
     Context _context;
 
-    // Shared pref mode
-    int PRIVATE_MODE = 0;
 
-    // Sharedpref file name
-    private static final String PREF_NAME = "GaiaPref";
-
-    // All Shared Preferences Keys
-    private static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_NAME = "name";
-    public static final String KEY_STATION = "station";
-    public static final String KEY_PASSWORD = "password";
 
     // Constructor
     public SessionManager(Context context){
+
         this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
+        _pref = PreferenceManager.getDefaultSharedPreferences(context);
+        _editor = _pref.edit();
     }
 
 
@@ -46,19 +43,19 @@ public class SessionManager {
      * */
     public void createLoginSession(String name, String station, String password){
         // Storing login value as TRUE
-        editor.putBoolean(IS_LOGIN, true);
+        _editor.putBoolean(KEY_isLoginPref, true);
 
-        // Storing name in pref
-        editor.putString(KEY_NAME, name);
+        // Storing name in _pref
+        _editor.putString(KEY_namePref, name);
 
-        // Storing station in pref
-        editor.putString(KEY_STATION, station);
+        // Storing station in _pref
+        _editor.putString(KEY_stationPref, station);
 
-        // Storing password in pref
-        editor.putString(KEY_PASSWORD, password);
+        // Storing password in _pref
+        _editor.putString(KEY_passwordPref, password);
 
         // commit changes
-        editor.commit();
+        _editor.commit();
     }
 
     /**
@@ -91,10 +88,10 @@ public class SessionManager {
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
-        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+        user.put(KEY_namePref, _pref.getString(KEY_namePref, null));
 
         // station name
-        user.put(KEY_STATION, pref.getString(KEY_STATION, null));
+        user.put(KEY_stationPref, _pref.getString(KEY_stationPref, null));
 
         // return user
         return user;
@@ -105,8 +102,10 @@ public class SessionManager {
      * */
     public void logoutUser(){
         // Clearing all data from Shared Preferences
-        editor.clear();
-        editor.commit();
+        _editor.clear();
+        _editor.commit();
+
+        //TODO non cancella i settings ma solo i dati utente
 
         // After logout redirect user to Login Activity
         Intent i = new Intent(_context, ActivityLogin.class);
@@ -116,7 +115,7 @@ public class SessionManager {
         // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        // Staring Login Activity
+        // Starting Login Activity
         _context.startActivity(i);
     }
 
@@ -125,7 +124,7 @@ public class SessionManager {
      * **/
     // Get Login State
     public boolean isLoggedIn(){
-        return pref.getBoolean(IS_LOGIN, false);
+        return _pref.getBoolean(KEY_isLoginPref, false);
     }
 }
 

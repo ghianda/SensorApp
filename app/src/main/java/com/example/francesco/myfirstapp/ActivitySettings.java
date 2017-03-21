@@ -19,31 +19,31 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_clockPMillisPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_clockPositionPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_co2Pref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_euroPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_namePref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_serviceOnOffPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_stationPref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.clockChoice;
-import static com.example.francesco.myfirstapp.SensorProjectApp.clockPMillisPrefTag;
-import static com.example.francesco.myfirstapp.SensorProjectApp.clockPositionPrefTag;
-import static com.example.francesco.myfirstapp.SensorProjectApp.co2PrefTag;
 import static com.example.francesco.myfirstapp.SensorProjectApp.createClockChoiceArray;
 import static com.example.francesco.myfirstapp.SensorProjectApp.defaultCO2ForWattHour;
 import static com.example.francesco.myfirstapp.SensorProjectApp.defaultEuroForWattHour;
 import static com.example.francesco.myfirstapp.SensorProjectApp.defaultNotifyActivated;
 import static com.example.francesco.myfirstapp.SensorProjectApp.defaultServiceRepeatPeriodPosition;
-import static com.example.francesco.myfirstapp.SensorProjectApp.euroPrefTag;
-import static com.example.francesco.myfirstapp.SensorProjectApp.serviceOnOffPfreTag;
-import static com.example.francesco.myfirstapp.ServiceManager.loadThePreferenceState;
+import static com.example.francesco.myfirstapp.ServiceManager.loadThePreferenceSwitchState;
 import static com.example.francesco.myfirstapp.ServiceManager.startSchedulerAlarm;
 import static com.example.francesco.myfirstapp.ServiceManager.stopSchedulerAlarm;
-import static com.example.francesco.myfirstapp.SessionManager.KEY_NAME;
-import static com.example.francesco.myfirstapp.SessionManager.KEY_STATION;
 
 public class ActivitySettings extends AppCompatActivity {
 
     //user settings
-    static public long serviceRepeatPeriodInMillis;
-    static public int serviceRepeatPeriodPosition;
-    static public Boolean notifyActivated;
-    static public float euroForWattHour;
-    static public float CO2ForWattHour;
+    static public long _serviceRepeatPeriodInMillis;
+    static public int _serviceRepeatPeriodPosition;
+    static public Boolean _notifyActivated;
+    static public float _euroForWattHour;
+    static public float _CO2ForWattHour;
 
     //Layout resources
     private Button btSave, btRestore;
@@ -53,8 +53,8 @@ public class ActivitySettings extends AppCompatActivity {
     private TextView tvUserName , tvStationName;
 
     //Activity attributes
-    private HashMap<String, String> userCredentials;
-    private SessionManager session;
+    private HashMap<String, String> _userCredentials;
+    private SessionManager _session;
 
 
 
@@ -68,7 +68,7 @@ public class ActivitySettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        session = new SessionManager(getApplicationContext());
+        _session = new SessionManager(getApplicationContext());
         createClockChoiceArray();
 
         loadLayoutResources();
@@ -104,20 +104,31 @@ public class ActivitySettings extends AppCompatActivity {
     }
 
 
+
+
     private void setListenerOnButton(){
         btRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
                 //Restore default settings
-                serviceRepeatPeriodInMillis = clockChoice.get(defaultServiceRepeatPeriodPosition);
-                notifyActivated = defaultNotifyActivated;
-                euroForWattHour = defaultEuroForWattHour;
-                CO2ForWattHour = defaultCO2ForWattHour;
-                serviceRepeatPeriodPosition = defaultServiceRepeatPeriodPosition;
+                _serviceRepeatPeriodInMillis = clockChoice.get(defaultServiceRepeatPeriodPosition);
+                _notifyActivated = defaultNotifyActivated;
+                _euroForWattHour = defaultEuroForWattHour;
+                _CO2ForWattHour = defaultCO2ForWattHour;
+                _serviceRepeatPeriodPosition = defaultServiceRepeatPeriodPosition;
 
                 saveAllInPreferences();
                 updateLayoutResources();
+
+                if (_notifyActivated) {
+                    //update the background service with ne repeating value in Millis
+                    updateAlarmInterval();
+                }
+                else{
+                    stopSchedulerAlarm(null, ActivitySettings.this);
+                }
 
                 Toast.makeText(getApplicationContext() , getString(R.string.settingsRestoreComplete)
                         , Toast.LENGTH_LONG).show();
@@ -132,25 +143,34 @@ public class ActivitySettings extends AppCompatActivity {
 
                 //Save current settings
                 if (!editTextCo2.getText().toString().matches(""))
-                    CO2ForWattHour  = Float.valueOf(editTextCo2.getText().toString());
+                    _CO2ForWattHour = Float.valueOf(editTextCo2.getText().toString());
                 else{
                     valueIsOk = false;
                 }
 
                 if (!editTextEuro.getText().toString().matches(""))
-                    euroForWattHour = Float.valueOf(editTextEuro.getText().toString());
+                    _euroForWattHour = Float.valueOf(editTextEuro.getText().toString());
                 else{
                     valueIsOk = false;
                 }
 
-                notifyActivated = serviceSwitch.isChecked();
-                serviceRepeatPeriodInMillis = clockChoice.get(clockSpinner.getSelectedItemPosition());
-                serviceRepeatPeriodPosition = clockSpinner.getSelectedItemPosition();
+                _notifyActivated = serviceSwitch.isChecked();
+                _serviceRepeatPeriodInMillis = clockChoice.get(clockSpinner.getSelectedItemPosition());
+                _serviceRepeatPeriodPosition = clockSpinner.getSelectedItemPosition();
 
                 if(valueIsOk) {
 
                     saveAllInPreferences();
                     updateLayoutResources();
+
+
+                    if (_notifyActivated) {
+                        //update the background service with ne repeating value in Millis
+                        updateAlarmInterval();
+                    }
+                    else{
+                        stopSchedulerAlarm(null, ActivitySettings.this);
+                    }
 
                     Toast.makeText(getApplicationContext(), getString(R.string.settingsSaveComplete)
                             , Toast.LENGTH_LONG).show();
@@ -171,17 +191,13 @@ public class ActivitySettings extends AppCompatActivity {
         SharedPreferences.Editor editor = PreferenceManager.
                 getDefaultSharedPreferences(getApplicationContext()).edit();
 
-        editor.putFloat(co2PrefTag, CO2ForWattHour);
-        editor.putFloat(euroPrefTag, euroForWattHour);
-        editor.putInt(clockPositionPrefTag, serviceRepeatPeriodPosition);
-        editor.putLong(clockPMillisPrefTag, serviceRepeatPeriodInMillis);
-        editor.putBoolean(serviceOnOffPfreTag, notifyActivated);
+        editor.putFloat(KEY_co2Pref, _CO2ForWattHour);
+        editor.putFloat(KEY_euroPref, _euroForWattHour);
+        editor.putInt(KEY_clockPositionPref, _serviceRepeatPeriodPosition);
+        editor.putLong(KEY_clockPMillisPref, _serviceRepeatPeriodInMillis);
+        editor.putBoolean(KEY_serviceOnOffPref, _notifyActivated);
 
         editor.apply();
-
-        //if notify is actived, update the background service with ne repeating value in Millis
-        if (notifyActivated)
-            updateAlarmInterval();
 
     }
 
@@ -194,11 +210,11 @@ public class ActivitySettings extends AppCompatActivity {
         //load preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        euroForWattHour = sharedPref.getFloat(euroPrefTag, (float)0.166646);
-        editTextEuro.setText(new StringBuilder().append(euroForWattHour));
+        _euroForWattHour = sharedPref.getFloat(KEY_euroPref, (float)0.166646);
+        editTextEuro.setText(new StringBuilder().append(_euroForWattHour));
 
-        CO2ForWattHour = sharedPref.getFloat(co2PrefTag, (float)0.14);
-        editTextCo2.setText(new StringBuilder().append(CO2ForWattHour));
+        _CO2ForWattHour = sharedPref.getFloat(KEY_co2Pref, (float)0.14);
+        editTextCo2.setText(new StringBuilder().append(_CO2ForWattHour));
     }
 
 
@@ -248,7 +264,7 @@ public class ActivitySettings extends AppCompatActivity {
     private void setClockSpinnerAtCurrentChoice(){
         //load preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int position = sharedPref.getInt(clockPositionPrefTag, 1); //default: true
+        int position = sharedPref.getInt(KEY_clockPositionPref, 3); //default: true
 
         clockSpinner.setSelection(position);
     }
@@ -267,7 +283,7 @@ public class ActivitySettings extends AppCompatActivity {
     private void updateAlarmInterval(){
         //stop the service and restart it with the new repeat timing
         stopSchedulerAlarm(null, this);
-        startSchedulerAlarm(null, this, serviceRepeatPeriodInMillis);
+        startSchedulerAlarm(null, this, _serviceRepeatPeriodInMillis);
     }
 
 
@@ -290,10 +306,10 @@ public class ActivitySettings extends AppCompatActivity {
 
 
     private void loadUserCredentials(){
-        userCredentials =  session.getUserDetails();
+        _userCredentials =  _session.getUserDetails();
 
-        tvUserName.setText(userCredentials.get(KEY_NAME));
-        tvStationName.setText(userCredentials.get(KEY_STATION));
+        tvUserName.setText(_userCredentials.get(KEY_namePref));
+        tvStationName.setText(_userCredentials.get(KEY_stationPref));
 
     }
 
@@ -301,9 +317,11 @@ public class ActivitySettings extends AppCompatActivity {
     /* set the switch listener */
     public void setServiceSwitch(){
 
-        notifyActivated = loadThePreferenceState(serviceSwitch, this);
-        serviceSwitch.setChecked(notifyActivated);
+        _notifyActivated = loadThePreferenceSwitchState(serviceSwitch, this);
+        serviceSwitch.setChecked(_notifyActivated);
     }
+
+
 
 
 

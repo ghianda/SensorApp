@@ -367,20 +367,15 @@ public class FragmentTimeRead extends Fragment
         //FROM and TO are before now, so control if FROM is before TO for more the 5 minutes
         if (fromDate.getTimeInMillis() < now.getTimeInMillis() ||
                 toDate.getTimeInMillis() < now.getTimeInMillis()) {
-            System.out.println(" A ");
 
             if (fromDate.getTimeInMillis() >= (toDate.getTimeInMillis() - fiveMinutesInMillis)) {
-                System.out.println(" B ");
                 //not valid time range
                 if ((fromDate.getTimeInMillis() - toDate.getTimeInMillis()) > oneDayInMillis) {
-                    System.out.println(" C ");
                     //the difference is bigger than a day
                     invalidButton(btFromDate);
                     timeRangeIsOk = false;
                 } else {
-                    System.out.println(" D ");
                     //the difference is smaller than a day
-                    System.out.println(" E ");
                     invalidButton(btFromHour);
                     timeRangeIsOk = false;
 
@@ -390,9 +385,8 @@ public class FragmentTimeRead extends Fragment
 
         //set the search button color
         checkSearchButtonColor(timeRangeIsOk);
-
-
     }
+
 
     private void checkSearchButtonColor(Boolean timeRangeIsOk){
         if (timeRangeIsOk)
