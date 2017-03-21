@@ -84,8 +84,6 @@ public class SessionManager {
         _editor.clear();
         _editor.commit();
 
-        //TODO non cancella i settings ma solo i dati utente
-
         // After logout redirect user to Login Activity
         Intent i = new Intent(_context, ActivityLogin.class);
         // Closing all the Activities

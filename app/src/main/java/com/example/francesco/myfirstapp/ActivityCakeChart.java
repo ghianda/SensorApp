@@ -349,8 +349,6 @@ public class ActivityCakeChart extends AppCompatActivity {
     }
 
 
-
-    //TODO
     private void setButtonListener(final ImageButton backBt){
 
         backBt.setOnClickListener(new View.OnClickListener() {

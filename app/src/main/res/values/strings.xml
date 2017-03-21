@@ -71,7 +71,6 @@
 
 
     <!-- Service -->
-    <!--TODO cambiare nome app-->
     <string name="service_description"> Gaia service background: check the light value in realTime</string>
 
 

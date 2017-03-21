@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- TODO: TOGLIERE android:debuggable="true" PRIMA DELLA RELEASE -->
-    <!-- TODO: modificare android:icon="@mipmap/ic_launcher" e mettere immagine icona app -->
     <application
         android:name=".SensorProjectApp"
         android:allowBackup="true"
@@ -46,7 +45,6 @@
             android:label="@string/ResultsActivity"
             android:parentActivityName=".ActivityReader" />
 
-        <!-- todo -->
 
 
         <!-- ricevitori -->
