@@ -33,7 +33,7 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_SENSOR_UNI
 import static com.example.francesco.myfirstapp.SensorProjectApp.EXTRA_TO_TIME;
 import static com.github.mikephil.charting.components.Legend.LegendPosition.PIECHART_CENTER;
 
-public class ActivityCakeGraph extends AppCompatActivity {
+public class ActivityCakeChart extends AppCompatActivity {
     private String sensorName, sensorUnit, prefix;
     private long fromMillis, toMillis;
     private float conversionFactor;
@@ -62,7 +62,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         hideTitleBarIfLandscape();
-        setContentView(R.layout.activity_cake_graph);
+        setContentView(R.layout.activity_cake_cake);
 
         backBt = (ImageButton)findViewById(R.id.cakeBackButton);
         tvCurrentCake = (TextView)findViewById(R.id.tvCakeCurrentCake);

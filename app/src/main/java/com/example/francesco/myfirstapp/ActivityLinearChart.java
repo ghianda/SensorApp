@@ -25,7 +25,7 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.findPrefixOfMeas
 import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 import static java.lang.Math.abs;
 
-public class ActivityLinearGraph extends AppCompatActivity {
+public class ActivityLinearChart extends AppCompatActivity {
 
     Sensor parcSens;
     String label, meterUrl, prefix, sensorUnit;
@@ -37,7 +37,7 @@ public class ActivityLinearGraph extends AppCompatActivity {
 
         //check if view or not title bar (if landscape or not)
         hideTitleBarIfLandscape();
-        setContentView(R.layout.activity_line_graph);
+        setContentView(R.layout.activity_linear_chart);
 
         //get the data from extra
         parcSens = getIntent().getParcelableExtra(SensorProjectApp.EXTRA_PARCDATARESPONSE);

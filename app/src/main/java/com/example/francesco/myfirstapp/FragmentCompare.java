@@ -304,7 +304,7 @@ public class FragmentCompare extends Fragment {
         HashMap<String, Float> dataForCake = parseMeterName(data);
 
         //Prepare to start cakeActivity to display results
-        Intent intent = new Intent(getActivity(), ActivityCakeGraph.class);
+        Intent intent = new Intent(getActivity(), ActivityCakeChart.class);
 
         //put info in the intent
         selectedSensor.setConversionFactorByUrlCode();

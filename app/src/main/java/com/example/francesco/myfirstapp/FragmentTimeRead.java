@@ -138,7 +138,7 @@ public class FragmentTimeRead extends Fragment
     public void displayResult(Netsens response, Meter chosenMeter, Sensor chosenSensor) {
 
         //creating a intent
-        Intent intent = new Intent(getActivity(), ActivityLinearGraph.class);
+        Intent intent = new Intent(getActivity(), ActivityLinearChart.class);
 
         //put data in the intent (NOTE: here value is  divide from ConversionFactor)
         Sensor parcObj = SensorProjectApp.createParceableDataResponse(response, chosenSensor);

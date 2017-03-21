@@ -35,14 +35,14 @@
             android:parentActivityName=".ActivityReader"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ActivityLinearGraph"
+            android:name=".ActivityLinearChart"
             android:label="@string/ResultsActivity"
             android:parentActivityName=".ActivityReader" />
         <activity
             android:name=".ActivityLogin"
             android:label="@string/loginActivity" />
         <activity
-            android:name=".ActivityCakeGraph"
+            android:name=".ActivityCakeChart"
             android:label="@string/ResultsActivity"
             android:parentActivityName=".ActivityReader" />
 

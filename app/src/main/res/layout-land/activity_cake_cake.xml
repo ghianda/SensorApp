@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="6dp"
-    android:paddingBottom="10dp"
-    tools:context="com.example.francesco.myfirstapp.ActivityCakeGraph">
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp"
+    tools:context="com.example.francesco.myfirstapp.ActivityCakeChart">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center_vertical"
         android:background="@drawable/border_box"
         android:padding="3dp"
@@ -47,36 +47,32 @@
 
     <TextView
         android:id="@+id/cakeDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/linearLayout3"
         android:layout_centerHorizontal="true"
         android:text="@string/descriptionCake"
         android:gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvCakeCurrentCake"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/cakeDescription"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/border">
-        <TextView
-            android:id="@+id/tvCakeCurrentCake"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/border"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignParentEnd="true" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/linearLayout3"
+        android:layout_below="@id/tvCakeCurrentCake"/>
+
 
     <ImageButton
         android:layout_width="wrap_content"
