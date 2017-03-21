@@ -15,7 +15,7 @@ import android.widget.Toast;
 import static com.example.francesco.myfirstapp.ActivitySettings._serviceRepeatPeriodInMillis;
 
 
-/**The started service starts the AlarmManager that repeat the Background task. */
+/**The started service starts the AlarmManager that set the repeatiions of Background task. */
 public class StarterService extends Service {
 
     private static final String TAG = "StarterService";

@@ -50,13 +50,11 @@ public class ActivityCakeGraph extends AppCompatActivity {
     private final String geom1FCakeTag = "geom1F";
     private final String geomGFCakeTag = "geomGF";
 
-
-
-
     private PieData totPieData;
     private PieData qgPieData;
     private PieData geomGroundFloorPieData;
     private PieData geomFirstFloorPieData;
+
 
 
     @Override
@@ -94,6 +92,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
         tvCurrentCake.setText(getString(R.string.cakeTot));
         setCakeListener(totListener);
         setButtonListener(backBt);
+        backBt.setVisibility(View.INVISIBLE);
     }
 
     private void displayQgCake(){
@@ -103,6 +102,7 @@ public class ActivityCakeGraph extends AppCompatActivity {
         tvCurrentCake.setText(getString(R.string.mm_qg));
         setCakeListener(qgListener);
         setButtonListener(backBt);
+        backBt.setVisibility(View.VISIBLE);
     }
 
     private void displayGeom1FCake(){
@@ -300,7 +300,6 @@ public class ActivityCakeGraph extends AppCompatActivity {
     private void preparePieChart(){
 
         pieChart = (PieChart) findViewById(R.id.chart);
-        //chart.setDescription(sensorName);
 
         // enable rotation of the chart by touch
         pieChart.setRotationAngle(180);
@@ -314,7 +313,6 @@ public class ActivityCakeGraph extends AppCompatActivity {
 
         // hide legends
         Legend l = pieChart.getLegend();
-        //l.setEnabled(false);
         l.setPosition(PIECHART_CENTER);
 
         //hide description label
@@ -371,29 +369,6 @@ public class ActivityCakeGraph extends AppCompatActivity {
         });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -463,13 +438,6 @@ public class ActivityCakeGraph extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(sensorName);
     }
-
-
-
-
-
-
-
 
 
 

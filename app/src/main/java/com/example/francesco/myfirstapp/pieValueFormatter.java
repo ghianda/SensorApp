@@ -24,8 +24,7 @@ public class PieValueFormatter implements IValueFormatter {
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        // write your logic here
+
         return mFormat.format(value) + " " + prefix+sensorUnit;
-        //return value + " " + prefix+sensorUnit;
     }
 }

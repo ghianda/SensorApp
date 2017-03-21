@@ -27,7 +27,6 @@ public class SensorProjectApp extends Application {
 
     //key string for intent object
     public final static String EXTRA_PARCDATARESPONSE = "com.example.francesco.PARCDATARESPONSE";
-    public final static String EXTRA_SENSOR = "com.example.francesco.SENSOR";
     public final static String EXTRA_METER = "com.example.francesco.METER";
     public final static String EXTRA_LIGHT = "com.example.francesco.AVERAGELIGHT";
     public final static String EXTRA_ACTPOWER = "com.example.francesco.AVERAGEACTPOWER";
@@ -87,6 +86,7 @@ public class SensorProjectApp extends Application {
 
         Sensor ss = new Sensor(chosenSensor.getUrlString(), chosenSensor.getName());
         ss.setConversionFactorByUrlCode();
+
         //put data into object
         for (Measure m : response.getMeasuresList()) {
             ss.addValue(m.getValue() / ss.getConversionFactor(), m.getTimeStamp());
@@ -226,8 +226,7 @@ public class SensorProjectApp extends Application {
 
 
 
-    //TODO TRYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-
+    //Custom Comparator for Sensor Object [Compare by name (String)]
     public static Comparator<Sensor> sensorComparatorByName = new Comparator<Sensor>() {
         @Override
         public int compare(Sensor s1, Sensor s2) {
@@ -260,6 +259,5 @@ public class SensorProjectApp extends Application {
         return sortedHashMap;
     }
 
-    // TODO TRUYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 
 }

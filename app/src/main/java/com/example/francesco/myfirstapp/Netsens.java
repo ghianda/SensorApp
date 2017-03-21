@@ -16,7 +16,7 @@ public class Netsens {
 
     @ElementList(inline = true, data = false, empty = true, entry = "Measure", name = "", required = false, type = void.class)
     private List<Measure> measuresList;
-    //455
+    /** NOTE: measuresList is never assigned but this is writed by parsing xml */
 
     // public Netsens() {}
 

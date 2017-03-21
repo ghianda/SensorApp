@@ -57,7 +57,6 @@ public class FragmentTimeRead extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
-
         View view = inflater.inflate(R.layout.fragment_time_read, container, false);
         return view;
     }
@@ -274,16 +273,6 @@ public class FragmentTimeRead extends Fragment
                 .append(String.format(Locale.getDefault(), "%02d", cal.get(Calendar.MINUTE)))
                 .append(" "));
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

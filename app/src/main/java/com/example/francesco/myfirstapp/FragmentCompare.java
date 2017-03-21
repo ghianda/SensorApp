@@ -320,10 +320,6 @@ public class FragmentCompare extends Fragment {
         //hide the progress bar
         progressBar.setVisibility(View.GONE);
 
-        //TODO RIMUOVERE
-        System.out.println("FRAGMENT COMPARE  ++++>"   );
-        //TODO RIMUOVERE
-
         //start activity
         startActivity(intent);
 
@@ -378,7 +374,7 @@ public class FragmentCompare extends Fragment {
         for ( String key : powerResponse.keySet()){
             for ( Measure m: powerResponse.get(key).getMeasuresList()){
 
-                //todo l'IF è un controllo interno sui valori
+                /** l'IF è un controllo interno sui valori */
                 if (m.getValue() != 0 && abs(m.getValue())<1000000000) {
                     sum += m.getValue();
                     count++;
@@ -401,14 +397,6 @@ public class FragmentCompare extends Fragment {
 
         return averageMeasure;
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -452,20 +440,17 @@ public class FragmentCompare extends Fragment {
 
     private void updateTimeInterval(String typeOfLecture){
 
-        System.out.println("updateTimeInterval +++++");
         //restore toDate Calendar at today
         toDate = Calendar.getInstance();
         fromDate = Calendar.getInstance();
 
         switch (typeOfLecture) {
             case powerTag: {
-                System.out.println("typeOfLecture +++++" + powerTag);
-                // dafault : 5 minute of range
+                //  10 minute of range
                 fromDate.add(Calendar.MINUTE, -10); break;
             }
             case energyTag: {
-                System.out.println("typeOfLecture +++++" + powerTag);
-                // dafault : 1 day of range
+                // 1 day of range
                 fromDate.add(Calendar.HOUR_OF_DAY, -24); break;
             }
             default: break;
@@ -473,11 +458,9 @@ public class FragmentCompare extends Fragment {
 
         //rstore textview on button
         setCurrentDateOnBtText();
-        System.out.println(" date");
         setCurrentHourOnBtText();
-        System.out.println(" hour");
+
         checkIfSelectionIsValid();
-        System.out.println(" check");
 
     }
 
@@ -498,18 +481,6 @@ public class FragmentCompare extends Fragment {
 
 
     private ArrayList<Sensor> createSensorsList(){
-        /*
-        sensors.add(new Sensor("/reactcon", "Reactive Energy"));
-        sensors.add(new Sensor("/apcon", "Apparent Energy"));
-        sensors.add(new Sensor("/con", "Active Energy"));
-        sensors.add(new Sensor("/actpw", "Active Power"));
-        sensors.add(new Sensor("/pwf", "Power Factor"));
-        sensors.add(new Sensor("/cur/1", "Current - 1' phase"));
-        sensors.add(new Sensor("/cur/2", "Current - 2' phase"));
-        sensors.add(new Sensor("/cur/3", "Current - 3' phase"));
-        sensors.add(new Sensor("/appw", "Apparent Power"));
-        sensors.add(new Sensor("/reactpw", "Reactive Power"));
-        */
         sensors = new ArrayList<>();
 
         sensors.add(new Sensor("/con", getString(R.string.sscon)));

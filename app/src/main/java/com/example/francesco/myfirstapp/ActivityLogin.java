@@ -89,7 +89,6 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Toast.makeText(this, getString(R.string.settingsbackPressed), Toast.LENGTH_LONG).show();
-        //return;
     }
 
     @Override

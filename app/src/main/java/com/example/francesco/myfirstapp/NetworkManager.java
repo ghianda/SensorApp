@@ -24,17 +24,16 @@ public class NetworkManager
     private static NetworkManager instance = null;
     private Context context;
 
-
-
-
     //for Volley API
     public RequestQueue requestQueue;
+
+
+
 
     public NetworkManager(Context context)
     {
         this.context = context;
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
-        //TODO other stuf if you need
     }
 
 
@@ -50,7 +49,6 @@ public class NetworkManager
 
 
 
-    //this is so you don't need to pass context each time
     public static synchronized NetworkManager getInstance()
     {
         if (null == instance)

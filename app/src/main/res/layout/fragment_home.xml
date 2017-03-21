@@ -54,7 +54,7 @@
             <LinearLayout
                 android:id="@+id/LLyesterdayConsume"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:padding="0dip">
 
                 <ImageView
@@ -92,7 +92,7 @@
             <LinearLayout
                 android:id="@+id/LLyesterdayCO2"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="16dp"
                 android:padding="0dip">
 
@@ -132,7 +132,7 @@
             <LinearLayout
                 android:id="@+id/LLyesterdayEuro"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="19dp"
                 android:padding="0dip">
 
@@ -143,6 +143,7 @@
                     android:src="@drawable/euro" />
 
                 <TextView
+                    android:id="@+id/textView13"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="4"

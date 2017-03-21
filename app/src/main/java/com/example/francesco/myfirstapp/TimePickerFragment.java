@@ -10,7 +10,7 @@ import android.os.Bundle;
  */
 
 public class TimePickerFragment extends DialogFragment {
-    TimePickerDialog.OnTimeSetListener ontimeSet;
+    TimePickerDialog.OnTimeSetListener onTimeSet;
     private int hour, minute;
 
 
@@ -18,7 +18,7 @@ public class TimePickerFragment extends DialogFragment {
     }
 
     public void setCallBack(TimePickerDialog.OnTimeSetListener ontime) {
-        ontimeSet = ontime;
+        onTimeSet = ontime;
     }
 
 
@@ -31,6 +31,6 @@ public class TimePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new TimePickerDialog(getActivity(), ontimeSet, hour, minute, true);
+        return new TimePickerDialog(getActivity(), onTimeSet, hour, minute, true);
     }
 }

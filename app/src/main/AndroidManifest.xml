@@ -32,7 +32,8 @@
         <activity
             android:name=".ActivitySettings"
             android:label="@string/SettingsActivity"
-            android:parentActivityName=".ActivityReader" />
+            android:parentActivityName=".ActivityReader"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ActivityLinearGraph"
             android:label="@string/ResultsActivity"

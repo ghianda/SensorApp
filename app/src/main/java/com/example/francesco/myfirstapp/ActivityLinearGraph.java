@@ -156,7 +156,6 @@ public class ActivityLinearGraph extends AppCompatActivity {
             //power factor
             return new StringBuilder()
                     .append(ss.getName())
-                    .append(sensorUnit)
                     .toString();
         }
         else{

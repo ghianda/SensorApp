@@ -75,7 +75,7 @@ public class FragmentHome extends Fragment
 
         findLayoutVariables(view);
 
-        //make get http for hme value
+        //make get http for today and yesterday value
         makeGet();
 
     }
@@ -292,20 +292,6 @@ public class FragmentHome extends Fragment
 
         return fromAndTo;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

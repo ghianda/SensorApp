@@ -65,16 +65,12 @@ public class BackgroundTask extends BroadcastReceiver {
 
 
 
-
-
     private void doTask(){
 
         ParseXmlUrl(createUrl("/light"));
         ParseXmlUrl(createUrl("/actpw"));
         //now in responseReceived there is Data response of light and ActPower
     }
-
-
 
 
 

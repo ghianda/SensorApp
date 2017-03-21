@@ -12,7 +12,6 @@ import static java.lang.Math.abs;
  */
 
 
-//VERSIONE CLASSE PARCEABLE
 public class Sensor implements Parcelable {
 
     private String urlCode;

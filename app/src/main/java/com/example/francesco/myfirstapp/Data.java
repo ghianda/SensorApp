@@ -7,7 +7,6 @@ import android.os.Parcelable;
  * Created by francesco on 11/01/2017.
  */
 
-/*  VERSION: PARCEABLE CLASS */
 public class Data implements Parcelable {
     private double value;
     private long timestamp;

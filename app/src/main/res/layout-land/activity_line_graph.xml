@@ -15,7 +15,8 @@
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tvMax" />
+        android:layout_below="@+id/tvMax"
+        android:layout_above="@+id/tvXaxisLabel" />
 
     <TextView
         android:id="@+id/titleLineGraphMeter"
@@ -59,11 +60,17 @@
     <TextView
         android:id="@+id/tvXaxisLabel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_toEndOf="@+id/titleLineGraphMeter" />
 
     <TextView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textStyle="bold"
         android:id="@+id/tvYaxisLabel" />
 
 </RelativeLayout>
