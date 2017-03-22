@@ -66,8 +66,8 @@ public class SensorProjectApp extends Application {
     static final public long windowYesterdayConsumeRequest = 1800000; //30 minuti - finestra per le letture dei consumi di inizio e fine giornata
     static final public int defaultServiceRepeatPeriodPosition = 3; //30 minuti
     static final public Boolean defaultNotifyActivated = true;
-    static final public float defaultEuroForWattHour = (float)0.166646;
-    static final public float defaultCO2ForWattHour = (float)0.14;
+    static final public float defaultEuroForKiloWattHour = (float)0.153;
+    static final public float defaultCO2ForKiloWattHour = (float)0.72;
     static public ArrayList<Long> clockChoice;
 
 
@@ -156,13 +156,12 @@ public class SensorProjectApp extends Application {
 
 
 
-    public static String fixEuro(double value, String unit) {
+    public static String fix(double value, String unit) {
         String fixedValueString;
-        String prefix = "";
 
         DecimalFormat frmt = new DecimalFormat(SensorProjectApp.valueFormat);
 
-        fixedValueString = frmt.format(value) + " " + prefix + unit;
+        fixedValueString = frmt.format(value) + " " + unit;
         return fixedValueString;
     }
 

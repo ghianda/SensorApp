@@ -28,8 +28,8 @@ import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_serviceOnOff
 import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_stationPref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.clockChoice;
 import static com.example.francesco.myfirstapp.SensorProjectApp.createClockChoiceArray;
-import static com.example.francesco.myfirstapp.SensorProjectApp.defaultCO2ForWattHour;
-import static com.example.francesco.myfirstapp.SensorProjectApp.defaultEuroForWattHour;
+import static com.example.francesco.myfirstapp.SensorProjectApp.defaultCO2ForKiloWattHour;
+import static com.example.francesco.myfirstapp.SensorProjectApp.defaultEuroForKiloWattHour;
 import static com.example.francesco.myfirstapp.SensorProjectApp.defaultNotifyActivated;
 import static com.example.francesco.myfirstapp.SensorProjectApp.defaultServiceRepeatPeriodPosition;
 import static com.example.francesco.myfirstapp.ServiceManager.loadThePreferenceSwitchState;
@@ -42,8 +42,8 @@ public class ActivitySettings extends AppCompatActivity {
     static public long _serviceRepeatPeriodInMillis;
     static public int _serviceRepeatPeriodPosition;
     static public Boolean _notifyActivated;
-    static public float _euroForWattHour;
-    static public float _CO2ForWattHour;
+    static public float _euroForKiloWattHour;
+    static public float _CO2ForKiloWattHour;
 
     //Layout resources
     private Button btSave, btRestore;
@@ -115,8 +115,8 @@ public class ActivitySettings extends AppCompatActivity {
                 //Restore default settings
                 _serviceRepeatPeriodInMillis = clockChoice.get(defaultServiceRepeatPeriodPosition);
                 _notifyActivated = defaultNotifyActivated;
-                _euroForWattHour = defaultEuroForWattHour;
-                _CO2ForWattHour = defaultCO2ForWattHour;
+                _euroForKiloWattHour = defaultEuroForKiloWattHour;
+                _CO2ForKiloWattHour = defaultCO2ForKiloWattHour;
                 _serviceRepeatPeriodPosition = defaultServiceRepeatPeriodPosition;
 
                 saveAllInPreferences();
@@ -143,13 +143,13 @@ public class ActivitySettings extends AppCompatActivity {
 
                 //Save current settings
                 if (!editTextCo2.getText().toString().matches(""))
-                    _CO2ForWattHour = Float.valueOf(editTextCo2.getText().toString());
+                    _CO2ForKiloWattHour = Float.valueOf(editTextCo2.getText().toString());
                 else{
                     valueIsOk = false;
                 }
 
                 if (!editTextEuro.getText().toString().matches(""))
-                    _euroForWattHour = Float.valueOf(editTextEuro.getText().toString());
+                    _euroForKiloWattHour = Float.valueOf(editTextEuro.getText().toString());
                 else{
                     valueIsOk = false;
                 }
@@ -191,8 +191,8 @@ public class ActivitySettings extends AppCompatActivity {
         SharedPreferences.Editor editor = PreferenceManager.
                 getDefaultSharedPreferences(getApplicationContext()).edit();
 
-        editor.putFloat(KEY_co2Pref, _CO2ForWattHour);
-        editor.putFloat(KEY_euroPref, _euroForWattHour);
+        editor.putFloat(KEY_co2Pref, _CO2ForKiloWattHour);
+        editor.putFloat(KEY_euroPref, _euroForKiloWattHour);
         editor.putInt(KEY_clockPositionPref, _serviceRepeatPeriodPosition);
         editor.putLong(KEY_clockPMillisPref, _serviceRepeatPeriodInMillis);
         editor.putBoolean(KEY_serviceOnOffPref, _notifyActivated);
@@ -210,11 +210,11 @@ public class ActivitySettings extends AppCompatActivity {
         //load preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        _euroForWattHour = sharedPref.getFloat(KEY_euroPref, (float)0.166646);
-        editTextEuro.setText(new StringBuilder().append(_euroForWattHour));
+        _euroForKiloWattHour = sharedPref.getFloat(KEY_euroPref, (float)0.166646);
+        editTextEuro.setText(new StringBuilder().append(_euroForKiloWattHour));
 
-        _CO2ForWattHour = sharedPref.getFloat(KEY_co2Pref, (float)0.14);
-        editTextCo2.setText(new StringBuilder().append(_CO2ForWattHour));
+        _CO2ForKiloWattHour = sharedPref.getFloat(KEY_co2Pref, (float)0.14);
+        editTextCo2.setText(new StringBuilder().append(_CO2ForKiloWattHour));
     }
 
 

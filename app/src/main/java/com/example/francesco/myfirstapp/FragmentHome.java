@@ -17,8 +17,7 @@ import java.util.HashMap;
 
 import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_co2Pref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_euroPref;
-import static com.example.francesco.myfirstapp.SensorProjectApp.fixEuro;
-import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
+import static com.example.francesco.myfirstapp.SensorProjectApp.fix;
 import static java.lang.Math.abs;
 
 
@@ -193,13 +192,13 @@ public class FragmentHome extends Fragment
     }
 
 
-    private void calculateOtherStatistics(float kiloWattHour){
+    private void calculateOtherStatistics(float WattHour){
 
-        float euroForWattHour = sharedPref.getFloat(KEY_euroPref, (float)0.166646);
-        float  CO2ForHour = sharedPref.getFloat(KEY_co2Pref, (float)0.14);
+        float euroForKiloWattHour = sharedPref.getFloat(KEY_euroPref, (float)0.153);
+        float  CO2ForKiloHour = sharedPref.getFloat(KEY_co2Pref, (float)0.72);
 
-        yesterdayEuro = kiloWattHour * (euroForWattHour/1000);
-        yesterdayCO2  = kiloWattHour * (CO2ForHour/1000);
+        yesterdayEuro = (WattHour/1000) * (euroForKiloWattHour);
+        yesterdayCO2  = (WattHour/1000) * (CO2ForKiloHour);
 
         setValueInTv(yesterdayEuro, "€", tvYesterdayEuro);
         setValueInTv(yesterdayCO2, "Kg", tvYesterdayCO2);
@@ -262,11 +261,7 @@ public class FragmentHome extends Fragment
     private void setValueInTv(float v, String unit, TextView tv) {
 
         String stringValue;
-
-        switch (unit) {
-            case "€"  : stringValue = fixEuro(v, unit); break;
-            default : stringValue = fixUnit(v, unit); break;
-        }
+        stringValue = fix(v, unit);
         tv.setText(stringValue);
     }
 

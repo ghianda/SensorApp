@@ -175,7 +175,7 @@
     <string name="settingsSwitchPreference"> Notify Preferences </string>
     <string name="settingsAccounInfo"> Account Info </string>
     <string name="settingsEuro">Euro for kWh</string>
-    <string name="settingsCO2">CO<sub>2</sub>Kg for Wh</string>
+    <string name="settingsCO2">CO<sub>2</sub>Kg for kWh</string>
     <string name="settingsServiceRepeat">Control data every</string>
     <string name="settingsbackPressed"> Please insert your credentials or close the app </string>
 

@@ -85,8 +85,8 @@
     <string name="other">Altro</string>
     <string name="lastReadActivityName">Ultima Lettura</string>
     <string name="settingsAccounInfo">I tuoi dati</string>
-    <string name="settingsEuro">Euro per Wh</string>
-    <string name="settingsCO2">CO<sub>2</sub> Kg per Wh</string>
+    <string name="settingsEuro">Euro per kWh</string>
+    <string name="settingsCO2">CO<sub>2</sub> Kg per kWh</string>
     <string name="settingsSwitchPreference">Preferenze sulle notifiche</string>
     <string name="settingsParameterPreference">Parametri</string>
     <string name="settingsServiceRepeat">Controlla dati ogni</string>
