@@ -18,6 +18,7 @@ import java.util.HashMap;
 import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_co2Pref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_euroPref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.fix;
+import static com.example.francesco.myfirstapp.SensorProjectApp.fixUnit;
 import static java.lang.Math.abs;
 
 
@@ -250,20 +251,20 @@ public class FragmentHome extends Fragment
 
 
 
-
-
-
-
-
-
-
     //set the value in the textview with correct format and unit of measure
     private void setValueInTv(float v, String unit, TextView tv) {
 
         String stringValue;
-        stringValue = fix(v, unit);
+
+        switch (unit) {
+            case "€"  : stringValue = fix(v, unit); break;
+            case "Kg"  : stringValue = fix(v, unit); break;
+            default : stringValue = fixUnit(v, unit); break;
+        }
         tv.setText(stringValue);
     }
+
+
 
 
     private HashMap<String, Long> findStartAndStopOfYesterday(Calendar cal){

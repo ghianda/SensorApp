@@ -54,6 +54,9 @@ public class SessionManager {
         // Storing password in _pref
         _editor.putString(KEY_passwordPref, password);
 
+        //TODO
+        System.out.println(" SessionManager (createLoginSession) -> " + password);
+
         // commit changes
         _editor.commit();
     }
@@ -71,6 +74,9 @@ public class SessionManager {
 
         // station name
         user.put(KEY_stationPref, _pref.getString(KEY_stationPref, null));
+
+        // password
+        user.put(KEY_passwordPref, _pref.getString(KEY_passwordPref, null));
 
         // return user
         return user;

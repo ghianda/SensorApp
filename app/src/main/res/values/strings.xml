@@ -157,11 +157,19 @@
 
 
     <!-- url -->
-    <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
+    <string name="urlDomainAddress">http://live.netsens.it/export/xml_export_2A.php?</string>
+    <string name="user">user=</string>
+    <string name="pass">&amp;password=</string>
+    <string name="station">&amp;station=</string>
     <string name="m">&amp;meter=</string>
     <string name="lr">/last_reading</string>
     <string name="f">&amp;from=</string>
     <string name="t">&amp;to=</string>
+
+    <string name="urlUserTemp">temp</string>
+    <string name="urlPasswordTemp">5lkz1d</string>
+    <string name="urlStationTemp">723</string>
+
 
 
 

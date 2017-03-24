@@ -11,7 +11,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_namePref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_passwordPref;
+import static com.example.francesco.myfirstapp.SensorProjectApp.KEY_stationPref;
 import static com.example.francesco.myfirstapp.SensorProjectApp.windowYesterdayConsumeRequest;
 
 /**
@@ -22,18 +26,46 @@ public class NetworkManager
 {
     private static final String TAG = "NetworkManager";
     private static NetworkManager instance = null;
+
+    //for costructor
     private Context context;
+
+
 
     //for Volley API
     public RequestQueue requestQueue;
+    private String domain;
 
 
 
-
+    /** __________Methods:    ________________*/
+    //costruttore
     public NetworkManager(Context context)
     {
         this.context = context;
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+
+        //make the url domain with user data
+        makeDomain(context);
+    }
+
+
+    private void makeDomain(Context context){
+
+        String user, pass, station;
+
+        SessionManager session = new SessionManager(context.getApplicationContext());
+        HashMap<String, String> userCredentials =  session.getUserDetails();
+
+        user    = userCredentials.get(KEY_namePref);
+        station = userCredentials.get(KEY_stationPref);
+        pass    = userCredentials.get(KEY_passwordPref);
+
+        //make the domain
+        domain = context.getString(R.string.urlDomainAddress)
+                 + context.getString(R.string.user) + user
+                 + context.getString(R.string.pass) + pass
+                 + context.getString(R.string.station) + station;
     }
 
 
@@ -125,7 +157,7 @@ public class NetworkManager
 
         final long fromMillis = toMillis - windowYesterdayConsumeRequest; // toMillis - window millis
 
-        return  context.getString(R.string.urlDomain)
+        return  domain
                 + context.getString(R.string.m) + meterUrl + parUrl
                 + context.getString(R.string.f) + fromMillis
                 + context.getString(R.string.t) + toMillis;
@@ -134,7 +166,7 @@ public class NetworkManager
 
     public String createLastReadUrl(Meter chosenMeter, Sensor chosenSensor) {
 
-        return context.getString(R.string.urlDomain)
+        return domain
                 + context.getString(R.string.m)
                 + chosenMeter.getUrlString()
                 + chosenSensor.getUrlString()
@@ -158,7 +190,7 @@ public class NetworkManager
 
     private String createUrl(Meter chosenMeter, Sensor chosenSensor, long fromMillis, long toMillis){
 
-        return  context.getString(R.string.urlDomain)
+        return  domain
                 + context.getString(R.string.m) + chosenMeter.getUrlString() + chosenSensor.getUrlString()
                 + context.getString(R.string.f) + fromMillis
                 + context.getString(R.string.t) + toMillis;
@@ -170,7 +202,7 @@ public class NetworkManager
 
     public String createLastReadUrl(String meterUrl, String parUrl) {
 
-        return context.getString(R.string.urlDomain)
+        return domain
                 + context.getString(R.string.m)
                 + meterUrl
                 + parUrl

@@ -30,26 +30,19 @@ public class ActivityLogin extends AppCompatActivity {
         // Session Manager
         session = new SessionManager(getApplicationContext());
 
-        btLogin = (Button)findViewById(R.id.btLogin);
-        btCancel = (Button)findViewById(R.id.btCancelLogin);
-
-        //user name, station and password imput text
-        etUser = (EditText)findViewById(R.id.EtUser);
-        etStation = (EditText)findViewById(R.id.EtStation);
-        etPassword= (EditText)findViewById(R.id.Etpassword);
-
-        //precompile Station
-        etStation.setText("723", TextView.BufferType.EDITABLE);
-
+        // get layout resorche
+        findAndSaveInputOutputResource();
+        preCompileTextView();
 
 
         //cancel login listener
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //erase the EditTextViews
+                //restore the EditTextViews
                 etUser.getText().clear();
                 etPassword.getText().clear();
+                etStation.getText().clear();
             }
         });
 
@@ -69,7 +62,6 @@ public class ActivityLogin extends AppCompatActivity {
                             getString(R.string.loginRedirect), Toast.LENGTH_SHORT).show();
                     session.createLoginSession(username, station, password);
 
-
                     // Starting MainActivity
                     Intent i = new Intent(getApplicationContext(), ActivityReader.class);
                     startActivity(i);
@@ -82,6 +74,27 @@ public class ActivityLogin extends AppCompatActivity {
                 }
                 }
             });
+    }
+
+
+    private void preCompileTextView(){
+
+        etUser.setText(getString(R.string.urlUserTemp), TextView.BufferType.EDITABLE);
+        etPassword.setText(getString(R.string.urlPasswordTemp), TextView.BufferType.EDITABLE);
+        etStation.setText(getString(R.string.urlStationTemp), TextView.BufferType.EDITABLE);
+    }
+
+
+    private void findAndSaveInputOutputResource(){
+
+        btLogin = (Button)findViewById(R.id.btLogin);
+        btCancel = (Button)findViewById(R.id.btCancelLogin);
+
+        //user name, station and password imput text
+        etUser = (EditText)findViewById(R.id.EtUser);
+        etStation = (EditText)findViewById(R.id.EtStation);
+        etPassword= (EditText)findViewById(R.id.Etpassword);
+
     }
 
 
