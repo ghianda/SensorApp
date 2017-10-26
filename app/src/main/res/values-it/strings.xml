@@ -28,7 +28,7 @@
     <string name="tvAvgActPowerValue">Active Power</string>
     <string name="tvAvgLightValue">Luminosità</string>
     <string name="pref_service">Attivazione servizio in background</string>
-    <string name="urlDomain">http://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
+    <string name="urlDomain">https://live.netsens.it/export/xml_export_2A.php?user=temp&amp;password=5lkz1d&amp;station=723</string>
     <string name="t">&amp;to=</string>
     <string name="lr">/last_reading</string>
     <string name="m">&amp;meter=</string>

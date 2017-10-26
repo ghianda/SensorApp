@@ -157,7 +157,7 @@
 
 
     <!-- url -->
-    <string name="urlDomainAddress">http://live.netsens.it/export/xml_export_2A.php?</string>
+    <string name="urlDomainAddress">https://live.netsens.it/export/xml_export_2A.php?</string>
     <string name="user">user=</string>
     <string name="pass">&amp;password=</string>
     <string name="station">&amp;station=</string>
